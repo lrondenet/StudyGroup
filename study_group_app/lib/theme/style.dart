@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 ThemeData appTheme() {
   return ThemeData(
-    primaryColor: Color(0xff0DC5DA),
-    accentColor: Colors.grey[800],
-    secondaryHeaderColor: Color(0xff1b1b1b),
-    hintColor: Colors.white,
-    dividerColor: Colors.white,
-    buttonColor: Colors.grey[800],
+    // To use hex colors, use Color() and prefix hex with 0xff
+    primaryColor: Colors.cyan[600],
+    accentColor: Colors.grey[900],
+    secondaryHeaderColor: Color(0xff484848),
+    hintColor: Color(0xff5ddef4),
+    textTheme: TextTheme(
+        body1: TextStyle(color: Colors.white),
+        headline: TextStyle(color: Colors.black)),
+    dividerColor: Color(0xff007c91),
+    buttonColor: Colors.black,
     scaffoldBackgroundColor: Colors.white,
-    canvasColor: Color(0xff6d6d6d),
+    canvasColor: Colors.grey[300],
   );
 }
-
