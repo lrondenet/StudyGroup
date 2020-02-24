@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 // Stateful course schedule page class.
 class CourseSchedulePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  CourseSchedulePage({Key key, this.title}) : super(key: key);
   final String title; // final keyword b/c title is in sub widget
 
   @override
