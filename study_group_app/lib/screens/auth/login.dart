@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       // Container: UI for Login Form
       body: Container(
-        padding: EdgeInsets.fromLTRB(20, 300, 20, 40),
+        padding: EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
             Text(
