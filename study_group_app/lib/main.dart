@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/theme/style.dart';
+import 'package:study_group_app/screens/auth/login.dart';
 import 'package:study_group_app/screens/home/home.dart';
 
 //void main() => runApp(MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme(),
       // Sets the home page by calling HomePage and passing in title set above
       home: HomePage(title: 'Study Buddy App'), // Placeholder title for now
+      //home: LoginPage(title: 'Login'),
     );
   }
 }
