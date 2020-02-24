@@ -17,6 +17,6 @@ class CourseSchedulePage extends StatefulWidget {
 }
 
 // Inherits from CourseSchedulePage above
-class _HomePageState extends State<HomePage> {
+class _CourseSchedulePageState extends State<CourseSchedulePage> {
 
 }
