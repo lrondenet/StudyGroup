@@ -5,10 +5,11 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 
 // Stateful course schedule page class.
 class CourseSchedulePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  CourseSchedulePage({Key key, this.title}) : super(key: key);
   final String title; // final keyword b/c title is in sub widget
 
   @override
@@ -18,5 +19,19 @@ class CourseSchedulePage extends StatefulWidget {
 
 // Inherits from CourseSchedulePage above
 class _CourseSchedulePageState extends State<CourseSchedulePage> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp (
+      home: Material (
+        child: Stack(
+          children: <Widget>[
+            Container(
+              
+            )
+          ],
+        )
+      )
+    );
+  }
 
 }
