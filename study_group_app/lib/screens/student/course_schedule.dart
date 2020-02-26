@@ -5,6 +5,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 
 // Stateful course schedule page class.
 class CourseSchedulePage extends StatefulWidget {
@@ -18,5 +19,27 @@ class CourseSchedulePage extends StatefulWidget {
 
 // Inherits from CourseSchedulePage above
 class _CourseSchedulePageState extends State<CourseSchedulePage> {
-
+  // Calendar display
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('Sunday'),
+            Text('Monday'),
+            Text('Tuesday'),
+            Text('Wednesday'),
+            Text('Thursday'),
+            Text('Friday'),
+            Text('Saturday'),
+          ]
+        ),
+      )
+    )
+  }
 }
