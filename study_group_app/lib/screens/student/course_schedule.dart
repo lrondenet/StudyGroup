@@ -18,6 +18,24 @@ class CourseSchedulePage extends StatefulWidget {
 }
 
 // Inherits from CourseSchedulePage above
+class _FormHandler extends State<CourseSchedulePage> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp (
+      home: Material (
+        child: Stack(
+          children: <Widget>[
+            Container(
+              
+            )
+          ],
+        )
+      )
+    );
+  }
+}
+  
+ // Inherits from CourseSchedulePage above
 class _CourseSchedulePageState extends State<CourseSchedulePage> {
   // Calendar display
   @override
