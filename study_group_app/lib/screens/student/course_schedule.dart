@@ -18,7 +18,7 @@ class CourseSchedulePage extends StatefulWidget {
 }
 
 // Inherits from CourseSchedulePage above
-class _CourseSchedulePageState extends State<CourseSchedulePage> {
+class _FormHandler extends State<CourseSchedulePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp (
@@ -33,5 +33,31 @@ class _CourseSchedulePageState extends State<CourseSchedulePage> {
       )
     );
   }
-
+}
+  
+ // Inherits from CourseSchedulePage above
+class _CourseSchedulePageState extends State<CourseSchedulePage> {
+  // Calendar display
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('Sunday'),
+            Text('Monday'),
+            Text('Tuesday'),
+            Text('Wednesday'),
+            Text('Thursday'),
+            Text('Friday'),
+            Text('Saturday'),
+          ]
+        ),
+      )
+    )
+  }
 }
