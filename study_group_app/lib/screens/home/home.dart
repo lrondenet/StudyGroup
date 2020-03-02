@@ -58,7 +58,13 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-
+        persistentFooterButtons: <Widget>[
+          RaisedButton (
+            onPressed: (){Navigator.of(context).pushNamed("/course-schedule");},
+            color: Colors.blueAccent,
+            child: Text('Add Classes'),
+          )
+        ],
         // Back on the home page. This is the button at the bottom of the page
         floatingActionButton: FloatingActionButton.extended(
             onPressed: null, // Doesn't actually do anything yet
