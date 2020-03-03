@@ -14,26 +14,68 @@ class CourseSchedulePage extends StatefulWidget {
 
   @override
   // Creates the stateful widget HomePage
-  _CourseSchedulePageState createState() => _CourseSchedulePageState();
+  _MyCourseFormState createState() => _MyCourseFormState();
 }
 
-/* Handles changes 
-class _FormHandler extends State<CourseSchedulePage> {
+// Inherits from CourseSchedulePage above
+class _MyCourseFormState extends State<CourseSchedulePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp (
-      home: Material (
-        child: Stack(
-          children: <Widget>[
-            Container(
-              
+        home: Material (
+            child: Stack(
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 100.0),
+                    child: Center (
+                        child: Column (
+                          children: <Widget>[
+                            Text ("Enter your Class Schedule",
+                              style: TextStyle (
+                                fontWeight: FontWeight.bold,
+                                fontSize:20,
+                              )
+                            ),
+                            TextFormField (
+                                cursorColor: Colors.black,
+                                decoration:InputDecoration(
+                                  hintText: "Enter your class name",
+                                  border: OutlineInputBorder(),
+                                )
+                            ),
+                            TextFormField (
+                                cursorColor: Colors.black,
+                                decoration:InputDecoration(
+                                  hintText: "Enter the Date",
+                                  border: OutlineInputBorder(),
+                                )
+                            ),
+                            TextFormField (
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  hintText: "Enter the Time",
+                                  border: OutlineInputBorder(),
+                                )
+                            ),
+                            SizedBox (
+                                width: 320,
+                                child: FlatButton (
+                                  onPressed: (){},
+                                  child: Text("Submit",
+                                  ),
+                                  color: Colors.blueAccent,
+                                )
+                            )
+                          ],
+                        )
+                    )
+                )
+              ],
             )
-          ],
         )
-      )
     );
   }
-}*/
+}
   
  // Inherits from CourseSchedulePage above
 class _CourseSchedulePageState extends State<CourseSchedulePage> {
