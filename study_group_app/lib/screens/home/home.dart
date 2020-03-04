@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:study_group_app/screens/home/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 // Stateful home page class.
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -28,12 +27,16 @@ class _HomePageState extends State<HomePage> {
         // its' child is a ListView that holds all the elements held in the drawer
         drawer: MainDrawer(),
         persistentFooterButtons: <Widget>[
-          RaisedButton (
-            onPressed: (){Navigator.of(context).pushNamed("/course-schedule");},
+          RaisedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed("/course-schedule");
+            },
             color: Colors.blueAccent,
             child: Text('Add Classes'),
           )
         ],
+        body: GroupCards(),
+
         // Back on the home page. This is the button at the bottom of the page
         floatingActionButton: FloatingActionButton.extended(
             onPressed: null, // Doesn't actually do anything yet
@@ -53,5 +56,75 @@ class _HomePageState extends State<HomePage> {
       print(testNum);
       setState(() {});
     });
+  }
+}
+
+class GroupCards extends StatelessWidget {
+  GroupCards({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Card(
+          color: Theme.of(context).hintColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Material(
+                color: Theme.of(context).dividerColor,
+                child: InkWell(
+                  child: const ListTile(
+                    leading: Icon(Icons.sentiment_very_satisfied),
+                    title: Text('Study Group: Example Group 1',
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold)),
+                    subtitle: Text(
+                      'Some basic information about the group can go here.',
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  onTap: () {},
+                ),
+              ),
+            ],
+          ),
+        ),
+        Card(
+          color: Theme.of(context).dividerColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.group),
+                title: Text('Study Group: Example Group 2',
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold)),
+                subtitle: Text(
+                  'Different stuff about another group.',
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w400),
+                ),
+              ),
+              ButtonBar(
+                children: <Widget>[
+                  RaisedButton(
+                    textColor: Colors.white,
+                    child: const Text(
+                      'View Group',
+                      style: TextStyle(color: Color(0xfffd8100)),
+                    ),
+                    onPressed: () {
+                      /* ... */
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
