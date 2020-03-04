@@ -75,32 +75,102 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
         )
     );
   }
-
 }
   
-//  // Inherits from CourseSchedulePage above
-// class _CourseSchedulePageState extends State<CourseSchedulePage> {
-//   // Calendar display
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(widget.title),
-//       ),
-//       body: Container(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: [
-//             Text('Sunday'),
-//             Text('Monday'),
-//             Text('Tuesday'),
-//             Text('Wednesday'),
-//             Text('Thursday'),
-//             Text('Friday'),
-//             Text('Saturday'),
-//           ]
-//         ),
-//       )
-//     )
-//   }
-// }
+ // Inherits from CourseSchedulePage above
+class _CourseSchedulePageState extends State<CourseSchedulePage> {
+  // Controller that updates user view from form
+  final formController = TextEditingController();
+
+  // Clean up the controller when the widget is disposed
+  @override
+  void dispose() {
+    formController.dispose();
+    super.dispose();
+  }
+
+  // Calendar display
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              'Sunday',
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+            height: 30.0,
+            width: 90.0,
+          ),
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              'Monday',
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+            height: 30.0,
+            width: 90.0,
+          ),
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              'Tuesday',
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+            height: 30.0,
+            width: 90.0,
+          ),
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              'Wednesday',
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+            height: 30.0,
+            width: 90.0,
+          ),
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              'Thursday',
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+            height: 30.0,
+            width: 90.0,
+          ),
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              'Friday',
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+            height: 30.0,
+            width: 90.0,
+          ),
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              'Saturday',
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+            height: 30.0,
+            width: 90.0,
+          ),
+        ],
+      ),
+    );
+  }
+}
