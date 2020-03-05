@@ -27,79 +27,48 @@ class _GroupCards extends State<GroupCards> {
       itemBuilder: (BuildContext context, int index) {
         Group cur = grps[index];
         return Card(
-          child: Container(
-            child: ListTile(
-              title: Text(cur.name),
-              leading: Text(cur.meetDay.toString()),
-              trailing: Text(cur.timeBlock),
+          color: Theme.of(context).dividerColor,
+          child: InkWell(
+            splashColor: Colors.orangeAccent,
+            child: Container(
+              child: ListTile(
+                leading: Container(
+                  padding: EdgeInsets.only(right: 12.0),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          right: BorderSide(
+                              width: 1.0,
+                              color: Theme.of(context).backgroundColor))),
+                  child: Icon(Icons.group),
+                ),
+                title: Text(cur.name),
+                subtitle: Row(
+                  children: <Widget>[
+                    Expanded(
+                        flex: 1,
+                        child: Container(
+                          child: Text(cur.meetDay),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: Padding(
+                            padding: EdgeInsets.only(left: 30.0),
+                            child: Text(cur.timeBlock)))
+                  ],
+                ),
+                trailing: IconButton(
+                    icon: Icon(Icons.more_vert),
+                    onPressed: () {
+                      setState(() {
+                        print("testing");
+                      });
+                    }),
+              ),
             ),
+            onTap: () {},
           ),
         );
       },
     );
   }
 }
-//    return Column(
-//      children: <Widget>[
-//        Card(
-//          color: Theme.of(context).hintColor,
-//          child: Column(
-//            mainAxisSize: MainAxisSize.min,
-//            children: <Widget>[
-//              Material(
-//                color: Theme.of(context).dividerColor,
-//                child: InkWell(
-//                  child: const ListTile(
-//                    leading: Icon(Icons.sentiment_very_satisfied),
-//                    title: Text('Study Group: Example Group 1',
-//                        style: TextStyle(
-//                            color: Colors.black, fontWeight: FontWeight.bold)),
-//                    subtitle: Text(
-//                      'Some basic information about the group can go here.',
-//                      style: TextStyle(
-//                          color: Colors.black, fontWeight: FontWeight.w400),
-//                    ),
-//                  ),
-//                  onTap: () {},
-//                ),
-//              ),
-//            ],
-//          ),
-//        ),
-//        Card(
-//          color: Theme.of(context).dividerColor,
-//          child: Column(
-//            mainAxisSize: MainAxisSize.min,
-//            children: <Widget>[
-//              const ListTile(
-//                leading: Icon(Icons.group),
-//                title: Text('Study Group: Example Group 2',
-//                    style: TextStyle(
-//                        color: Colors.black, fontWeight: FontWeight.bold)),
-//                subtitle: Text(
-//                  'Different stuff about another group.',
-//                  style: TextStyle(
-//                      color: Colors.black, fontWeight: FontWeight.w400),
-//                ),
-//              ),
-//              ButtonBar(
-//                children: <Widget>[
-//                  RaisedButton(
-//                    textColor: Colors.white,
-//                    child: const Text(
-//                      'View Group',
-//                      style: TextStyle(color: Color(0xfffd8100)),
-//                    ),
-//                    onPressed: () {
-//                      /* ... */
-//                    },
-//                  ),
-//                ],
-//              ),
-//            ],
-//          ),
-//        ),
-//      ],
-//    );
-//  }
-//}
