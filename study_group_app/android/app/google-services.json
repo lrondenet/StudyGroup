@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1027680136464",
+    "firebase_url": "https://studybuddy-d1d67.firebaseio.com",
+    "project_id": "studybuddy-d1d67",
+    "storage_bucket": "studybuddy-d1d67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027680136464:android:59c3b21b38b4c8beca4995",
+        "android_client_info": {
+          "package_name": "com.study_group_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027680136464-5hnlp9ee34en1o675m8ib7i296nqef53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARBPIak9cGxZxdihMINi2cKax-ZzPyGig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027680136464-5hnlp9ee34en1o675m8ib7i296nqef53.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1027680136464-et6oeo5umjb3vpdr4ano8evc6d59qduc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.studyGroupApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
