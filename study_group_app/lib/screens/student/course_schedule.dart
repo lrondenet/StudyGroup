@@ -19,6 +19,19 @@ class CourseSchedulePage extends StatefulWidget {
 
 // Inherits from CourseSchedulePage above
 class _MyCourseFormState extends State<CourseSchedulePage> {
+
+  // Form controllers
+  TextEditingController courseNameController = TextEditingController();
+  TextEditingController courseDayController = TextEditingController();
+  TextEditingController courseTimeController = TextEditingController();
+
+  void dispose() {
+  courseNameController.dispose();
+  courseDayController.dispose();
+  courseTimeController.dispose();
+  super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp (
@@ -37,6 +50,7 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
                               )
                             ),
                             TextFormField (
+                                controller: courseNameController,
                                 cursorColor: Colors.black,
                                 decoration:InputDecoration(
                                   hintText: "Enter your class name",
@@ -44,13 +58,15 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
                                 )
                             ),
                             TextFormField (
+                              controller: courseDayController,
                                 cursorColor: Colors.black,
                                 decoration:InputDecoration(
-                                  hintText: "Enter the Date",
+                                  hintText: "Enter the Day",
                                   border: OutlineInputBorder(),
                                 )
                             ),
                             TextFormField (
+                                controller: courseTimeController,
                                 cursorColor: Colors.black,
                                 decoration: InputDecoration(
                                   hintText: "Enter the Time",
@@ -60,7 +76,9 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
                             SizedBox (
                                 width: 320,
                                 child: FlatButton (
-                                  onPressed: (){},
+                                  onPressed: (){
+                                    displaySchedule(context);
+                                  },
                                   child: Text("Submit",
                                   ),
                                   color: Colors.blueAccent,
@@ -75,102 +93,39 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
         )
     );
   }
-}
+
+  void displaySchedule(BuildContext context){
+    String courseName = courseNameController.text;
+    String courseDay = courseDayController.text;
+    //TimeOfDay courseTime = courseTimeController.text
+    Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MyCoursePageState(
+                courseName: courseName,
+                courseDay: courseDay,
+                )
+            ));
+      }
+  }
   
  // Inherits from CourseSchedulePage above
-class _CourseSchedulePageState extends State<CourseSchedulePage> {
-  // Controller that updates user view from form
-  final formController = TextEditingController();
-
-  // Clean up the controller when the widget is disposed
-  @override
-  void dispose() {
-    formController.dispose();
-    super.dispose();
-  }
+ // Displays the given information
+class MyCoursePageState extends StatelessWidget {
+  
+  // Schedule display constructor
+  final String courseName;
+  final String courseDay;
+  MyCoursePageState({Key key, @required this.courseName, @required this.courseDay}) : super(key: key);
 
   // Calendar display
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("My Course Schedule"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(20.0),
-            child: Text(
-              'Sunday',
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-            height: 30.0,
-            width: 90.0,
-          ),
-          Container(
-            margin: EdgeInsets.all(20.0),
-            child: Text(
-              'Monday',
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-            height: 30.0,
-            width: 90.0,
-          ),
-          Container(
-            margin: EdgeInsets.all(20.0),
-            child: Text(
-              'Tuesday',
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-            height: 30.0,
-            width: 90.0,
-          ),
-          Container(
-            margin: EdgeInsets.all(20.0),
-            child: Text(
-              'Wednesday',
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-            height: 30.0,
-            width: 90.0,
-          ),
-          Container(
-            margin: EdgeInsets.all(20.0),
-            child: Text(
-              'Thursday',
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-            height: 30.0,
-            width: 90.0,
-          ),
-          Container(
-            margin: EdgeInsets.all(20.0),
-            child: Text(
-              'Friday',
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-            height: 30.0,
-            width: 90.0,
-          ),
-          Container(
-            margin: EdgeInsets.all(20.0),
-            child: Text(
-              'Saturday',
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.center,
-            ),
-            height: 30.0,
-            width: 90.0,
-          ),
-        ],
-      ),
+      body: Text(courseName)
     );
   }
 }
