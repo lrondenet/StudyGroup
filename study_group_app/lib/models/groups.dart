@@ -1,13 +1,20 @@
-import 'user.dart';
-
+// This file is mainly serving as static data for now. Will update to integrate
+// Firebase data when that is setup
 class Group {
-  int id;
-  String name;
-  int members;
-  String meetDay;
-  String timeBlock;
+  final int id;
+  final String name;
+  final int members;
+  final String meetDay;
+  final String timeBlock;
+  final int maxMembers;
 
-  Group(this.id, this.name, this.members, this.meetDay, this.timeBlock);
+  Group(
+      {this.id,
+      this.name,
+      this.members,
+      this.meetDay,
+      this.timeBlock,
+      this.maxMembers});
 }
 
 class UserStudyGroup {
@@ -23,23 +30,91 @@ class GroupProvider {
 
   GroupProvider._() {
     if (_groups.isEmpty) {
-      _groups.add(new Group(0, 'Fluffy Bunnies', 4, 'Monday', '3-5pm'));
-      _groups.add(new Group(1, 'Best Group', 3, 'Wednesday', '2-3pm'));
-      _groups.add(new Group(2, 'Other Best Group', 2, 'Friday', '5-8pm'));
+      _groups.add(Group(
+          id: 0,
+          name: 'Lazer Kitties',
+          members: 4,
+          meetDay: 'Monday',
+          timeBlock: '3-5pm',
+          maxMembers: 4));
+      _groups.add(new Group(
+          id: 1,
+          name: 'Best Group',
+          members: 3,
+          meetDay: 'Wednesday',
+          timeBlock: '2-3pm',
+          maxMembers: 4));
+      _groups.add(new Group(
+          id: 2,
+          name: 'Annoying People',
+          members: 2,
+          meetDay: 'Tuesday',
+          timeBlock: '4-5pm',
+          maxMembers: 4));
+      _groups.add(new Group(
+          id: 3,
+          name: 'Plant club',
+          members: 4,
+          meetDay: 'Tuesday',
+          timeBlock: '5-8pm',
+          maxMembers: 8));
+      _groups.add(new Group(
+          id: 4,
+          name: '...some other name',
+          members: 3,
+          meetDay: 'Sat',
+          timeBlock: '5-8pm',
+          maxMembers: 4));
+      _groups.add(new Group(
+          id: 5,
+          name: 'too many groups',
+          members: 2,
+          meetDay: 'Friday',
+          timeBlock: '5-8pm',
+          maxMembers: 2));
+      _groups.add(new Group(
+          id: 6,
+          name: 'Assholes Anonymous',
+          members: 2,
+          meetDay: 'Friday',
+          timeBlock: '5-8pm',
+          maxMembers: 2));
+      _groups.add(new Group(
+          id: 7,
+          name: 'Bottom Bitch',
+          members: 2,
+          meetDay: 'Friday',
+          timeBlock: '5-8pm',
+          maxMembers: 3));
     }
     // UserStudyGroup(studyGrpId, userId)
     if (_userGroups.isEmpty) {
+      // Group 0
       _userGroups.add(new UserStudyGroup(0, 0));
       _userGroups.add(new UserStudyGroup(0, 1));
       _userGroups.add(new UserStudyGroup(0, 2));
       _userGroups.add(new UserStudyGroup(0, 3));
 
+      // Group 1
       _userGroups.add(new UserStudyGroup(1, 1));
-      _userGroups.add(new UserStudyGroup(1, 0));
+      _userGroups.add(new UserStudyGroup(1, 2));
       _userGroups.add(new UserStudyGroup(1, 4));
 
+      // Group 2
       _userGroups.add(new UserStudyGroup(2, 0));
       _userGroups.add(new UserStudyGroup(2, 2));
+
+      _userGroups.add(new UserStudyGroup(3, 0));
+      _userGroups.add(new UserStudyGroup(3, 2));
+
+      _userGroups.add(new UserStudyGroup(4, 0));
+      _userGroups.add(new UserStudyGroup(4, 2));
+
+      _userGroups.add(new UserStudyGroup(5, 2));
+
+      _userGroups.add(new UserStudyGroup(6, 2));
+
+      _userGroups.add(new UserStudyGroup(7, 2));
     }
   }
 
@@ -59,7 +134,7 @@ class GroupProvider {
     return grpList;
   }
 
-  List<UserStudyGroup> getUserGroups(usrId) {
+  List<UserStudyGroup> getUserGroups(int usrId) {
     List<UserStudyGroup> userGroups = new List<UserStudyGroup>();
     for (var userGrp in _userGroups) {
       if (userGrp.userId == usrId) {
