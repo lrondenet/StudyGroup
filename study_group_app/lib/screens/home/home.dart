@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/screens/home/drawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 // Stateful home page class.
 class HomePage extends StatefulWidget {
@@ -25,11 +27,31 @@ class _HomePageState extends State<HomePage> {
         // drawer sets the hamburger menu on the side that pops out
         // its' child is a ListView that holds all the elements held in the drawer
         drawer: MainDrawer(),
-
+        persistentFooterButtons: <Widget>[
+          RaisedButton (
+            onPressed: (){Navigator.of(context).pushNamed("/course-schedule");},
+            color: Colors.blueAccent,
+            child: Text('Add Classes'),
+          )
+        ],
         // Back on the home page. This is the button at the bottom of the page
         floatingActionButton: FloatingActionButton.extended(
             onPressed: null, // Doesn't actually do anything yet
             label: Text('Find Group'),
             icon: Icon(Icons.search)));
+  }
+
+  // Testing for Firebase iOS Configuration
+  int testNum = 0;
+  void getUpdate() {
+    Firestore.instance
+        .collection('test')
+        .document('lONyGDMN9NCvr9Vu4cxi')
+        .get()
+        .then((DocumentSnapshot ds) {
+      testNum = ds.data['count'];
+      print(testNum);
+      setState(() {});
+    });
   }
 }
