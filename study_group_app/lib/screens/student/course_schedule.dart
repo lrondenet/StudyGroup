@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:flutter/cupertino.dart';
 
 // Stateful course schedule page class.
 class CourseSchedulePage extends StatefulWidget {
@@ -19,6 +20,7 @@ class CourseSchedulePage extends StatefulWidget {
 
 // Inherits from CourseSchedulePage above
 class _MyCourseFormState extends State<CourseSchedulePage> {
+  DateTime _dateTime;
   @override
   Widget build(BuildContext context) {
     return MaterialApp (
@@ -30,6 +32,32 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
                     child: Center (
                         child: Column (
                           children: <Widget>[
+//                            Text(_dateTime == null ? 'Nothing has been picked yet' : _dateTime.)
+                            RaisedButton(
+                              child: Text('Pick a date'),
+                              onPressed: (){
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2019),
+                                  lastDate: DateTime(2222),
+                                  
+                                ).then((date){
+                                  _dateTime = date;
+                                });
+                              }
+                            ),
+//                            SizedBox(
+//                              height: 100,
+//                              child: CupertinoDatePicker(
+//                                initialDateTime: _dateTime,
+//                                onDateTimeChanged: (dateTime) {
+//                                  setState(() {
+//                                    _dateTime = dateTime;
+//                                  });
+//                                }
+//                              ),
+//                            ),
                             Text ("Enter your Class Schedule",
                               style: TextStyle (
                                 fontWeight: FontWeight.bold,
