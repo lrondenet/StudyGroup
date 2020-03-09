@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/screens/home/drawer.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 // Stateful home page class.
 class HomePage extends StatefulWidget {
@@ -38,4 +40,18 @@ class _HomePageState extends State<HomePage> {
             label: Text('Find Group'),
             icon: Icon(Icons.search)));
   }
+
+  // Testing for Firebase iOS Configuration
+  /*int testNum = 0;
+  void getUpdate() {
+    Firestore.instance
+        .collection('test')
+        .document('lONyGDMN9NCvr9Vu4cxi')
+        .get()
+        .then((DocumentSnapshot ds) {
+      testNum = ds.data['count'];
+      print(testNum);
+      setState(() {});
+    });
+  }*/
 }

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme(),
       // Sets the home page by calling HomePage and passing in title set above
       home: HomePage(title: 'Study Buddy App'), // Placeholder title for now
-      //home: LoginPage(title: 'Login'),
+      //home: CourseSchedulePage(title: 'My Course Schedule'),
       routes: <String, WidgetBuilder> {
         "/course-schedule": (BuildContext context) => new CourseSchedulePage()}
     );
