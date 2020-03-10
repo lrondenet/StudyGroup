@@ -28,3 +28,19 @@ class UserProvider {
     return _users;
   }
 }
+
+class UserTemp {
+  final String uid;
+  UserTemp({this.uid});
+}
+
+class UserData {
+  final String uid;
+  final String email;
+  final String userName;
+  final String firstName;
+  final String lastName;
+
+  UserData(
+      {this.uid, this.email, this.userName, this.firstName, this.lastName});
+}
