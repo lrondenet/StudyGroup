@@ -22,6 +22,12 @@ class UserProvider {
     });
   }
 
+  Future updateUserName(String userName) async {
+    return await userCollection
+        .document(uid)
+        .updateData({'userName': userName});
+  }
+
   UserData _userData(DocumentSnapshot snap) {
     return UserData(
       uid: uid,
