@@ -6,7 +6,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter/cupertino.dart';
 
 
 // Stateful course schedule page class.
@@ -46,32 +45,25 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
                     child: Center (
                         child: Column (
                           children: <Widget>[
-//                            Text(_dateTime == null ? 'Nothing has been picked yet' : _dateTime.)
-                            RaisedButton(
-                              child: Text('Pick a date'),
-                              onPressed: (){
-                                showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2019),
-                                  lastDate: DateTime(2222),
-                                  
-                                ).then((date){
-                                  _dateTime = date;
-                                });
-                              }
-                            ),
-//                            SizedBox(
-//                              height: 100,
-//                              child: CupertinoDatePicker(
-//                                initialDateTime: _dateTime,
-//                                onDateTimeChanged: (dateTime) {
-//                                  setState(() {
-//                                    _dateTime = dateTime;
-//                                  });
-//                                }
-//                              ),
-//                            ),
+                            // Text(_dateTime == null ? 'Nothing has been picked yet' : _dateTime.toString()),
+                            // RaisedButton(
+                            //   child: Text('Pick a date'),
+                            //   onPressed: (){
+                            //     showDatePicker(
+                            //       context: context,
+                            //       initialDate: DateTime.now(),
+                            //       firstDate: DateTime(2019),
+                            //       lastDate: DateTime(2222),
+                            //       builder: (BuildContext context, Widget child) {
+                            //         return Theme (data:ThemeData.dark(), child: child,);
+                            //       }
+                            //     ).then((date){
+                            //       setState(() {
+                            //         _dateTime = date; 
+                            //       });
+                            //     });
+                            //   }
+                            // ),
                             Text ("Enter your Class Schedule",
                               style: TextStyle (
                                 fontWeight: FontWeight.bold,

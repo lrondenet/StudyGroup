@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/screens/home/drawer.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 // Stateful home page class.
