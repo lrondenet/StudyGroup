@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:study_group_app/screens/home/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'group_viewer.dart';
 
 // Stateful home page class.
 class HomePage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // Scaffold is from MaterialApp. Implements the basic visual layout
     return Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         // Top bar, title is set using widget.title which is passed down from main
         appBar: AppBar(
           title: Text(widget.title),
@@ -28,16 +30,21 @@ class _HomePageState extends State<HomePage> {
         // its' child is a ListView that holds all the elements held in the drawer
         drawer: MainDrawer(),
         persistentFooterButtons: <Widget>[
-          RaisedButton (
-            onPressed: (){Navigator.of(context).pushNamed("/course-schedule");},
+          RaisedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed("/course-schedule");
+            },
             color: Colors.blueAccent,
             child: Text('Add Classes'),
           )
         ],
+        body: GroupView(),
+
         // Back on the home page. This is the button at the bottom of the page
         floatingActionButton: FloatingActionButton.extended(
             onPressed: null, // Doesn't actually do anything yet
             label: Text('Find Group'),
+            backgroundColor: Theme.of(context).buttonColor,
             icon: Icon(Icons.search)));
   }
 

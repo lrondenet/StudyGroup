@@ -14,7 +14,7 @@ class MainDrawer extends StatelessWidget {
           // with the header text in it in the upper half of drawer
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor, // from style.dart
+              color: Theme.of(context).secondaryHeaderColor, // from style.dart
             ),
             child: Text(
               'Study Groups',
