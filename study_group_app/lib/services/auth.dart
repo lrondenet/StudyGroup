@@ -1,26 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:study_group_app/models/user.dart';
+import 'package:study_group_app/services/user_provider.dart';
 
 class Auth {
   // Create a local instance of our Firebase authentication instance
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Need to match a user's Firebase user uid to local Class User
-  UserTemp _userFromFirebaseUid(FirebaseUser user) {
+  User _userFromFirebaseUid(FirebaseUser user) {
     if (user != null) {
-      return UserTemp(uid: user.uid);
+      return User(uid: user.uid);
     } else {
       return null;
     }
   }
 
-
   // Provides a stream to continually update user data from Firebase
-  Stream<UserTemp> get getUser {
-    return _auth.onAuthStateChanged.map((FirebaseUser user) => _userFromFirebaseUid(user));
+  Stream<User> get getUser {
+    return _auth.onAuthStateChanged
+        .map((FirebaseUser user) => _userFromFirebaseUid(user));
   }
 
-    Future signInUserWithEmail(String email, String password) async {
+  Future signInUserWithEmail(String email, String password) async {
     try {
       // Attempt to sign in user to Firebase
       AuthResult result = await _auth.signInWithEmailAndPassword(
@@ -45,7 +46,7 @@ class Auth {
 
       // Create a new document in Firebase with the same uid
       await UserProvider(uid: newUser.uid)
-          .updateUserFields(email, 'Change user name', '');
+          .updateUserFields(email, 'UserName', 'John', 'Doe');
       return _userFromFirebaseUid(newUser);
     } catch (e) {
       print(e.toString());
@@ -65,6 +66,5 @@ class Auth {
 
   Future logOut() async {
     return await _auth.signOut();
-  
-
+  }
 }
