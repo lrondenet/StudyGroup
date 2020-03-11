@@ -204,7 +204,7 @@ class _MyCoursePageState extends State<MyCoursePageState> {
       return Container(
         child: SfCalendar(
           view: CalendarView.day,
-          dataSource: MeetingDataSource(_getDataSource()),
+          //dataSource: MeetingDataSource(_getDataSource()),
           timeSlotViewSettings: TimeSlotViewSettings(
             timeTextStyle: TextStyle(color: Colors.black),
             timeRulerSize: 100,

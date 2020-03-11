@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/theme/style.dart';
-import 'package:study_group_app/screens/auth/login.dart';
+//import 'package:study_group_app/screens/auth/login.dart';
 import 'package:study_group_app/screens/home/home.dart';
 import 'package:study_group_app/screens/student/course_schedule.dart';
 
