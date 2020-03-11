@@ -44,6 +44,7 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp (
+      
         home: Material (
             child: Stack(
               children: <Widget>[
@@ -152,15 +153,23 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
 }
   
  // Displays the given information
-class MyCoursePageState extends StatelessWidget {
+class MyCoursePageState extends StatefulWidget {
   
   // Schedule display constructor
   //final String courseName;
   //final String courseDay;
   //MyCoursePageState({Key key, @required this.courseName, @required this.courseDay}) : super(key: key);
-  MyCoursePageState({Key key}) : super(key: key);
 
+  
+// Creates the stateful widget HomePage
+@override
+  _MyCoursePageState createState() => _MyCoursePageState();
+  
+  // MyCoursePageState({Key key}) : super(key: key);
+}
 
+class _MyCoursePageState extends State<MyCoursePageState> {
+  
   // Calendar display
   @override
   Widget build(BuildContext context) {
@@ -180,7 +189,7 @@ class MyCoursePageState extends StatelessWidget {
   }
 
   // Get data from the database
-  String getName(){
+  Future <String> getName() async{
     Firestore.instance
         .collection('course_schedule')
         .document('PZ9SBOsMrl2AtHbsrHvR')
@@ -191,17 +200,78 @@ class MyCoursePageState extends StatelessWidget {
   }
 
   onSelect(data) {
-    return Scaffold(
-      body: Container(
+    
+      return Container(
         child: SfCalendar(
           view: CalendarView.day,
+          dataSource: MeetingDataSource(_getDataSource()),
           timeSlotViewSettings: TimeSlotViewSettings(
             timeTextStyle: TextStyle(color: Colors.black),
             timeRulerSize: 100,
             timeInterval: Duration(hours: 1),
           ),
         ),
-      )
-    );
+      );
+   
   }
 }
+
+/* ------------------------------------------------------- 
+  List<Meeting> _getDataSource() {
+    var meetings = <Meeting>[];
+    final DateTime today = DateTime.now();
+    final DateTime startTime =
+    DateTime(today.year, today.month, today.day, 9, 0, 0);
+    final DateTime endTime = startTime.add(const Duration(hours: 2));
+    meetings.add(
+        Meeting('Conference', startTime, endTime, const Color(0xFF0F8644), false));
+    return meetings;
+  }
+
+ 
+class MeetingDataSource extends CalendarDataSource {
+  MeetingDataSource(this.source);
+ 
+  List<Meeting> source;
+ 
+  @override
+  List<dynamic> get appointments => source;
+ 
+  @override
+  DateTime getStartTime(int index) {
+    return source[index].from;
+  }
+ 
+  @override
+  DateTime getEndTime(int index) {
+    return source[index].to;
+  }
+ 
+  @override
+  String getSubject(int index) {
+    return source[index].eventName;
+  }
+ 
+  @override
+  Color getColor(int index) {
+    return source[index].background;
+  }
+ 
+  @override
+  bool isAllDay(int index) {
+    return source[index].isAllDay;
+  }
+}
+ 
+class Meeting {
+  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
+ 
+  String eventName;
+  DateTime from;
+  DateTime to;
+  Color background;
+  bool isAllDay;
+}*/
+
+
+
