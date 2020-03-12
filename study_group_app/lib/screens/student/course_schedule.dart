@@ -20,7 +20,7 @@ class CourseSchedulePage extends StatefulWidget {
 
 // Inherits from CourseSchedulePage above
 class _MyCourseFormState extends State<CourseSchedulePage> {
-  DateTime _dateTime;
+  //DateTime _dateTime;
 
   // Form controllers
   TextEditingController courseNameController = TextEditingController();
@@ -36,118 +36,96 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp (
-        home: Material (
-            child: Stack(
-              children: <Widget>[
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 100.0),
-                    child: Center (
-                        child: Column (
-                          children: <Widget>[
-                            // Text(_dateTime == null ? 'Nothing has been picked yet' : _dateTime.toString()),
-                            // RaisedButton(
-                            //   child: Text('Pick a date'),
-                            //   onPressed: (){
-                            //     showDatePicker(
-                            //       context: context,
-                            //       initialDate: DateTime.now(),
-                            //       firstDate: DateTime(2019),
-                            //       lastDate: DateTime(2222),
-                            //       builder: (BuildContext context, Widget child) {
-                            //         return Theme (data:ThemeData.dark(), child: child,);
-                            //       }
-                            //     ).then((date){
-                            //       setState(() {
-                            //         _dateTime = date; 
-                            //       });
-                            //     });
-                            //   }
-                            // ),
-                            Text ("Enter your Class Schedule",
-                              style: TextStyle (
-                                fontWeight: FontWeight.bold,
-                                fontSize:20,
-                              )
-                            ),
-                            TextFormField (
-                                controller: courseNameController,
-                                cursorColor: Colors.black,
-                                decoration:InputDecoration(
-                                  hintText: "Enter your class name",
-                                  border: OutlineInputBorder(),
-                                )
-                            ),
-                            TextFormField (
-                              controller: courseDayController,
-                              cursorColor: Colors.black,
-                              decoration: InputDecoration(
-                                hintText: "Enter the Day",
-                                border: OutlineInputBorder(),
-                              )
-                            ),
-                            TextFormField (
-                                controller: courseTimeController,
-                                cursorColor: Colors.black,
-                                decoration: InputDecoration(
-                                  hintText: "Enter the Time",
-                                  border: OutlineInputBorder(),
-                                )
-                            ),
-                            SizedBox (
-                                width: 320,
-                                child: FlatButton (
-                                  //onPressed: (){},
-                                  onPressed: (){
-                                    displaySchedule(context);
-                                  },
-                                  child: Text("Submit",
-                                  ),
-                                  color: Colors.blueAccent,
-                                )
-                            )
-                          ],
-                        )
-                    )
-                )
-              ],
-            )
-        )
-    );
-  }
-
-  void displaySchedule(BuildContext context){
-    String courseName = courseNameController.text;
-    String courseDay = courseDayController.text;
-    //TimeOfDay courseTime = courseTimeController.text
-    Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MyCoursePageState(
-                courseName: courseName,
-                courseDay: courseDay,
-                )
-            ));
-      }
-  }
-  
- // Inherits from CourseSchedulePage above
- // Displays the given information
-class MyCoursePageState extends StatelessWidget {
-  
-  // Schedule display constructor
-  final String courseName;
-  final String courseDay;
-  MyCoursePageState({Key key, @required this.courseName, @required this.courseDay}) : super(key: key);
-
-  // Calendar display
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Course Schedule"),
-      ),
-      body: Text(courseName)
+        title: Text('Add your Class Schedule'),
+        ),
+        body: Stack(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 100.0),
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                      TextFormField (
+                          //controller: courseNameController,
+                          cursorColor: Colors.black,
+                          decoration:InputDecoration(
+                            hintText: "Enter your class name",
+                            hintStyle:TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(),
+                          )
+                      ),
+                      TextFormField (
+                        //controller: courseDayController,
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          hintText: "Enter the Day",
+                          hintStyle:TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(),
+                        )
+                      ),
+                      TextFormField (
+                        //controller: courseTimeController,
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          hintText: "Enter the Time",
+                          hintStyle:TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(),
+                        )
+                      ),
+                      SizedBox (
+                        width: 320,
+                        child: FlatButton(
+                          onPressed: (){
+                            //displaySchedule(context);
+                          },
+                          child: Text("Submit"),
+                          color: Colors.blueAccent,
+                        ),
+                      )
+                    ]
+                  ,)
+                ,)
+              ,)
+          ],
+        ),
     );
   }
 }
+
+//   void displaySchedule(BuildContext context){
+//     //String courseName = courseNameController.text;
+//     //String courseDay = courseDayController.text;
+//     //TimeOfDay courseTime = courseTimeController.text
+//     Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//               builder: (context) => MyCoursePageState(
+//                 courseName: courseName,
+//                 courseDay: courseDay,
+//                 )
+//             ));
+//       //}
+//   }
+  
+//  // Inherits from CourseSchedulePage above
+//  // Displays the given information
+// class MyCoursePageState extends StatelessWidget {
+  
+//   // Schedule display constructor
+//   final String courseName;
+//   final String courseDay;
+//   MyCoursePageState({Key key, @required this.courseName, @required this.courseDay}) : super(key: key);
+
+//   // Calendar display
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("My Course Schedule"),
+//       ),
+//       body: Text(courseName)
+//     );
+//   }
+//}
