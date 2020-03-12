@@ -8,8 +8,10 @@ import 'package:calendar_strip/calendar_strip.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+/*
 // Stateful course schedule page class.
 class CourseSchedulePage extends StatefulWidget {
   CourseSchedulePage({Key key, this.title}) : super(key: key);
@@ -19,6 +21,7 @@ class CourseSchedulePage extends StatefulWidget {
   // Creates the stateful widget HomePage
   _MyCourseFormState createState() => _MyCourseFormState();
 }
+
 
 // Inherits from CourseSchedulePage above
 class _MyCourseFormState extends State<CourseSchedulePage> {
@@ -99,6 +102,7 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
     );
   }
 }
+*/
 
  // Displays the given information
 class MyCoursePageState extends StatefulWidget {
