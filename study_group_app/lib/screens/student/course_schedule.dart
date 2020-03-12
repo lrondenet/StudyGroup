@@ -4,9 +4,11 @@
     slots in a week view.
 */
 
+import 'package:calendar_strip/calendar_strip.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 // Stateful course schedule page class.
 class CourseSchedulePage extends StatefulWidget {
@@ -27,12 +29,16 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
   TextEditingController courseDayController = TextEditingController();
   TextEditingController courseTimeController = TextEditingController();
 
+  // Form data
+  DateTime _dateTime;
+
   void dispose() {
   courseNameController.dispose();
   courseDayController.dispose();
   courseTimeController.dispose();
   super.dispose();
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -94,38 +100,45 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
   }
 }
 
-//   void displaySchedule(BuildContext context){
-//     //String courseName = courseNameController.text;
-//     //String courseDay = courseDayController.text;
-//     //TimeOfDay courseTime = courseTimeController.text
-//     Navigator.push(
-//             context,
-//             MaterialPageRoute(
-//               builder: (context) => MyCoursePageState(
-//                 courseName: courseName,
-//                 courseDay: courseDay,
-//                 )
-//             ));
-//       //}
-//   }
+ // Displays the given information
+class MyCoursePageState extends StatefulWidget {
   
-//  // Inherits from CourseSchedulePage above
-//  // Displays the given information
-// class MyCoursePageState extends StatelessWidget {
-  
-//   // Schedule display constructor
-//   final String courseName;
-//   final String courseDay;
-//   MyCoursePageState({Key key, @required this.courseName, @required this.courseDay}) : super(key: key);
+  // Creates the stateful widget HomePage
+  @override
+  _MyCoursePageState createState() => _MyCoursePageState();
+}
 
-//   // Calendar display
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("My Course Schedule"),
-//       ),
-//       body: Text(courseName)
-//     );
-//   }
-//}
+class _MyCoursePageState extends State<MyCoursePageState> {
+  
+  // Calendar display
+  @override
+  Widget build(BuildContext context) {
+    var now = new DateTime.now();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("My Course Schedule"),
+      ),
+      body: Container(
+        child: CalendarStrip(
+          startDate: now,
+          endDate: now.add(new Duration(days:60)),
+          onDateSelected: onSelect,
+          )
+      ),
+    );
+  }
+
+  onSelect(data) {
+      return Container(
+        child: SfCalendar(
+          view: CalendarView.day,
+          //dataSource: MeetingDataSource(_getDataSource()),
+          timeSlotViewSettings: TimeSlotViewSettings(
+            timeTextStyle: TextStyle(color: Colors.black),
+            timeRulerSize: 100,
+            timeInterval: Duration(hours: 1),
+          ),
+        ),
+      );
+  }
+}
