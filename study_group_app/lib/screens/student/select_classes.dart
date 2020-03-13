@@ -47,7 +47,7 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
                 child: Column(
                   children: <Widget>[
                       TextFormField (
-                          //controller: courseNameController,
+                          controller: courseNameController,
                           cursorColor: Colors.black,
                           decoration:InputDecoration(
                             hintText: "Enter your class name",
@@ -56,7 +56,7 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
                           )
                       ),
                       TextFormField (
-                        //controller: courseDayController,
+                        controller: courseDayController,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           hintText: "Enter the Day",
@@ -65,7 +65,7 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
                         )
                       ),
                       TextFormField (
-                        //controller: courseTimeController,
+                        controller: courseTimeController,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           hintText: "Enter the Time",
@@ -77,7 +77,11 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
                         width: 320,
                         child: FlatButton(
                           onPressed: (){
-                            //displaySchedule(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MyCoursePageState())
+                              );
                           },
                           child: Text("Submit"),
                           color: Colors.blueAccent,
@@ -112,74 +116,7 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
   super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp (
-      
-        home: Material (
-            child: Stack(
-              children: <Widget>[
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 100.0),
-                    child: Center (
-                        child: Column (
-                          children: <Widget>[
-                            Text ("Enter your Class Schedule",
-                              style: TextStyle (
-                                fontWeight: FontWeight.bold,
-                                fontSize:20,
-                              )
-                            ),
-                            TextFormField (
-                                controller: courseNameController,
-                                cursorColor: Colors.black,
-                                decoration:InputDecoration(
-                                  hintText: "Enter your class name",
-                                  border: OutlineInputBorder(),
-                                )
-                            ),
-                            TextFormField (
-                              controller: courseDayController,
-                                cursorColor: Colors.black,
-                                decoration:InputDecoration(
-                                  hintText: "Enter the Day",
-                                  border: OutlineInputBorder(),
-                                )
-                            ),
-                            TextFormField (
-                                controller: courseTimeController,
-                                cursorColor: Colors.black,
-                                decoration: InputDecoration(
-                                  hintText: "Enter the Time",
-                                  border: OutlineInputBorder(),
-                                )
-                            ),
-                            SizedBox (
-                                width: 320,
-                                child: FlatButton (
-                                  onPressed: (){
-                                    saveSchedule();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MyCoursePageState()
-                                      )
-                                    );
-                                  },
-                                  child: Text("Submit",
-                                  ),
-                                  color: Colors.blueAccent,
-                                )
-                            )
-                          ],
-                        )
-                    )
-                )
-              ],
-            )
-        )
-    );
-  }
+
 
   // Displays the schedule
   void displaySchedule(BuildContext context){
