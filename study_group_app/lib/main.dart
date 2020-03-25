@@ -15,15 +15,16 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
       value: Auth().getUser,
       child: MaterialApp(
-          title: 'Study Buddy',
-          // Importing from theme/style.dart
-          theme: appTheme(),
-          // Sets the home page by calling HomePage and passing in title set above
-          //home: CourseSchedulePage(title: 'My Course Schedule'),
-          home: Wrapper(title: 'Study Buddy'),
-          routes: <String, WidgetBuilder>{
-            "/select-classes": (BuildContext context) => CourseSchedulePage(),
-          }),
+        title: 'Study Buddy',
+        // Importing from theme/style.dart
+        theme: appTheme(),
+        // Sets the home page by calling HomePage and passing in title set above
+        //home: CourseSchedulePage(title: 'My Course Schedule'),
+        home: Wrapper(title: 'Study Buddy'),
+        routes: <String, WidgetBuilder>{
+          "/select-classes": (BuildContext context) => CourseSchedulePage(),
+        },
+      ),
     );
   }
 }
