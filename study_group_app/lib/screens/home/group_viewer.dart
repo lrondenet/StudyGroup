@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_group_app/screens/groups/group_detail.dart';
 import '../../models/groups.dart';
 
 class GroupView extends StatefulWidget {
@@ -73,7 +74,11 @@ class _GroupState extends State<GroupView> {
               customBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              onTap: () {},
+              // Call the group_detail page to view
+              onTap: () {
+                GroupDetail();
+              },
+
               child: groupCardContent(group),
             ),
           ),
