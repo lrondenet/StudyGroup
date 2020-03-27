@@ -29,6 +29,8 @@ class _HomePageState extends State<HomePage> {
       // drawer sets the hamburger menu on the side that pops out
       // its' child is a ListView that holds all the elements held in the drawer
       drawer: MainDrawer(),
+
+      // TODO: Add or transform this into a bottom bar
       persistentFooterButtons: <Widget>[
         RaisedButton.icon(
           onPressed: () {},
