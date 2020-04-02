@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/screens/home/drawer.dart';
+import 'package:study_group_app/screens/home/navigation_bar.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'group_viewer.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Theme.of(context).backgroundColor,
       // Top bar, title is set using widget.title which is passed down from main
       appBar: AppBar(
+
         title: Text(widget.title),
       ),
       // drawer sets the hamburger menu on the side that pops out
@@ -31,15 +33,18 @@ class _HomePageState extends State<HomePage> {
       drawer: MainDrawer(),
 
       // TODO: Add or transform this into a bottom bar
-      persistentFooterButtons: <Widget>[
+      /*persistentFooterButtons: <Widget>[
         RaisedButton.icon(
           onPressed: () {},
           color: Colors.blueAccent,
           label: Text('Find Group'),
           icon: Icon(Icons.search),
         )
-      ],
+      ],*/
       body: GroupView(),
+
+      // TODO: Add or transform this into a bottom bar
+      bottomNavigationBar: BottomNavBarView(),
     );
   }
 }
