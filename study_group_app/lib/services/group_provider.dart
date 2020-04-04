@@ -1,4 +1,4 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:study_group_app/models/groups.dart';
 
 class UserStudyGroup {
@@ -9,6 +9,12 @@ class UserStudyGroup {
 }
 
 class GroupProvider {
+  final CollectionReference _groupCollection =
+      Firestore.instance.collection('userGroups');
+
+  // Singleton instance that will be used outside of this class
+  static final GroupProvider instance = GroupProvider._();
+
   List<Group> _groups = List<Group>();
   List<UserStudyGroup> _userGroups = List<UserStudyGroup>();
 
@@ -100,31 +106,5 @@ class GroupProvider {
 
       _userGroups.add(UserStudyGroup(7, 2));
     }
-  }
-
-  // Singleton instance that will be used outside of this class
-  static final GroupProvider instance = GroupProvider._();
-
-  List<Group> getGroupsById(int userId) {
-    List<Group> grpList = List<Group>();
-    List<UserStudyGroup> userGroups = getUserGroups(userId);
-    for (var userGrp in userGroups) {
-      for (var grp in _groups) {
-        if (userGrp.studyGrpId == grp.id) {
-          grpList.add(grp);
-        }
-      }
-    }
-    return grpList;
-  }
-
-  List<UserStudyGroup> getUserGroups(int usrId) {
-    List<UserStudyGroup> userGroups = List<UserStudyGroup>();
-    for (var userGrp in _userGroups) {
-      if (userGrp.userId == usrId) {
-        userGroups.add(userGrp);
-      }
-    }
-    return userGroups;
   }
 }
