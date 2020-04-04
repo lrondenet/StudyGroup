@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/screens/groups/group_detail.dart';
-import '../../models/groups.dart';
+// import 'package:study_group_app/services/group_provider.dart';
+import 'package:study_group_app/models/user.dart';
+import 'package:provider/provider.dart';
+import 'package:study_group_app/models/groups.dart';
 
 class GroupView extends StatefulWidget {
   GroupView({Key key}) : super(key: key);
@@ -21,6 +24,7 @@ class _GroupState extends State<GroupView> {
 
   @override
   Widget build(BuildContext context) {
+    // final user_data = Provider.of<UserData>(context);
     // Main content of the card, Sets placement and content of inner objects
     Container groupCardContent(Group group) => Container(
           margin: EdgeInsets.fromLTRB(50.0, 16.0, 16.0, 20.0),
@@ -44,8 +48,9 @@ class _GroupState extends State<GroupView> {
                 children: <Widget>[
                   Expanded(child: Text(group.timeBlock)),
                   Expanded(
-                      child: Text(
-                          'Members: ${group.members}/${group.maxMembers}')),
+                    child:
+                        Text('Members: ${group.members}/${group.maxMembers}'),
+                  ),
                 ],
               ),
             ],
@@ -76,7 +81,7 @@ class _GroupState extends State<GroupView> {
               ),
               // Call the group_detail page to view
               onTap: () {
-                GroupDetail();
+                // print(user_data.email);
               },
 
               child: groupCardContent(group),
@@ -89,7 +94,6 @@ class _GroupState extends State<GroupView> {
       child: ListView.separated(
         scrollDirection: Axis.vertical,
         physics: BouncingScrollPhysics(),
-//        shrinkWrap: true,
         itemCount: groups.length,
         itemBuilder: (BuildContext context, int index) {
           return groupCard(groups[index]);
