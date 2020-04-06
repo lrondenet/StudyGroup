@@ -1,24 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:study_group_app/screens/groups/group_detail.dart';
-// import 'package:study_group_app/services/group_provider.dart';
-import 'package:study_group_app/models/user.dart';
-import 'package:provider/provider.dart';
+// import 'package:study_group_app/screens/groups/group_detail.dart';
+import 'package:study_group_app/services/group_provider.dart';
+// import 'package:study_group_app/models/user.dart';
+// import 'package:provider/provider.dart';
 import 'package:study_group_app/models/groups.dart';
 
 class GroupView extends StatefulWidget {
-  GroupView({Key key}) : super(key: key);
-
+  GroupView({Key key, this.userId}) : super(key: key);
+  final String userId;
   _GroupState createState() => _GroupState();
 }
 
 class _GroupState extends State<GroupView> {
   // List of groups to be populated on initState
-  List groups;
+  List<Group> groups = List<Group>();
 
   @override
   void initState() {
     // Get the current user's groups, currently hardcoded to be 2
-    groups = GroupProvider.instance.getGroupsById(2);
+    GroupProvider.instance.getGroups(widget.userId).then((QuerySnapshot docs) {
+      if (docs.documents.isNotEmpty) {
+        docs.documents.forEach((doc) => groups.add(Group.fromMap(doc.data)));
+        // groups.add(Group.fromMap(docs.documents[0].data));
+      }
+    });
     super.initState();
   }
 
@@ -46,10 +52,9 @@ class _GroupState extends State<GroupView> {
               ),
               Row(
                 children: <Widget>[
-                  Expanded(child: Text(group.timeBlock)),
+                  Expanded(child: Text(group.time)),
                   Expanded(
-                    child:
-                        Text('Members: ${group.members}/${group.maxMembers}'),
+                    child: Text('Members: ${group.maxMembers}'),
                   ),
                 ],
               ),

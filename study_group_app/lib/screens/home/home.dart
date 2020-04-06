@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.search),
                 )
               ],
-              body: GroupView(),
+              body: GroupView(userId: user.uid),
             );
           } else {
             return Loading();
