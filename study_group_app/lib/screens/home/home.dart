@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/screens/home/drawer.dart';
 import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/user_provider.dart';
 import 'package:study_group_app/utilities/loading.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'group_viewer.dart';
+import 'package:study_group_app/screens/groups/group_viewer.dart';
 
 // Stateful home page class.
 class HomePage extends StatefulWidget {

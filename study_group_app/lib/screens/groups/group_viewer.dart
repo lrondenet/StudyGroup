@@ -52,7 +52,7 @@ class _GroupState extends State<GroupView> {
               ),
               Row(
                 children: <Widget>[
-                  Expanded(child: Text(group.time)),
+                  Expanded(child: Text(group.startTime)),
                   Expanded(
                     child: Text('Members: ${group.maxMembers}'),
                   ),

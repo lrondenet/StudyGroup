@@ -3,26 +3,29 @@
 class Group {
   final int id;
   final String name;
-  var members;
+  var membersIds;
   final String meetDay;
-  final String time;
+  final String startTime;
+  final String endTime;
   final int maxMembers;
 
   Group(
       {this.id,
       this.name,
-      this.members,
+      this.membersIds,
       this.meetDay,
-      this.time,
+      this.startTime,
+      this.endTime,
       this.maxMembers});
 
   factory Group.fromMap(Map data) {
     return Group(
       name: data['name'] ?? '',
-      members: data['groupMembers'] ?? '',
+      membersIds: data['memberIds'] ?? '',
       maxMembers: data['maxMembers'] ?? '',
       meetDay: data['day'] ?? '',
-      time: data['time'] ?? '',
+      startTime: data['startTime'] ?? '',
+      endTime: data['endTime'] ?? '',
     );
   }
 }
