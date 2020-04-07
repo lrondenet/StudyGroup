@@ -8,22 +8,18 @@ class GroupProvider {
   final CollectionReference _groupCollection =
       Firestore.instance.collection('userGroups');
 
-  // Singleton instance that will be used outside of this class
-  // static final GroupProvider instance = GroupProvider._();
-
-  // GroupProvider._();
-  Future<QuerySnapshot> getGroups(String userId) async {
-    return _groupCollection
-        .where('groupIds', arrayContains: userId)
-        .getDocuments();
+  // Maps the snapshots from Firebase to a list of Groups
+  List<Group> _grpFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Group.fromMap(doc.data);
+    }).toList();
   }
 
-  Stream<QuerySnapshot> get groups {
+  // Provides the stream of Group data to the app
+  Stream<List<Group>> get groupData {
     return _groupCollection
-        .where('groupIds', arrayContains: userUid)
-        .snapshots();
+        .where('memberIds', arrayContains: userUid)
+        .snapshots()
+        .map(_grpFromSnapshot);
   }
-
-  // UserStudyGroup(studyGrpId, userId)
-
 }
