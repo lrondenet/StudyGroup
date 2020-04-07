@@ -21,24 +21,14 @@ class UserProvider {
     });
   }
 
+  // Updates user name within the 'users' collection
   Future updateUserName(String userName) async {
     return await userCollection
         .document(uid)
         .updateData({'userName': userName});
   }
 
-  UserData _userData(DocumentSnapshot snap) {
-    return UserData(
-      uid: uid,
-      email: snap.data['email'],
-      userName: snap.data['userName'],
-      firstName: snap.data['firstName'],
-      lastName: snap.data['lastName'],
-      // groups: List.from(snap.data['groups'])
-    );
-  }
-
-  // Provides stream of user data to
+  // Provides stream of user data to the app
   Stream<UserData> get userData {
     // return userCollection.document(uid).snapshots().map(_userData);
     return userCollection

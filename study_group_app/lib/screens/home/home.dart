@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/screens/home/drawer.dart';
 import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/group_provider.dart';
-import 'package:study_group_app/utilities/loading.dart';
 import 'package:study_group_app/screens/groups/group_viewer.dart';
 
 import '../../models/groups.dart';
@@ -36,7 +34,6 @@ class _HomePageState extends State<HomePage> {
         // drawer sets the hamburger menu on the side that pops out
         // its' child is a ListView that holds all the elements held in the drawer
         drawer: MainDrawer(),
-
         // TODO: Add or transform this into a bottom bar
         persistentFooterButtons: <Widget>[
           RaisedButton.icon(
