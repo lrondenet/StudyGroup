@@ -1,28 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:study_group_app/models/groups.dart';
 
-class UserStudyGroup {
-  final int studyGrpId;
-  final int userId;
-
-  UserStudyGroup(this.studyGrpId, this.userId);
-}
-
 class GroupProvider {
+  final String userUid;
+
+  GroupProvider({this.userUid});
   final CollectionReference _groupCollection =
       Firestore.instance.collection('userGroups');
 
   // Singleton instance that will be used outside of this class
-  static final GroupProvider instance = GroupProvider._();
+  // static final GroupProvider instance = GroupProvider._();
 
-  // List<Group> _groups = List<Group>();
-  // List<UserStudyGroup> _userGroups = List<UserStudyGroup>();
-
-  GroupProvider._();
+  // GroupProvider._();
   Future<QuerySnapshot> getGroups(String userId) async {
     return _groupCollection
-        .where('groupMembers', arrayContains: userId)
+        .where('groupIds', arrayContains: userId)
         .getDocuments();
+  }
+
+  Stream<QuerySnapshot> get groups {
+    return _groupCollection
+        .where('groupIds', arrayContains: userUid)
+        .snapshots();
   }
 
   // UserStudyGroup(studyGrpId, userId)

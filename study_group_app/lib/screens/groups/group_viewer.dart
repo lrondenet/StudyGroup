@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:study_group_app/screens/groups/group_detail.dart';
 import 'package:study_group_app/services/group_provider.dart';
 // import 'package:study_group_app/models/user.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:study_group_app/models/groups.dart';
 
 class GroupView extends StatefulWidget {
@@ -19,12 +19,12 @@ class _GroupState extends State<GroupView> {
   @override
   void initState() {
     // Get the current user's groups, currently hardcoded to be 2
-    GroupProvider.instance.getGroups(widget.userId).then((QuerySnapshot docs) {
-      if (docs.documents.isNotEmpty) {
-        docs.documents.forEach((doc) => groups.add(Group.fromMap(doc.data)));
-        // groups.add(Group.fromMap(docs.documents[0].data));
-      }
-    });
+    // GroupProvider.instance.getGroups(widget.userId).then((QuerySnapshot docs) {
+    // if (docs.documents.isNotEmpty) {
+    // docs.documents.forEach((doc) => groups.add(Group.fromMap(doc.data)));
+    // groups.add(Group.fromMap(docs.documents[0].data));
+    // }
+    // });
     super.initState();
   }
 
