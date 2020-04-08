@@ -4,6 +4,7 @@ import 'package:study_group_app/screens/home/drawer.dart';
 
 import 'group_viewer.dart';
 
+
 // Stateful home page class.
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -29,7 +30,6 @@ class _HomePageState extends State<HomePage> {
       // drawer sets the hamburger menu on the side that pops out
       // its' child is a ListView that holds all the elements held in the drawer
       drawer: MainDrawer(),
-
       // TODO: Add or transform this into a bottom bar
       persistentFooterButtons: <Widget>[
         RaisedButton.icon(
@@ -37,7 +37,15 @@ class _HomePageState extends State<HomePage> {
           color: Colors.blueAccent,
           label: Text('Find Group'),
           icon: Icon(Icons.search),
-        )
+        ),
+        // RaisedButton.icon(
+        //   onPressed:() {
+        //     Navigator.of(context).pushNamed("/create-group");
+        //   },
+        //   color: Colors.blueAccent,
+        //   label: Text('New Group'),
+        //   icon: Icon(Icons.group),
+        //   ),
       ],
       body: GroupView(),
     );
