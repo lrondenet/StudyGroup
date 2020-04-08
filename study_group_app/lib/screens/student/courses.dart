@@ -7,6 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:study_group_app/screens/home/navigation_bar.dart';
 
 class CourseViewerState extends StatelessWidget {
   @override
@@ -34,7 +35,7 @@ class CourseViewerState extends StatelessWidget {
             color: Colors.blueAccent,
             child: Text('Edit Courses'),
           )
-        ]
+        ],
       )
     );
   }

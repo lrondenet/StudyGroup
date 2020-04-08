@@ -32,7 +32,7 @@ class MainDrawer extends StatelessWidget {
             leading: Icon(Icons.class_),
             title: Text('My Courses'),
             onTap: () {
-              Navigator.of(context).pushNamed("/select-classes");
+              Navigator.of(context).pushNamed("/courses");
             },
           ),
           ListTile(

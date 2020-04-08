@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:study_group_app/screens/student/calendar.dart';
 import 'package:study_group_app/screens/student/courses.dart';
+import 'package:study_group_app/screens/home/navigation_bar.dart';
 
 // Stateful course schedule page class.
 class CourseSchedulePage extends StatefulWidget {
@@ -89,6 +90,7 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
           ],
         ),
       ),
+    //bottomNavigationBar: BottomNavBarView(),
     );
   }
 }

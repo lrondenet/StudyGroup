@@ -28,6 +28,7 @@ ThemeData appTheme() {
             fontSize: 12.0),
       ),
       scaffoldBackgroundColor: Colors.white,
+      // Background color of bottom navbar
       canvasColor: Colors.grey[300],
       backgroundColor: Colors.grey[700]);
 }
