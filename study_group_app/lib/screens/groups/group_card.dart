@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/models/groups.dart';
+import 'package:study_group_app/screens/groups/group_detail.dart';
+import 'dart:math';
 
 class GroupCard extends StatelessWidget {
   final Group group;
@@ -30,9 +32,22 @@ class GroupCard extends StatelessWidget {
           ),
           // Call the group_detail page to view
           onTap: () {
-            // print(user_data.email);
+            final Color randColor = Color.fromRGBO(Random().nextInt(255),
+                                                   Random().nextInt(255),
+                                                   Random().nextInt(255),
+                                                   1.0);
+            final Color textColor = randColor.computeLuminance() > 0.45
+                                      ? Colors.black : Colors.white;
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>
+                      GroupDetail(
+                          group: group,
+                          bgColor: randColor,
+                          textColor: textColor
+                      )
+                    )
+                  );
           },
-
           child: Container(
             margin: EdgeInsets.fromLTRB(50.0, 16.0, 16.0, 20.0),
             child: Column(
