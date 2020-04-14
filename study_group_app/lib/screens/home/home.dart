@@ -7,6 +7,7 @@ import 'package:study_group_app/screens/groups/group_viewer.dart';
 
 import '../../models/groups.dart';
 
+
 // Stateful home page class.
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
