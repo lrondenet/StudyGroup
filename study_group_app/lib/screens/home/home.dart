@@ -22,7 +22,6 @@ class HomePage extends StatefulWidget {
 
 // Inherits from HomePage above
 class _HomePageState extends State<HomePage> {
-
   @override
   // Main build function, generates the view
   Widget build(BuildContext context) {
@@ -31,14 +30,12 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Theme.of(context).backgroundColor,
       // Top bar, title is set using widget.title which is passed down from main
       appBar: AppBar(
-
-        title: Text(widget.title),
+        title: Text('Home'),
       ),
       // drawer sets the hamburger menu on the side that pops out
       // its' child is a ListView that holds all the elements held in the drawer
       drawer: MainDrawer(),
-      body: GroupView(), 
-      bottomNavigationBar: BottomNavBarView(),
-  );
+      body: GroupView(),
+    );
   }
 }

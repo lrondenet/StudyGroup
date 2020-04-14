@@ -2,95 +2,70 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/bottom_navigation_bar_item.dart';
 import 'package:study_group_app/screens/home/home.dart';
 import 'package:study_group_app/screens/home/group_viewer.dart';
+import 'package:study_group_app/screens/groups/group_detail.dart';
+import 'package:study_group_app/screens/student/courses.dart';
 import 'package:study_group_app/screens/student/select_classes.dart';
+import 'package:study_group_app/routes.dart';
 
-class BottomNavBarView extends StatefulWidget {
-  //BottomNavBarView({Key key}) : super(key: key);
+// Bottom Navigation Bar
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({ Key key, this.destination }) : super(key: key);
+  final Destination destination;
+
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBarView> {
-  int _curIndex = 0;
+class _BottomNavBarState extends State<BottomNavBar> {
+  int _selectedPage = 0;
+  final _pageOptions = [
+    HomePage(),
+    HomePage(),
+    HomePage(),
+    CourseSchedulePage(),
+  ];
 
   @override
-  Widget build(BuildContext context){
-    return Theme (
-      data: Theme.of(context).copyWith(
-        canvasColor: Colors.grey[900],
-        primaryColor: Colors.white,
-        textTheme: Theme.of(context).textTheme
-          .copyWith(title: TextStyle(color: Colors.white)),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pageOptions[_selectedPage],
+      bottomNavigationBar: Theme (
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.grey[900],
+          primaryColor: Colors.grey[300],
+          textTheme: Theme.of(context).textTheme
+            .copyWith(title: TextStyle(color: Colors.white)),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _selectedPage,
+          onTap: (int index) {
+            setState(() {
+              _selectedPage = index;
+            });
+          },
+          items: allDestinations.map((Destination destination) {
+            return BottomNavigationBarItem(
+              icon: Icon(destination.icon),
+              title: Text(destination.title)
+            );
+          }).toList(),
+        ),
       ),
-      child: BottomNavigationBar( 
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 40,
-              color: Colors.white,
-            ),
-            title: Text(
-              'Home',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.portrait,
-              size: 40,
-              color: Colors.white,
-            ),
-            title: Text(
-              'Profile',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              size: 40,
-              color: Colors.white,
-            ),
-            title: Text(
-              'Find',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add,
-              size: 40,
-              color: Colors.white,
-            ),
-            title: Text(
-              'Create',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-        onTap: _routeToPage,
-      )
-    );
-  }
-
-  _routeToPage(int index) {
-    setState(() {
-      _curIndex = index;
-      if(_curIndex == 0) {
-        Navigator.of(context).popUntil((route) => route.isFirst);
-      }
-      else if (_curIndex == 1) {
-        // Insert navigation to profile page
-      }
-      else if (_curIndex == 2) {
-        // Insert navigation to "search for study groups" page
-      }
-      else if (_curIndex == 3) {
-        // Change to navigate to the create study groups page
-        Navigator.of(context).pushNamed("/select-classes");
-      }
-    }
     );
   }
 }
+
+// Class for the bottom navigation bar view
+class Destination {
+  const Destination(this.title, this.icon);
+  final String title;
+  final IconData icon;
+}
+
+// Bottom navigation bar constructors
+const List<Destination> allDestinations = <Destination>[
+  Destination('Home', Icons.home),
+  Destination('Profile', Icons.portrait),
+  Destination('Search', Icons.search),
+  Destination('Create', Icons.add)
+];
