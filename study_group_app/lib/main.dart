@@ -7,8 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/routes.dart';
 import 'package:study_group_app/screens/home/navigation_bar.dart';
-import 'package:study_group_app/screens/home/group_viewer.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -30,7 +28,8 @@ class MyAppState extends State<MyApp> {
         // Importing from theme/style.dart
         theme: appTheme(),
         // Allows navigation to determine what to display
-        home: BottomNavBar(),
+        // home: BottomNavBar(),
+        home: Wrapper(title: "Home"),
         onGenerateRoute: Routes.generateRoute,
         initialRoute: '/',
       ),

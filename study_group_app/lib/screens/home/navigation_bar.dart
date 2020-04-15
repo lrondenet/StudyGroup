@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/bottom_navigation_bar_item.dart';
 import 'package:study_group_app/screens/home/home.dart';
-import 'package:study_group_app/screens/home/group_viewer.dart';
+import 'package:study_group_app/screens/groups/group_viewer.dart';
 import 'package:study_group_app/screens/groups/group_detail.dart';
 import 'package:study_group_app/screens/student/courses.dart';
 import 'package:study_group_app/screens/student/select_classes.dart';
@@ -9,7 +9,7 @@ import 'package:study_group_app/routes.dart';
 
 // Bottom Navigation Bar
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({ Key key, this.destination }) : super(key: key);
+  const BottomNavBar({Key key, this.destination}) : super(key: key);
   final Destination destination;
 
   @override
@@ -19,9 +19,9 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedPage = 0;
   final _pageOptions = [
-    HomePage(),
-    HomePage(),
-    HomePage(),
+    HomePage(title: "Nav1"),
+    HomePage(title: "Nav2"),
+    HomePage(title: "Nav3"),
     CourseSchedulePage(),
   ];
 
@@ -29,12 +29,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pageOptions[_selectedPage],
-      bottomNavigationBar: Theme (
+      bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           canvasColor: Colors.grey[900],
           primaryColor: Colors.grey[300],
-          textTheme: Theme.of(context).textTheme
-            .copyWith(title: TextStyle(color: Colors.white)),
+          textTheme: Theme.of(context)
+              .textTheme
+              .copyWith(title: TextStyle(color: Colors.white)),
         ),
         child: BottomNavigationBar(
           currentIndex: _selectedPage,
@@ -45,9 +46,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           },
           items: allDestinations.map((Destination destination) {
             return BottomNavigationBarItem(
-              icon: Icon(destination.icon),
-              title: Text(destination.title)
-            );
+                icon: Icon(destination.icon), title: Text(destination.title));
           }).toList(),
         ),
       ),
