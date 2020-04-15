@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study_group_app/screens/groups/group_detail.dart';
-import '../../models/groups.dart';
-import 'dart:math';
+import 'package:study_group_app/models/groups.dart';
 
 class GroupDetail extends StatelessWidget {
   final Group group;
