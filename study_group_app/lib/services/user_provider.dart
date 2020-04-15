@@ -10,7 +10,7 @@ class UserProvider {
   final CollectionReference userCollection =
       Firestore.instance.collection('users');
 
-  // Updates (sets if doesn't) exist user Data in users collection
+  // Updates (sets if doesn't exist) user Data in users collection
   Future updateUserFields(
       String email, String userName, String firstName, String lastName) async {
     return await userCollection.document(uid).setData({
@@ -21,24 +21,19 @@ class UserProvider {
     });
   }
 
+  // Updates user name within the 'users' collection
   Future updateUserName(String userName) async {
     return await userCollection
         .document(uid)
         .updateData({'userName': userName});
   }
 
-  UserData _userData(DocumentSnapshot snap) {
-    return UserData(
-      uid: uid,
-      email: snap.data['email'],
-      userName: snap.data['userName'],
-      firstName: snap.data['firstName'],
-      lastName: snap.data['lastName'],
-    );
-  }
-
-  // Provides stream of user data to
+  // Provides stream of user data to the app
   Stream<UserData> get userData {
-    return userCollection.document(uid).snapshots().map(_userData);
+    // return userCollection.document(uid).snapshots().map(_userData);
+    return userCollection
+        .document(uid)
+        .snapshots()
+        .map((snap) => UserData.fromMap(snap.data));
   }
 }
