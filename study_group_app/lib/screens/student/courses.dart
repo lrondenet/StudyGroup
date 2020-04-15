@@ -34,7 +34,7 @@ class CourseViewerState extends StatelessWidget {
             color: Colors.blueAccent,
             child: Text('Edit Courses'),
           )
-        ]
+        ],
       )
     );
   }
