@@ -29,9 +29,9 @@ class MyAppState extends State<MyApp> {
         theme: appTheme(),
         // Allows navigation to determine what to display
         // home: BottomNavBar(),
-        home: Wrapper(title: "Home"),
-        onGenerateRoute: Routes.generateRoute,
-        initialRoute: '/',
+        home: Wrapper(),
+        // onGenerateRoute: Routes.generateRoute,
+        // initialRoute: '/',
       ),
     );
   }

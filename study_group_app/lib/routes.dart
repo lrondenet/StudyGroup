@@ -10,7 +10,7 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => Wrapper(title: "Home"));
+        return MaterialPageRoute(builder: (_) => Wrapper());
       case '/select-classes':
         return MaterialPageRoute(builder: (_) => CourseSchedulePage());
       case '/group-detail':
