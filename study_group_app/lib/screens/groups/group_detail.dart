@@ -72,10 +72,10 @@ class GroupDetail extends StatelessWidget {
           bottom: TabBar(
             tabs: [
               Tab(
-                text: 'About'
+                text: 'Discussion'
               ),
               Tab(
-                text: 'Discussion'
+                text: 'About'
               ),
             ]
           ),
