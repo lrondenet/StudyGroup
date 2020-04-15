@@ -37,14 +37,17 @@ class _HomePageState extends State<HomePage> {
       value: GroupProvider(userUid: user.uid).groupData,
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
-        // Top bar, title is set using widget.title which is passed down from main
         appBar: AppBar(
           title: Text("Home"),
         ),
-        // drawer sets the hamburger menu on the side that pops out
-        // its' child is a ListView that holds all the elements held in the drawer
         drawer: MainDrawer(),
-        body: SafeArea(top: false, child: _pageOptions[_selectedPage]),
+        body: SafeArea(
+          top: false,
+          child: IndexedStack(
+            index: _selectedPage,
+            children: _pageOptions,
+          ),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedPage,
           onTap: (index) {
