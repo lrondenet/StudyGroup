@@ -7,7 +7,8 @@ ThemeData appTheme() {
       // To use hex colors, use Color() and prefix hex with 0xff
       primaryColor: Colors.grey[900],
       brightness: Brightness.light,
-      accentColor: Color(0xFF212121),
+      //accentColor: Color(0xFF212121),
+      accentColor: Colors.black54,
       // secondaryHeaderColor: Color(0xff007c91),
 
       secondaryHeaderColor: Colors.grey[600],
@@ -27,6 +28,7 @@ ThemeData appTheme() {
             fontSize: 12.0),
       ),
       scaffoldBackgroundColor: Colors.white,
+      // Background color of bottom navbar
       canvasColor: Colors.grey[300],
       backgroundColor: Colors.grey[700]);
 }
