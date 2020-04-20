@@ -28,4 +28,13 @@ class Group {
       endTime: data['endTime'] ?? '',
     );
   }
+  toMap() {
+    return {
+      "name": name,
+      "meetDay": meetDay,
+      "startTime": startTime,
+      "endTime": '',
+      "maxMembers": '',
+    };
+  }
 }

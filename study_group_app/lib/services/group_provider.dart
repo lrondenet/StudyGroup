@@ -22,4 +22,14 @@ class GroupProvider {
         .snapshots()
         .map(_grpFromSnapshot);
   }
+
+  Future createGroup(Group newGrp) async {
+    try {
+      dynamic result = _groupCollection.add(newGrp.toMap());
+      return result;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }
