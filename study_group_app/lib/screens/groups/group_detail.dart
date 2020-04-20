@@ -7,8 +7,6 @@ class User {
   User({this.name});
 }
 
-//HomePage({Key key}) : super(key: key);
-
 class Message {
   final User sender;
   final String time;
