@@ -6,7 +6,7 @@ class GroupProvider {
 
   GroupProvider({this.userUid});
   final CollectionReference _groupCollection =
-      Firestore.instance.collection('userGroups');
+      Firestore.instance.collection('groups');
 
   // Maps the snapshots from Firebase to a list of Groups
   List<Group> _grpFromSnapshot(QuerySnapshot snapshot) {

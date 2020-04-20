@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:study_group_app/models/groups.dart';
+import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/group_provider.dart';
 
 class CreateGroup extends StatefulWidget {
@@ -65,14 +67,18 @@ class _CreateGroupFormState extends State<CreateGroup> {
     return false;
   }
 
-  Future<void> saveGroupToDb() async {
+  Future<void> saveGroupToDb(context) async {
     if (validateForm()) {
       // Save group to db
       Group newGroup = Group(
-          name: groupName,
-          meetDay: day,
-          startTime: _timeValue.text,
-          maxMembers: 4);
+        name: groupName,
+        day: day,
+        startTime: _selectedTime.format(context),
+        endTime: '',
+        maxMembers: 4,
+        memberIds: Provider.of<User>(context, listen: false).uid,
+        location: location,
+      );
       dynamic result = _db.createGroup(newGroup);
     }
   }
@@ -125,6 +131,9 @@ class _CreateGroupFormState extends State<CreateGroup> {
                           selectType = selectDays;
                         });
                       },
+                      onSaved: (selectedDay) {
+                        day = selectedDay;
+                      },
                     ),
                     SizedBox(height: 20),
                     TextFormField(
@@ -140,6 +149,9 @@ class _CreateGroupFormState extends State<CreateGroup> {
                     ),
                     SizedBox(height: 20),
                     TextFormField(
+                      onSaved: (selectedLoc) {
+                        location = selectedLoc;
+                      },
                       decoration: InputDecoration(
                           icon: FaIcon(FontAwesomeIcons.mapMarkedAlt),
                           labelText: 'Location'),
@@ -148,7 +160,9 @@ class _CreateGroupFormState extends State<CreateGroup> {
                       padding: EdgeInsets.symmetric(vertical: 17),
                       //width: double.infinity,
                       child: RaisedButton(
-                        onPressed: saveGroupToDb,
+                        onPressed: () {
+                          saveGroupToDb(context);
+                        },
                         //color: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),

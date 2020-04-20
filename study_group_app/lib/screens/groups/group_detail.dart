@@ -42,7 +42,7 @@ class GroupDetail extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 cardText('Day of session:'.toUpperCase(), textColor),
-                cardText('${group.meetDay}\n', textColor),
+                cardText('${group.day}\n', textColor),
                 cardText('Time of session:'.toUpperCase(), textColor),
                 cardText('${group.startTime} - ${group.endTime}\n', textColor),
                 cardText('Course ID:'.toUpperCase(), textColor),
