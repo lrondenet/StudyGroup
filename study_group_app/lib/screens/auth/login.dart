@@ -42,12 +42,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    setState(() {});
-  }
-
   // Main build function, generates the view
   @override
   Widget build(BuildContext context) {

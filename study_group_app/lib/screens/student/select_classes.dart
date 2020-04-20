@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter/semantics.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:study_group_app/screens/student/calendar.dart';
 import 'package:study_group_app/screens/student/courses.dart';
+import 'package:study_group_app/screens/home/drawer.dart';
+
 
 // Stateful course schedule page class.
 class CourseSchedulePage extends StatefulWidget {
@@ -34,9 +33,7 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add your Class Schedule'),
-      ),
+      drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
@@ -92,46 +89,3 @@ class _MyCourseFormState extends State<CourseSchedulePage> {
     );
   }
 }
-
-/*
-// Inherits from CourseSchedulePage above
-class _MyCourseFormState extends State<CourseSchedulePage> {
-
-  // Form controllers
-  TextEditingController courseNameController = TextEditingController();
-  TextEditingController courseDayController = TextEditingController();
-  TextEditingController courseTimeController = TextEditingController();
-
-  // Form data
-  DateTime _dateTime;
-
-  void dispose() {
-  courseNameController.dispose();
-  courseDayController.dispose();
-  courseTimeController.dispose();
-  super.dispose();
-  }
-
-
-  // Displays the schedule
-  void displaySchedule(BuildContext context){
-    Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MyCoursePageState()
-            )
-    );
-  }
-
-  // Save data from the schedule form to the database
-  void saveSchedule() {
-    Firestore.instance
-        .collection('course_schedule')
-        .document('PZ9SBOsMrl2AtHbsrHvR')
-        .updateData({
-          'course_name':courseNameController.text,
-          'course_datetime': _dateTime,
-        });
-  }
-}
-*/

@@ -5,8 +5,7 @@ import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/screens/auth/auth_view.dart';
 
 class Wrapper extends StatelessWidget {
-  Wrapper({Key key, this.title}) : super(key: key);
-  final title;
+  Wrapper({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +13,6 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<User>(context);
 
     // Depending on if a user is logged in or out, a different screen will be shown
-    return user == null ? AuthView() : HomePage(title: title);
+    return user == null ? AuthView() : HomePage();
   }
 }

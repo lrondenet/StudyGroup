@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_group_app/screens/home/home.dart';
 import 'package:study_group_app/services/auth.dart';
 import 'package:study_group_app/utilities/style.dart';
 import 'package:study_group_app/screens/wrapper.dart';
@@ -8,7 +9,14 @@ import 'package:study_group_app/routes.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -18,11 +26,11 @@ class MyApp extends StatelessWidget {
         title: 'Study Buddy',
         // Importing from theme/style.dart
         theme: appTheme(),
-        // Sets the home page by calling HomePage and passing in title set above
-        //home: CourseSchedulePage(title: 'My Course Schedule'),
-        home: Wrapper(title: 'Study Buddy'),
-        onGenerateRoute: Routes.generateRoute,
-        initialRoute: '/',
+        // Allows navigation to determine what to display
+        // home: BottomNavBar(),
+        home: Wrapper(),
+        // onGenerateRoute: Routes.generateRoute,
+        // initialRoute: '/',
       ),
     );
   }
