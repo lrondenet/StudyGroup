@@ -39,14 +39,14 @@ class GroupCard extends StatelessWidget {
             final Color textColor = randColor.computeLuminance() > 0.45
                                       ? Colors.black : Colors.white;
             Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>
-                      GroupDetail(
-                          group: group,
-                          bgColor: randColor,
-                          textColor: textColor
-                      )
-                    )
-                  );
+              MaterialPageRoute(builder: (context) =>
+                GroupDetail(
+                    group: group,
+                    bgColor: randColor,
+                    textColor: textColor
+                )
+              )
+            );
           },
           child: Container(
             margin: EdgeInsets.fromLTRB(50.0, 16.0, 16.0, 20.0),
