@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroupFormState extends State<CreateGroup> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final timeFormat = DateFormat("h:mm a");
   final _db = GroupProvider();
   TimeOfDay _selectedTime;
@@ -76,16 +78,65 @@ class _CreateGroupFormState extends State<CreateGroup> {
         startTime: _selectedTime.format(context),
         endTime: '',
         maxMembers: 4,
-        memberIds: Provider.of<User>(context, listen: false).uid,
         location: location,
       );
+      // Get current user Uid to pass into GroupProvider to create group
+      User curUser = Provider.of<User>(context, listen: false);
+      _db.userUid = curUser.uid;
       dynamic result = _db.createGroup(newGroup);
+      if (result != null) {
+        _successScaffold(context, "Group created successfully!");
+      } else {
+        print("error");
+      }
     }
   }
+
+  void _successScaffold(BuildContext context, _message) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 3),
+        content: Row(
+          children: <Widget>[
+            Text(_message),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // void _loading(context) {
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         shape:
+  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+  //         backgroundColor: Colors.grey[500],
+  //         title: Text('Creating group'),
+  //         content: Container(
+  //           height: 50.0,
+  //           width: 20.0,
+  //           child: Center(
+  //             child: SpinKitThreeBounce(
+  //               color: Colors.black,
+  //               size: 30.0,
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  //   Future.delayed(Duration(seconds: 2), () {
+  //     Navigator.pop(context);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Color(0xFF80CBC4),
       body: Stack(
         children: <Widget>[

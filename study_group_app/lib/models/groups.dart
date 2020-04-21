@@ -31,15 +31,4 @@ class Group {
       location: data['location'] ?? '',
     );
   }
-  toMap() {
-    return {
-      "name": name,
-      "memberIds": memberIds,
-      "maxMembers": maxMembers,
-      "day": day,
-      "startTime": startTime,
-      "endTime": endTime,
-      "location": location,
-    };
-  }
 }
