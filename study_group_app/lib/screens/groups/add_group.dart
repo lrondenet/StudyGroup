@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/models/groups.dart';
@@ -9,33 +9,36 @@ import 'package:study_group_app/services/group_provider.dart';
 
 class CreateGroup extends StatefulWidget {
   CreateGroup({Key key, this.title}) : super(key: key);
-  final String title; // final keyword b/c title is in sub widget
+  final String title;
 
   @override
-  // Creates the stateful widget HomePage
   _CreateGroupFormState createState() => _CreateGroupFormState();
 }
 
 class _CreateGroupFormState extends State<CreateGroup> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final timeFormat = DateFormat("h:mm a");
   final _db = GroupProvider();
-  TimeOfDay _selectedTime;
+  TimeOfDay _startTime;
+  TimeOfDay _endTime;
   String groupName;
   String day;
+  int maxMembers;
   String location;
-  TextEditingController _timeValue;
+  TextEditingController _startTimeCntrl;
+  TextEditingController _endTimeCntrl;
 
   @override
   void initState() {
-    _timeValue = TextEditingController();
+    _startTimeCntrl = TextEditingController();
+    _endTimeCntrl = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _timeValue.dispose();
+    _startTimeCntrl.dispose();
+    _endTimeCntrl.dispose();
     super.dispose();
   }
 
@@ -45,19 +48,18 @@ class _CreateGroupFormState extends State<CreateGroup> {
     'Monday',
     'Tuesday',
     'Wednesday',
-    'Thrusday',
+    'Thursday',
     'Friday',
     'Saturday'
   ];
-  Future<void> selectTime(context) async {
-    final TimeOfDay _time =
+
+  Future<TimeOfDay> selectTime(context) async {
+    final TimeOfDay _timePicked =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
-    if (_time != null) {
-      setState(() {
-        _selectedTime = _time;
-        _timeValue.text = _time.format(context);
-      });
+    if (_timePicked != null) {
+      return _timePicked;
     }
+    return null;
   }
 
   bool validateForm() {
@@ -75,9 +77,9 @@ class _CreateGroupFormState extends State<CreateGroup> {
       Group newGroup = Group(
         name: groupName,
         day: day,
-        startTime: _selectedTime.format(context),
-        endTime: '',
-        maxMembers: 4,
+        startTime: _convertTime(_startTime),
+        endTime: _convertTime(_endTime),
+        maxMembers: maxMembers,
         location: location,
       );
       // Get current user Uid to pass into GroupProvider to create group
@@ -92,6 +94,10 @@ class _CreateGroupFormState extends State<CreateGroup> {
     }
   }
 
+  String _convertTime(TimeOfDay time) {
+    return (time.hour.toString() + ":" + time.minute.toString());
+  }
+
   void _successScaffold(BuildContext context, _message) {
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
@@ -104,34 +110,6 @@ class _CreateGroupFormState extends State<CreateGroup> {
       ),
     );
   }
-
-  // void _loading(context) {
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         shape:
-  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-  //         backgroundColor: Colors.grey[500],
-  //         title: Text('Creating group'),
-  //         content: Container(
-  //           height: 50.0,
-  //           width: 20.0,
-  //           child: Center(
-  //             child: SpinKitThreeBounce(
-  //               color: Colors.black,
-  //               size: 30.0,
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  //   Future.delayed(Duration(seconds: 2), () {
-  //     Navigator.pop(context);
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -153,21 +131,28 @@ class _CreateGroupFormState extends State<CreateGroup> {
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                         )),
-                    SizedBox(height: 40),
+                    SizedBox(height: 25),
+
+                    // Name field
                     TextFormField(
                       onSaved: (value) {
                         groupName = value;
                       },
                       validator: (value) =>
-                          value == null ? "Please enter a group name" : null,
+                          value.isEmpty ? "Please enter a group name" : null,
                       decoration: InputDecoration(
                         icon: FaIcon(FontAwesomeIcons.users),
                         labelText: "Group Name",
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 15),
+
+                    // Day field
                     DropdownButtonFormField(
+                      isDense: true,
                       value: selectType,
+                      validator: (val) =>
+                          val.isEmpty ? "Please select a day" : null,
                       decoration: InputDecoration(
                           icon: FaIcon(FontAwesomeIcons.calendarAlt),
                           labelText: 'Day'),
@@ -186,19 +171,39 @@ class _CreateGroupFormState extends State<CreateGroup> {
                         day = selectedDay;
                       },
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 15),
+
+                    // Start time
                     TextFormField(
                       readOnly: true,
-                      controller: _timeValue,
+                      controller: _startTimeCntrl,
                       onTap: () async {
-                        await selectTime(context);
+                        _startTime = await selectTime(context);
+                        _startTimeCntrl.text = _startTime?.format(context);
                       },
                       decoration: InputDecoration(
                         icon: FaIcon(FontAwesomeIcons.clock),
-                        labelText: 'Time',
+                        labelText: 'Start Time',
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 15),
+
+                    // End time
+                    TextFormField(
+                      readOnly: true,
+                      controller: _endTimeCntrl,
+                      onTap: () async {
+                        _endTime = await selectTime(context);
+                        _endTimeCntrl.text = _endTime?.format(context);
+                      },
+                      decoration: InputDecoration(
+                        icon: FaIcon(FontAwesomeIcons.solidClock),
+                        labelText: 'End Time',
+                      ),
+                    ),
+                    SizedBox(height: 15),
+
+                    // Location
                     TextFormField(
                       onSaved: (selectedLoc) {
                         location = selectedLoc;
@@ -207,6 +212,20 @@ class _CreateGroupFormState extends State<CreateGroup> {
                           icon: FaIcon(FontAwesomeIcons.mapMarkedAlt),
                           labelText: 'Location'),
                     ),
+                    SizedBox(height: 15),
+
+                    // Max members
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      onSaved: (val) {
+                        maxMembers = int.parse(val);
+                      },
+                      decoration: InputDecoration(
+                          icon: FaIcon(FontAwesomeIcons.users),
+                          labelText: 'Max Group Members'),
+                    ),
+
+                    // Submit button
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 17),
                       //width: double.infinity,
