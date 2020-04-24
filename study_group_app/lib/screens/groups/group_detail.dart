@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/groups.dart';
+import 'package:study_group_app/models/groups.dart';
 
 class User {
   final String name;
@@ -86,7 +86,7 @@ class _GroupDetailState extends State<GroupDetail> {
           child: Column(
             children: <Widget>[
               cardText('Day of session:'.toUpperCase(), widget.textColor),
-              cardText('${widget.group.meetDay}\n', widget.textColor),
+              cardText('${widget.group.day}\n', widget.textColor),
               cardText('Time of session:'.toUpperCase(), widget.textColor),
               cardText('${widget.group.startTime} - ${widget.group.endTime}\n', widget.textColor),
               cardText('Course ID:'.toUpperCase(), widget.textColor),
