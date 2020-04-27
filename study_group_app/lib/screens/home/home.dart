@@ -52,11 +52,13 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
-            canvasColor: Colors.grey[900],
-            primaryColor: Colors.grey[300],
+            canvasColor: Color(0xFF437c90),
+            //canvasColor: Colors.grey[900],
+            //primaryColor: Colors.grey[300],
             textTheme: Theme.of(context)
                 .textTheme
-                .copyWith(title: TextStyle(color: Colors.white)),
+                .copyWith(title: TextStyle(
+                color: Colors.white)),
           ),
           child: BottomNavigationBar(
             currentIndex: _selectedPage,
@@ -92,6 +94,6 @@ class Destination {
 const List<Destination> allDestinations = <Destination>[
   Destination('Home', Icons.home),
   // Destination('Profile', Icons.portrait),
-  // Destination('Search', Icons.search),
-  Destination('Create', Icons.add)
+  Destination('Create', Icons.add),
+  Destination('Search', Icons.search),
 ];

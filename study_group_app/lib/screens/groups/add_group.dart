@@ -25,7 +25,7 @@ class _CreateGroupFormState extends State<CreateGroup> {
     'Monday',
     'Tuesday',
     'Wednesday',
-    'Thrusday',
+    'Thursday',
     'Friday',
     'Saturday'
   ];
@@ -33,7 +33,7 @@ class _CreateGroupFormState extends State<CreateGroup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF80CBC4),
+        backgroundColor: Color(0xFFbdd4e7),
         body: Stack(children: <Widget>[
           Container(
               padding: EdgeInsets.symmetric(horizontal: 40, vertical: 50),
