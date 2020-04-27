@@ -1,7 +1,7 @@
 //import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:study_group_app/screens/student/courses.dart';
+// import 'package:study_group_app/screens/student/courses.dart';
 import 'package:study_group_app/services/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:study_group_app/models/user.dart';
