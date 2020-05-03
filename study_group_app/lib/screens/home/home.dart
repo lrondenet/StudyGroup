@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_group_app/screens/groups/add_group.dart';
-import 'drawer.dart';
-import 'package:study_group_app/models/user.dart';
-// import 'package:study_group_app/screens/student/select_classes.dart';
+import 'package:study_group_app/screens/groups/groups.dart';
+import 'package:study_group_app/models/models.dart';
 import 'package:study_group_app/services/group_provider.dart';
-import 'package:study_group_app/screens/groups/group_viewer.dart';
-import 'package:study_group_app/models/groups.dart';
+import 'drawer.dart';
 
 // Stateful home page class.
 class HomePage extends StatefulWidget {
@@ -23,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedPage = 0;
   final _pageOptions = [
     GroupView(),
+    FindGroup(),
     CreateGroup(),
   ];
 
@@ -92,6 +90,6 @@ class Destination {
 const List<Destination> allDestinations = <Destination>[
   Destination('Home', Icons.home),
   // Destination('Profile', Icons.portrait),
-  // Destination('Search', Icons.search),
+  Destination('Search', Icons.search),
   Destination('Create', Icons.add)
 ];
