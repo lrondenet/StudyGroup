@@ -70,6 +70,7 @@ class FindGroup extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: SearchBar<Group>(
+            key: Key('SearchBar'),
             hintText: "Search for a group...",
             onSearch: _search,
             onItemFound: (Group grp, int index) {

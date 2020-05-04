@@ -24,6 +24,18 @@ void main() {
     var testWidget = FindGroup();
     await tester.pumpWidget(makeTestableWidget(child: testWidget));
 
+    // Test intial build of Widget tree in FindGroup()
     expect(find.byWidget(testWidget), findsOneWidget);
+    expect(find.byType(Scaffold), findsOneWidget);
+    expect(find.byType(SafeArea), findsOneWidget);
+    expect(find.byKey(Key('SearchBar')), findsOneWidget);
+    expect(find.byType(Text), findsNWidgets(2));
+  });
+
+  testWidgets('Test hintText for SearchBar', (WidgetTester tester) async {
+    var testWidget = FindGroup();
+    await tester.pumpWidget(makeTestableWidget(child: testWidget));
+
+    expect(find.text('Search for a group...'), findsOneWidget);
   });
 }
