@@ -43,6 +43,13 @@ class GroupProvider {
     }
   }
 
+  Future<List<Group>> findGroup(String name) async {
+    var snapshots = await _groupCollection
+        .where('name', isGreaterThanOrEqualTo: name)
+        .getDocuments();
+    return snapshots.documents.map((snap) => Group.fromMap(snap.data)).toList();
+  }
+
   Future updateGroupMember(String uid, String memberId) async {
     try {
       await _groupCollection.document(uid).setData({
