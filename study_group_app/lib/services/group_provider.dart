@@ -11,7 +11,7 @@ class GroupProvider {
   // Maps the snapshots from Firebase to a list of Groups
   List<Group> _grpFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
-      return Group.fromMap(doc.data);
+      return Group.fromFirestore(doc);
     }).toList();
   }
 

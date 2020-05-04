@@ -16,7 +16,6 @@ class GroupMessage extends StatelessWidget {
       groupId: groupId,
     );
     var result = MessageService().saveToFirebase(newMessage);
-
   }
 
   @override
@@ -31,7 +30,7 @@ class GroupMessage extends StatelessWidget {
               reverse: true,
               padding: EdgeInsets.only(top: 15.0),
               physics: BouncingScrollPhysics(),
-              itemCount: messages.length,
+              itemCount: messages != null ? messages.length : 0,
               itemBuilder: (BuildContext context, int index) {
                 final bool isMe = messages[index].userEmail == user.email;
                 final Color bgColor = isMe ? Colors.blue : Colors.grey[600];

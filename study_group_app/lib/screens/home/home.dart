@@ -39,8 +39,7 @@ class _HomePageState extends State<HomePage> {
     var user = Provider.of<FirebaseUser>(context);
     print('Current User ID: ${user.uid}');
     return StreamProvider<List<Group>>.value(
-            value: GroupProvider(userUid: user.uid).groupData
-
+      value: GroupProvider(userUid: user.uid).groupData,
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(

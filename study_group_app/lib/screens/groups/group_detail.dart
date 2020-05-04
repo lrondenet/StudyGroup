@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:study_group_app/models/message.dart';
+import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/screens/groups/group_message.dart';
+import 'package:study_group_app/services/user_service.dart';
 
 import '../../models/groups.dart';
 import '../../services/message_service.dart';
@@ -74,8 +76,12 @@ class _GroupDetailState extends State<GroupDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<Message>>.value(
-      value: MessageService(groupId: 'DFgHREh5CMoiig0JYCNF').groupMessages,
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Message>>.value(
+            value: MessageService(groupId: widget.group.id).groupMessages),
+        StreamProvider<User>.value(value: UserService().userData)
+      ],
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: DefaultTabController(
@@ -91,7 +97,7 @@ class _GroupDetailState extends State<GroupDetail> {
             ),
             body: TabBarView(children: [
               aboutPage(),
-              GroupMessage(groupId: 'DFgHREh5CMoiig0JYCNF')
+              GroupMessage(groupId: widget.group.id)
             ]),
           ),
         ),
@@ -99,7 +105,6 @@ class _GroupDetailState extends State<GroupDetail> {
     );
   }
 }
-
 
 cardText(String str, Color textColor) => Row(
       children: <Widget>[
