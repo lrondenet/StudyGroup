@@ -7,6 +7,8 @@ import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/group_provider.dart';
 
 class FindGroup extends StatelessWidget {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   Future<List<Group>> _search(String search) async {
     await Future.delayed(Duration(seconds: 2));
     var result = await GroupProvider().findGroup(search);
@@ -19,12 +21,26 @@ class FindGroup extends StatelessWidget {
     return filteredGroups;
   }
 
-  void _joinGroup(String userId, Group group) {
+  void _joinGroup(context, String userId, Group group) {
     var result = GroupProvider().updateGroupMember(group.id, userId);
     if (result == null) {
-      print("Error, couldn't update group");
-      return null;
+      _scaffoldMsg(context, "ERROR: Couldn't join group");
+    } else {
+      _scaffoldMsg(context, "Successfully joined group ${group.name}");
     }
+  }
+
+  void _scaffoldMsg(BuildContext context, _message) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 3),
+        content: Row(
+          children: <Widget>[
+            Text(_message),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _findGroupResult(context, Group group) {
@@ -47,7 +63,7 @@ class FindGroup extends StatelessWidget {
                 FlatButton(
                   child: Text("Join Group"),
                   onPressed: () async {
-                    await _joinGroup(user.uid, group);
+                    await _joinGroup(context, user.uid, group);
                   },
                 ),
                 FlatButton(
@@ -65,6 +81,7 @@ class FindGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Padding(
@@ -78,7 +95,7 @@ class FindGroup extends StatelessWidget {
             },
             emptyWidget: Text("No groups found with that name"),
             searchBarStyle: SearchBarStyle(
-              backgroundColor: Colors.white10,
+              backgroundColor: Colors.white70,
               borderRadius: BorderRadius.circular(12.0),
               // padding: EdgeInsets.all(5),
             ),
