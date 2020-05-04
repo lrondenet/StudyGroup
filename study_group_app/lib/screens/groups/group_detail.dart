@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/models/models.dart';
+import 'about_group.dart';
 
 class UserTemp {
   final String name;
@@ -50,57 +51,6 @@ class _GroupDetailState extends State<GroupDetail> {
         text: 'So how was the test?',
         time: '8:50PM'),
   ];
-
-  aboutPage() => Container(
-      constraints: BoxConstraints.expand(),
-      color: widget.bgColor,
-      child: ListView(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 32.0),
-        children: <Widget>[
-          Stack(children: <Widget>[
-            Container(
-              child: Image.network(
-                'https://www.healthcareisrael.com/images/services/students-ema-care.jpg',
-                fit: BoxFit.cover,
-                height: 200.0,
-              ),
-              constraints: BoxConstraints.expand(height: 200.0),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 110.0),
-              height: 110.0,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Colors.transparent,
-                    widget.bgColor,
-                  ],
-                  stops: [0.0, 0.9],
-                  begin: FractionalOffset(0.0, 0.0),
-                  end: FractionalOffset(0.0, 1.0),
-                ),
-              ),
-            ),
-          ]),
-          Container(
-            child: Column(
-              children: <Widget>[
-                cardText('Day of session:'.toUpperCase(), widget.textColor),
-                cardText('${widget.group.day}\n', widget.textColor),
-                cardText('Time of session:'.toUpperCase(), widget.textColor),
-                cardText(
-                    '${widget.group.startTime} - ${widget.group.endTime}\n',
-                    widget.textColor),
-                cardText('Course ID:'.toUpperCase(), widget.textColor),
-                cardText('${widget.group.id}\n', widget.textColor),
-                cardText('Max Members:'.toUpperCase(), widget.textColor),
-                cardText('${widget.group.maxMembers}\n', widget.textColor),
-              ],
-            ),
-          ),
-        ],
-      ));
 
   discussionTab() => Column(
         children: <Widget>[
@@ -171,26 +121,13 @@ class _GroupDetailState extends State<GroupDetail> {
               Tab(text: 'Discussion'),
             ]),
           ),
-          body: TabBarView(children: [aboutPage(), discussionTab()]),
+          body: TabBarView(
+              children: [AboutGroup(group: widget.group), discussionTab()]),
         ),
       ),
     );
   }
 }
-
-cardText(String str, Color textColor) => Row(
-      children: <Widget>[
-        Expanded(
-          child: Align(
-            child: Text(str,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: textColor,
-                )),
-          ),
-        )
-      ],
-    );
 
 buildMessage(Message msg, bool isMe, Color bgColor, Color textColor) =>
     Container(

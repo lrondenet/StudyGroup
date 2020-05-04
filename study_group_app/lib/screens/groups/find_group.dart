@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/models/groups.dart';
 import 'package:study_group_app/models/user.dart';
+import 'package:study_group_app/screens/groups/about_group.dart';
 import 'package:study_group_app/services/group_provider.dart';
 
 class FindGroup extends StatelessWidget {
@@ -68,10 +69,17 @@ class FindGroup extends StatelessWidget {
                 ),
                 FlatButton(
                   child: Text("More Information"),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AboutGroup(group: group),
+                      ),
+                    );
+                  },
                 )
               ],
-            )
+            ),
           ],
         ),
       ),
