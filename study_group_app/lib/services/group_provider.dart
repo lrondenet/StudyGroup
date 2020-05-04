@@ -23,6 +23,7 @@ class GroupProvider {
         .map(_grpFromSnapshot);
   }
 
+  /// Create new group in Firebase
   Future createGroup(Group newGrp) async {
     try {
       // Adds a new document to the groups collection
@@ -43,17 +44,21 @@ class GroupProvider {
     }
   }
 
+  /// Searches for a group by name
   Future<List<Group>> findGroup(String name) async {
     var snapshots = await _groupCollection
         .where('name', isGreaterThanOrEqualTo: name)
         .getDocuments();
-    return snapshots.documents.map((snap) => Group.fromMap(snap.data)).toList();
+    return snapshots.documents
+        .map((snap) => Group.fromFirestore(snap))
+        .toList();
   }
 
-  Future updateGroupMember(String uid, String memberId) async {
+  /// Updates a group with the specified member
+  Future updateGroupMember(String groupId, String memberId) async {
     try {
-      await _groupCollection.document(uid).setData({
-        'MemberIds': FieldValue.arrayUnion([memberId])
+      await _groupCollection.document(groupId).setData({
+        'memberIds': FieldValue.arrayUnion([memberId])
       }, merge: true);
     } catch (e) {
       print(e);
