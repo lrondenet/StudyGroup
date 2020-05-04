@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 // import 'package:study_group_app/screens/student/courses.dart';
 import 'package:study_group_app/services/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:study_group_app/models/user.dart';
+//import 'package:study_group_app/models/user.dart';
 
 final Auth _auth = Auth();
 bool drawer = false;
 
 // Separate the drawer into this class so it can be called from anywhere
 class MainDrawer extends StatelessWidget {
-  // final UserData username;
-  // MainDrawer({this.username});
+  //final UserData userData;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class MainDrawer extends StatelessWidget {
           // Finally at setting first item, This is the big colored chunk
           // with the header text in it in the upper half of drawer
           DrawerHeader(
-            decoration: BoxDecoration(color: Color(0xFF285943)),
+            decoration: BoxDecoration(color: Color(0xFF77af9c)),
             child: Padding(
               padding: EdgeInsets.all(6),
               child: Column (
@@ -41,7 +40,8 @@ class MainDrawer extends StatelessWidget {
                       backgroundColor: Colors.white,
                       child: FaIcon(
                         FontAwesomeIcons.solidUser,
-                        size: 48, color: Color(0xFF77af9c),
+                        //Color(0xFFc2e59c)
+                        size: 48, color: Color(0xFFc2e59c),
                       )
                     )
                   ),
@@ -54,8 +54,8 @@ class MainDrawer extends StatelessWidget {
                     )
                   ),
                   Text(
-                    //username.firstName,
-                    'First  LastName',
+                    'First Lastname',
+                    //' ${userData.userName}',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
@@ -132,6 +132,7 @@ class MainDrawer extends StatelessWidget {
       )
     );
   }
+  //MainDrawer({this.userData});
 }
 
 
