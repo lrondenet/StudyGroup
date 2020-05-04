@@ -8,52 +8,83 @@ class GroupDetail extends StatelessWidget {
 
   Container aboutPage() => Container(
       constraints: BoxConstraints.expand(),
-      color: bgColor,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      //color: bgColor,
       child: ListView(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 32.0),
         children: <Widget>[
-          Stack(children: <Widget>[
-            Container(
-              child: Image.network(
-                'https://www.healthcareisrael.com/images/services/students-ema-care.jpg',
-                fit: BoxFit.cover,
-                height: 200.0,
-              ),
-              constraints: BoxConstraints.expand(height: 200.0),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 110.0),
-              height: 110.0,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Colors.transparent,
-                    bgColor,
-                  ],
-                  stops: [0.0, 0.9],
-                  begin: FractionalOffset(0.0, 0.0),
-                  end: FractionalOffset(0.0, 1.0),
-                ),
-              ),
-            ),
-          ]),
           Container(
-            child: Column(
-              children: <Widget>[
-                cardText('Day of session:'.toUpperCase(), textColor),
-                cardText('${group.day}\n', textColor),
-                cardText('Time of session:'.toUpperCase(), textColor),
-                cardText('${group.startTime} - ${group.endTime}\n', textColor),
-                cardText('Course ID:'.toUpperCase(), textColor),
-                cardText('${group.id}\n', textColor),
-                cardText('Max Members:'.toUpperCase(), textColor),
-                cardText('${group.maxMembers}\n', textColor),
-              ],
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14.0),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(14.0),
+              child: Image.asset('images/pic.png'),
             ),
           ),
+          SizedBox(height: 20),
+          Container(
+            padding:EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14.0),
+              color: Colors.white,
+            ),
+            child: Container (
+              child: Column(
+                children: <Widget> [
+                  
+                  Text(
+                    'DAY OF SESSION:  ${group.day}\n',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    'TIME OF SESSION: ${group.startTime} - ${group.endTime}\n',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    'COURSE ID: ${group.id}\n',
+                     style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    'MAX MEMBERS: ${group.maxMembers}\n',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  )
+                ]
+              ),
+            ),
+          )
+          // Container(
+          //   child: Column(
+          //     children: <Widget>[
+          //       cardText('Day of session:'.toUpperCase(), textColor), 
+          //       cardText('${group.day}\n', textColor),
+          //       cardText('Time of session:'.toUpperCase(), textColor),
+          //       cardText('${group.startTime} - ${group.endTime}\n', textColor),
+          //       cardText('Course ID:'.toUpperCase(), textColor),
+          //       cardText('${group.id}\n', textColor),
+          //       cardText('Max Members:'.toUpperCase(), textColor),
+          //       cardText('${group.maxMembers}\n', textColor),
+          //     ],
+          //   ),
+          // ),
         ],
-      ));
+      )
+    );
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +100,7 @@ class GroupDetail extends StatelessWidget {
           ]),
         ),
         body: TabBarView(children: [aboutPage(), aboutPage()]),
+        backgroundColor: Color(0xFF98c1d9),
       ),
     );
   }
@@ -83,7 +115,7 @@ Row cardText(String str, Color textColor) => Row(
             child: Text(str,
                 style: TextStyle(
                   fontSize: 20,
-                  color: textColor,
+                  //color: textColor,
                 )),
           ),
         )
