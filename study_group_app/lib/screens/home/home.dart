@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/screens/groups/add_group.dart';
+import 'package:study_group_app/services/user_service.dart';
 import 'drawer.dart';
 import 'package:study_group_app/models/user.dart';
 // import 'package:study_group_app/screens/student/select_classes.dart';
@@ -34,9 +36,13 @@ class _HomePageState extends State<HomePage> {
   // Main build function, generates the view
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
-    return StreamProvider<List<Group>>.value(
-      value: GroupProvider(userUid: user.uid).groupData,
+    var user = Provider.of<FirebaseUser>(context);
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Group>>.value(
+            value: GroupProvider(userUid: user.uid).groupData),
+        StreamProvider<User>.value(value: UserService().userData),
+      ],
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
