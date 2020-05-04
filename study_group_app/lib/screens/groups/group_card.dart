@@ -51,7 +51,6 @@ class GroupCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(height: 5.0),
-
                 // Following Widgets are contents of each user's group.
                 // TODO Style and design
                 Text(group.name),
