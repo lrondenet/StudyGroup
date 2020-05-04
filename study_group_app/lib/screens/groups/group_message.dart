@@ -2,12 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/models/message.dart';
 import 'package:provider/provider.dart';
+import 'package:study_group_app/services/message_service.dart';
 
 class GroupMessage extends StatelessWidget {
   final String groupId;
   GroupMessage({Key key, this.groupId}) : super(key: key);
 
-  void _saveMessageToFirebase(String message) {}
+  void _saveMessageToFirebase(String message, User user) {
+    var newMessage = Message(
+      userEmail: user.email,
+      time: DateTime.now().toString(),
+      messageText: message,
+      groupId: groupId,
+    );
+    var result = MessageService().saveToFirebase(newMessage);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     var messages = Provider.of<List<Message>>(context);
@@ -22,7 +33,7 @@ class GroupMessage extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               itemCount: messages.length,
               itemBuilder: (BuildContext context, int index) {
-                final bool isMe = messages[index].userId == user.uid;
+                final bool isMe = messages[index].userEmail == user.email;
                 final Color bgColor = isMe ? Colors.blue : Colors.grey[600];
                 return _buildMessage(
                     messages[index], isMe, bgColor, Colors.black);
@@ -46,7 +57,9 @@ class GroupMessage extends StatelessWidget {
               Expanded(
                 child: TextField(
                   textCapitalization: TextCapitalization.sentences,
-                  onSubmitted: (message) {},
+                  onSubmitted: (message) {
+                    _saveMessageToFirebase(message, user);
+                  },
                   style: TextStyle(fontSize: 15.0),
                   decoration: InputDecoration(
                     hintStyle: TextStyle(fontSize: 15.0),
@@ -92,7 +105,7 @@ class GroupMessage extends StatelessWidget {
                 color: textColor,
               )),
           SizedBox(height: 4.0),
-          Text(msg.text,
+          Text(msg.messageText,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,

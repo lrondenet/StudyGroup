@@ -37,12 +37,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
-    return MultiProvider(
-      providers: [
-        StreamProvider<List<Group>>.value(
-            value: GroupProvider(userUid: user.uid).groupData),
-        StreamProvider<User>.value(value: UserService().userData),
-      ],
+    print('Current User ID: ${user.uid}');
+    return StreamProvider<List<Group>>.value(
+            value: GroupProvider(userUid: user.uid).groupData
+
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(

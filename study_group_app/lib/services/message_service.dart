@@ -22,4 +22,19 @@ class MessageService {
         .snapshots()
         .map(_msgFromSnapshot);
   }
+
+  Future saveToFirebase(Message message) async {
+    try {
+      var result = await _msgCollection.add({
+        'userEmail': message.userEmail,
+        'time': message.time,
+        'messageText': message.messageText,
+        'groupId': message.groupId,
+      });
+      return result;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

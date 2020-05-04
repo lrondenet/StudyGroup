@@ -100,6 +100,7 @@ class _GroupDetailState extends State<GroupDetail> {
   }
 }
 
+
 cardText(String str, Color textColor) => Row(
       children: <Widget>[
         Expanded(
