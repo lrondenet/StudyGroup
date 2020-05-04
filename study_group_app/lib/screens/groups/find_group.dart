@@ -64,20 +64,23 @@ class FindGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: SearchBar<Group>(
-          hintText: "Search for a group...",
-          onSearch: _search,
-          onItemFound: (Group grp, int index) {
-            return _findGroupResult(context, grp);
-          },
-          emptyWidget: Text("No groups found with that name"),
-          searchBarStyle: SearchBarStyle(
-            backgroundColor: Colors.white10,
-            borderRadius: BorderRadius.circular(12.0),
-            // padding: EdgeInsets.all(5),
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: SearchBar<Group>(
+            hintText: "Search for a group...",
+            onSearch: _search,
+            onItemFound: (Group grp, int index) {
+              return _findGroupResult(context, grp);
+            },
+            emptyWidget: Text("No groups found with that name"),
+            searchBarStyle: SearchBarStyle(
+              backgroundColor: Colors.white10,
+              borderRadius: BorderRadius.circular(12.0),
+              // padding: EdgeInsets.all(5),
+            ),
           ),
         ),
       ),
