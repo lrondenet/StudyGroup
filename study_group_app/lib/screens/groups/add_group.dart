@@ -17,7 +17,7 @@ class CreateGroup extends StatefulWidget {
 class _CreateGroupFormState extends State<CreateGroup> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _db = GroupProvider();
+  final _db = GroupService();
   TimeOfDay _startTime;
   TimeOfDay _endTime;
   String groupName;

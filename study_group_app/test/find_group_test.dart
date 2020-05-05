@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:study_group_app/services/auth.dart';
 import 'package:study_group_app/services/group_provider.dart';
 
-class MockGroupProvider extends Mock implements GroupProvider {}
+class MockGroupProvider extends Mock implements GroupService {}
 
 class MockAuth extends Mock implements Auth {}
 

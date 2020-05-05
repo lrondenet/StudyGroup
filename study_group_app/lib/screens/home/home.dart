@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     return StreamProvider<List<Group>>.value(
-      value: GroupProvider(userUid: user.uid).groupData,
+      value: GroupService(userUid: user.uid).groupData,
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(

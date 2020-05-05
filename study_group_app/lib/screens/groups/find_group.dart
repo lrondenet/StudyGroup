@@ -13,7 +13,7 @@ class FindGroup extends StatelessWidget {
 
   Future<List<Group>> _search(String search) async {
     await Future.delayed(Duration(seconds: 2));
-    var result = await GroupProvider().findGroup(search);
+    var result = await GroupService().findGroup(search);
     var filteredGroups = List<Group>();
     result.forEach((g) {
       if (!(g.memberIds.length >= g.maxMembers)) {
@@ -30,7 +30,7 @@ class FindGroup extends StatelessWidget {
   }
 
   void _joinGroup(context, String userId, Group group) {
-    var result = GroupProvider().updateGroupMember(group.id, userId);
+    var result = GroupService().updateGroupMember(group.id, userId);
     if (result == null) {
       _scaffoldMsg(context, "ERROR: Couldn't join group");
     } else {

@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:study_group_app/models/groups.dart';
 
-class GroupProvider {
+class GroupService {
   String userUid;
 
-  GroupProvider({this.userUid});
+  GroupService({this.userUid});
   final CollectionReference _groupCollection =
       Firestore.instance.collection('groups');
 
