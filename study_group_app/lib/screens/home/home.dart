@@ -49,8 +49,7 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
-            canvasColor: Colors.grey[900],
-            primaryColor: Colors.grey[300],
+            canvasColor: Color(0xFF437c90),
             textTheme: Theme.of(context)
                 .textTheme
                 .copyWith(title: TextStyle(color: Colors.white)),
