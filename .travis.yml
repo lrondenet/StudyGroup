@@ -1,6 +1,7 @@
 language: dart
 dart:
   - stable
+os: linux
 dist: bionic
 jobs:
   include:
