@@ -1,11 +1,12 @@
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/models/groups.dart';
 import 'package:study_group_app/models/user.dart';
-import 'package:study_group_app/screens/groups/about_group.dart';
 import 'package:study_group_app/services/group_provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class FindGroup extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -20,6 +21,12 @@ class FindGroup extends StatelessWidget {
       }
     });
     return filteredGroups;
+  }
+
+  TimeOfDay _convert(String time) {
+    var formatTime = time.split(':');
+    return TimeOfDay(
+        hour: int.parse(formatTime[0]), minute: int.parse(formatTime[1]));
   }
 
   void _joinGroup(context, String userId, Group group) {
@@ -44,43 +51,120 @@ class FindGroup extends StatelessWidget {
     );
   }
 
+  void _confirmJoinGroup(context, String userId, Group group) {
+    Alert(
+      context: context,
+      type: AlertType.info,
+      title: "Join group ${group.name}?",
+      buttons: [
+        DialogButton(
+            child: Text("Join"),
+            onPressed: () {
+              _joinGroup(context, userId, group);
+              Navigator.pop(context);
+            }),
+        DialogButton(
+          child: Text("Cancel"),
+          onPressed: () => Navigator.pop(context),
+        )
+      ],
+    ).show();
+  }
+
+  _groupInformation(context, Group group) {
+    // Reusable alert style
+    var alertStyle = AlertStyle(
+        animationType: AnimationType.fromTop,
+        isCloseButton: false,
+        isOverlayTapDismiss: false,
+        descStyle: TextStyle(fontSize: 14.0),
+        animationDuration: Duration(milliseconds: 400),
+        alertBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14.0),
+          side: BorderSide(
+            color: Colors.grey,
+          ),
+        ),
+        titleStyle: Theme.of(context).textTheme.headline,
+        constraints: BoxConstraints.expand(width: 400));
+
+    // Alert dialog using custom alert style
+    Alert(
+      context: context,
+      style: alertStyle,
+      type: AlertType.none,
+      title: "Details for ${group.name}",
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Day: ${group.day}', style: Theme.of(context).textTheme.subhead),
+          Padding(padding: EdgeInsets.only(top: 2.0)),
+          Text('Class: CSCI-515', style: Theme.of(context).textTheme.subhead),
+          Padding(padding: EdgeInsets.only(top: 2.0)),
+          Text('Meet time: ${_convert(group.startTime).format(context)}',
+              style: Theme.of(context).textTheme.subhead),
+          Padding(padding: EdgeInsets.only(top: 2.0)),
+          Text('Members: ${group.memberIds.length}/${group.maxMembers}',
+              style: Theme.of(context).textTheme.subhead),
+        ],
+      ),
+      buttons: [
+        DialogButton(
+          child: Text(
+            "OK",
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+          onPressed: () => Navigator.pop(context),
+          color: Color(0XFF64b3f4),
+          radius: BorderRadius.circular(0.0),
+        ),
+      ],
+    ).show();
+  }
+
   Widget _findGroupResult(context, Group group) {
     var user = Provider.of<User>(context);
     return Center(
-      child: Card(
-        color: Theme.of(context).accentColor,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              title: Text(
-                group.name,
-                style: TextStyle(color: Colors.white),
-              ),
-              subtitle: Text(group.location),
-            ),
-            ButtonBar(
-              children: <Widget>[
-                FlatButton(
-                  child: Text("Join Group"),
-                  onPressed: () async {
-                    await _joinGroup(context, user.uid, group);
-                  },
+      child: Container(
+        width: 250,
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+          color: Theme.of(context).cardColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: FaIcon(FontAwesomeIcons.users),
+                title: Text(
+                  group.name,
                 ),
-                FlatButton(
-                  child: Text("More Information"),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AboutGroup(group: group),
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
-          ],
+                subtitle: Text(
+                  group.location,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              ButtonBar(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  IconButton(
+                    color: Colors.blue,
+                    icon: FaIcon(FontAwesomeIcons.userPlus),
+                    onPressed: () async {
+                      await _confirmJoinGroup(context, user.uid, group);
+                    },
+                  ),
+                  IconButton(
+                    color: Colors.blue,
+                    icon: FaIcon(FontAwesomeIcons.infoCircle),
+                    onPressed: () {
+                      _groupInformation(context, group);
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
