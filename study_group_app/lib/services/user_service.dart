@@ -29,11 +29,11 @@ class UserService {
   }
 
   // Provides stream of user data to the app
-  Stream<UserData> get userData {
+  Stream<User> get userData {
     // return userCollection.document(uid).snapshots().map(_userData);
     return userCollection
         .document(uid)
         .snapshots()
-        .map((snap) => UserData.fromMap(snap.data));
+        .map((snap) => User.fromFirestore(snap));
   }
 }

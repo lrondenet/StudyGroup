@@ -1,20 +1,22 @@
 //import 'dart:html';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:study_group_app/screens/student/courses.dart';
+import 'package:provider/provider.dart';
+import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-//import 'package:study_group_app/models/user.dart';
+import 'package:study_group_app/utilities/loading.dart';
 
 final Auth _auth = Auth();
 bool drawer = false;
 
 // Separate the drawer into this class so it can be called from anywhere
 class MainDrawer extends StatelessWidget {
-  //final UserData userData;
+  final User user;
+  MainDrawer({this.user});
 
   @override
   Widget build(BuildContext context) {
+    // var user = Provider.of<User>(context);
     // Returns a Drawer that can be added to any Scaffold drawer
     return Drawer(
       child: ListView(
@@ -28,7 +30,7 @@ class MainDrawer extends StatelessWidget {
             decoration: BoxDecoration(color: Color(0xFF77af9c)),
             child: Padding(
               padding: EdgeInsets.all(6),
-              child: Column (
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -42,83 +44,99 @@ class MainDrawer extends StatelessWidget {
                         FontAwesomeIcons.solidUser,
                         //Color(0xFFc2e59c)
                         size: 48, color: Color(0xFFc2e59c),
-                      )
-                    )
+                      ),
+                    ),
                   ),
-                  SizedBox(height:15),
+                  SizedBox(height: 15),
                   Container(
                     child: Column(
-                      children: <Widget>[
-
-                      ],
-                    )
+                      children: <Widget>[],
+                    ),
                   ),
                   Text(
-                    'First Lastname',
-                    //' ${userData.userName}',
+                    ' ${user.userName}',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
-                    )
+                    ),
                   ),
                 ],
-              )
-            )
+              ),
+            ),
           ),
           Container(
             color: Colors.white,
-            child: Column (
+            child: Column(
               children: <Widget>[
                 ListTile(
-                  leading: Icon(Icons.class_ , color: Color(0xFF77af9c)),
+                  leading: Icon(
+                    Icons.class_,
+                    color: Color(0xFF77af9c),
+                  ),
                   title: Text(
-                    'My Courses', 
+                    'My Courses',
                     style: TextStyle(
                       color: Color(0xFF77af9c),
                       fontSize: 18,
-                      )
+                    ),
                   ),
                   onTap: () {
                     Navigator.of(context).pushNamed("/courses");
-                 },
+                  },
                 ),
                 ListTile(
-                  leading: Icon(Icons.group, color: Color(0xFF77af9c)),
-                  title: Text('Groups',
-                  style: TextStyle(
+                  leading: Icon(
+                    Icons.group,
                     color: Color(0xFF77af9c),
-                    fontSize: 18,
-                    )
                   ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.account_circle, color: Color(0xFF77af9c)),
-                  title: Text('Profile',
-                  style: TextStyle(
-                    color: Color(0xFF77af9c),
-                    fontSize: 18,
+                  title: Text(
+                    'Groups',
+                    style: TextStyle(
+                      color: Color(0xFF77af9c),
+                      fontSize: 18,
                     ),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings, color: Color(0xFF77af9c)),
-                  title: Text('Settings',
-                  style: TextStyle(
+                  leading: Icon(
+                    Icons.account_circle,
                     color: Color(0xFF77af9c),
-                    fontSize: 18,
-                    )
+                  ),
+                  title: Text(
+                    'Profile',
+                    style: TextStyle(
+                      color: Color(0xFF77af9c),
+                      fontSize: 18,
+                    ),
                   ),
                 ),
-                SizedBox(height:180),
+                ListTile(
+                  leading: Icon(
+                    Icons.settings,
+                    color: Color(0xFF77af9c),
+                  ),
+                  title: Text(
+                    'Settings',
+                    style: TextStyle(
+                      color: Color(0xFF77af9c),
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 180),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.exit_to_app, color: Color(0xFF77af9c)),
-                  title: Text('Logout',
-                  style: TextStyle(
+                  leading: Icon(
+                    Icons.exit_to_app,
                     color: Color(0xFF77af9c),
-                    fontSize: 18,
-                    )
+                  ),
+                  title: Text(
+                    'Logout',
+                    style: TextStyle(
+                      color: Color(0xFF77af9c),
+                      fontSize: 18,
+                    ),
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -126,13 +144,11 @@ class MainDrawer extends StatelessWidget {
                   },
                 ),
               ],
-            )
+            ),
           ),
         ],
-      )
+      ),
     );
   }
   //MainDrawer({this.userData});
 }
-
-
