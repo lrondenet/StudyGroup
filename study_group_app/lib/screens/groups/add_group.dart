@@ -82,7 +82,7 @@ class _CreateGroupFormState extends State<CreateGroup> {
         location: location,
       );
       // Get current user Uid to pass into GroupProvider to create group
-      User curUser = Provider.of<User>(context, listen: false);
+      var curUser = Provider.of<User>(context, listen: false);
       _db.userUid = curUser.uid;
       dynamic result = _db.createGroup(newGroup);
       if (result != null) {
@@ -132,7 +132,7 @@ class _CreateGroupFormState extends State<CreateGroup> {
                           color: Colors.white,
                         )),
                     SizedBox(height: 15),
-                
+
                     // Name field
                     TextFormField(
                       onSaved: (value) {
