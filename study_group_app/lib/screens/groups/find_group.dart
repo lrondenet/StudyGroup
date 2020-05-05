@@ -2,9 +2,7 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:study_group_app/models/groups.dart';
-import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/group_service.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
