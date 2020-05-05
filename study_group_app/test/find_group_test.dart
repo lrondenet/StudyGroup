@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:study_group_app/screens/groups/find_group.dart';
 import 'package:mockito/mockito.dart';
 import 'package:study_group_app/services/auth.dart';
-import 'package:study_group_app/services/group_provider.dart';
+import 'package:study_group_app/services/group_service.dart';
 
 class MockGroupProvider extends Mock implements GroupService {}
 

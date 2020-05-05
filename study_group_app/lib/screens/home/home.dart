@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/screens/groups/groups.dart';
 import 'package:study_group_app/models/models.dart';
-import 'package:study_group_app/services/group_provider.dart';
+import 'package:study_group_app/services/group_service.dart';
 import 'drawer.dart';
 
 // Stateful home page class.

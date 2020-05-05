@@ -1,3 +1,3 @@
-export 'group_provider.dart';
-export 'user_provider.dart';
+export 'group_service.dart';
+export 'user_service.dart';
 export 'auth.dart';
