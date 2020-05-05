@@ -57,8 +57,8 @@ class GroupCard extends StatelessWidget {
                 Text(
                   group.name,
                   style: TextStyle(
-                    fontFamily:'NotoSerif Bold',
-                    fontSize: 15
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
                   )
                 ),
                 Container(

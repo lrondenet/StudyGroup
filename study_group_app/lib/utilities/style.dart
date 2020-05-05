@@ -24,7 +24,7 @@ ThemeData appTheme() {
       secondaryHeaderColor: Colors.grey[600],
       // hintColor: Colors.grey[400],
       textTheme: TextTheme(
-          body1: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          body1: TextStyle(color: Colors.black),
           headline: TextStyle(color: Colors.black),
           caption: TextStyle(color: Colors.white)),
       dividerColor: Colors.grey[700],
