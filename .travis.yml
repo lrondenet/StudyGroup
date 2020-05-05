@@ -19,14 +19,13 @@ install:
   - echo 'Running tests...'
   - pwd
 before_script:
-  - cd ..
   - if [ ! -f $HOME/flutter/bin/flutter ] ; then git clone https://github.com/flutter/flutter.git -b stable ; fi
   - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
   - flutter doctor
-  - cd $TRAVIS_BUILD_DIR
+  - cd $TRAVIS_BUILD_DIR/study_group_app
+  - pwd
   - gem install coveralls-lcov
 script:
-  - cd $TRAVIS_BUILD_DIR
   - flutter $COMMAND
 after_success:
   - coveralls-lcov coverage/lcov.info
