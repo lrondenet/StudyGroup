@@ -5,11 +5,9 @@ dist: bionic
 jobs:
   include:
     - name: Test
-      env:
-        - COMMAND="test --coverage"
+      env: COMMAND="test --coverage"
     - name: Analyze
-      env:
-        - COMMAND=analyze
+      env: COMMAND=analyze
 addons:
   apt:
     sources:
