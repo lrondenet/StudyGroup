@@ -9,18 +9,20 @@ import 'package:study_group_app/services/group_service.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class FindGroup extends StatelessWidget {
+  final curUserId;
+  FindGroup({this.curUserId});
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<List<Group>> _search(String search) async {
     await Future.delayed(Duration(seconds: 2));
     var result = await GroupService().findGroup(search);
-    var filteredGroups = List<Group>();
-    result.forEach((g) {
-      if (!(g.memberIds.length >= g.maxMembers)) {
-        filteredGroups.add(g);
-      }
-    });
-    return filteredGroups;
+
+    // Remove each group from the list that is at max capacity or the user is already in
+    return result
+        .where((f) =>
+            f.memberIds.length <= f.maxMembers &&
+            !(f.memberIds.contains(curUserId)))
+        .toList();
   }
 
   TimeOfDay _convert(String time) {
@@ -122,8 +124,7 @@ class FindGroup extends StatelessWidget {
     ).show();
   }
 
-  Widget _findGroupResult(context, Group group) {
-    var user = Provider.of<User>(context);
+  Widget _groupResults(context, Group group) {
     return Center(
       child: Container(
         width: 250,
@@ -140,7 +141,7 @@ class FindGroup extends StatelessWidget {
                   group.name,
                 ),
                 subtitle: Text(
-                  group.location,
+                  'Members: ${group.memberIds.length} / ${group.maxMembers}',
                   style: TextStyle(color: Colors.black),
                 ),
               ),
@@ -151,7 +152,7 @@ class FindGroup extends StatelessWidget {
                     color: Colors.blue,
                     icon: FaIcon(FontAwesomeIcons.userPlus),
                     onPressed: () async {
-                      await _confirmJoinGroup(context, user.uid, group);
+                      await _confirmJoinGroup(context, curUserId, group);
                     },
                   ),
                   IconButton(
@@ -183,7 +184,7 @@ class FindGroup extends StatelessWidget {
             hintText: "Search for a group...",
             onSearch: _search,
             onItemFound: (Group grp, int index) {
-              return _findGroupResult(context, grp);
+              return _groupResults(context, grp);
             },
             emptyWidget: Text("No groups found with that name"),
             searchBarStyle: SearchBarStyle(

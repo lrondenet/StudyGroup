@@ -18,11 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var appBarTitle = "Home";
   int _selectedPage = 0;
-  final _pageOptions = [
-    GroupView(),
-    FindGroup(),
-    CreateGroup(),
-  ];
 
   @override
   void initState() {
@@ -45,7 +40,11 @@ class _HomePageState extends State<HomePage> {
           top: false,
           child: IndexedStack(
             index: _selectedPage,
-            children: _pageOptions,
+            children: [
+              GroupView(),
+              FindGroup(curUserId: user.uid),
+              CreateGroup()
+            ],
           ),
         ),
         bottomNavigationBar: Theme(
