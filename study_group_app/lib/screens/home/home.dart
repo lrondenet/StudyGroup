@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_group_app/screens/groups/add_group.dart';
+import 'package:study_group_app/screens/groups/groups.dart';
+import 'package:study_group_app/models/models.dart';
+import 'package:study_group_app/services/group_service.dart';
 import 'drawer.dart';
-import 'package:study_group_app/models/user.dart';
-// import 'package:study_group_app/screens/student/select_classes.dart';
-import 'package:study_group_app/services/group_provider.dart';
-import 'package:study_group_app/screens/groups/group_viewer.dart';
-import 'package:study_group_app/models/groups.dart';
 
 // Stateful home page class.
 class HomePage extends StatefulWidget {
@@ -21,10 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var appBarTitle = "Home";
   int _selectedPage = 0;
-  final _pageOptions = [
-    GroupView(),
-    CreateGroup(),
-  ];
 
   @override
   void initState() {
@@ -36,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     return StreamProvider<List<Group>>.value(
-      value: GroupProvider(userUid: user.uid).groupData,
+      value: GroupService(userUid: user.uid).groupData,
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
@@ -47,7 +40,11 @@ class _HomePageState extends State<HomePage> {
           top: false,
           child: IndexedStack(
             index: _selectedPage,
-            children: _pageOptions,
+            children: [
+              GroupView(),
+              FindGroup(curUserId: user.uid),
+              CreateGroup()
+            ],
           ),
         ),
         bottomNavigationBar: Theme(
@@ -55,10 +52,11 @@ class _HomePageState extends State<HomePage> {
             canvasColor: Color(0xFF437c90),
             textTheme: Theme.of(context)
                 .textTheme
-                .copyWith(title: TextStyle(
-                color: Colors.white)),
+                .copyWith(title: TextStyle(color: Colors.white)),
           ),
           child: BottomNavigationBar(
+            selectedItemColor: Colors.blue,
+            selectedFontSize: 16.0,
             currentIndex: _selectedPage,
             onTap: (int index) {
               setState(() {
@@ -92,6 +90,6 @@ class Destination {
 const List<Destination> allDestinations = <Destination>[
   Destination('Home', Icons.home),
   // Destination('Profile', Icons.portrait),
-  Destination('Create', Icons.add),
   Destination('Search', Icons.search),
+  Destination('Create', Icons.add)
 ];

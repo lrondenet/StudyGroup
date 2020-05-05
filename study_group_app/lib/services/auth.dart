@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:study_group_app/models/user.dart';
-import 'package:study_group_app/services/user_provider.dart';
+import 'package:study_group_app/services/user_service.dart';
 
 class Auth {
   // Create a local instance of our Firebase authentication instance
@@ -45,7 +45,7 @@ class Auth {
       FirebaseUser newUser = result.user;
 
       // Create a new document in Firebase with the same uid
-      await UserProvider(uid: newUser.uid)
+      await UserService(uid: newUser.uid)
           .updateUserFields(email, 'UserName', 'John', 'Doe');
       return _userFromFirebaseUid(newUser);
     } catch (e) {

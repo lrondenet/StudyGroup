@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/models/groups.dart';
 import 'package:study_group_app/models/user.dart';
-import 'package:study_group_app/services/group_provider.dart';
+import 'package:study_group_app/services/group_service.dart';
 
 class CreateGroup extends StatefulWidget {
   CreateGroup({Key key, this.title}) : super(key: key);
@@ -17,7 +17,7 @@ class CreateGroup extends StatefulWidget {
 class _CreateGroupFormState extends State<CreateGroup> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _db = GroupProvider();
+  final _db = GroupService();
   TimeOfDay _startTime;
   TimeOfDay _endTime;
   String groupName;

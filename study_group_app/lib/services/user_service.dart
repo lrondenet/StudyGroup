@@ -1,10 +1,10 @@
 import 'package:study_group_app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserProvider {
+class UserService {
   final String uid;
 
-  UserProvider({this.uid});
+  UserService({this.uid});
 
   // A reference to the users collection in Firebase
   final CollectionReference userCollection =
