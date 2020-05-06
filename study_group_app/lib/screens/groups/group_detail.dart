@@ -47,7 +47,7 @@ class _GroupDetailState extends State<GroupDetail> {
         time: '8:50PM'),
   ];
 
-  aboutPage() => Container(
+  Widget _aboutPage() => Container(
         constraints: BoxConstraints.expand(),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: ListView(
@@ -111,7 +111,7 @@ class _GroupDetailState extends State<GroupDetail> {
         ),
       );
 
-  discussionTab() => Column(
+  Widget _discussionTab() => Column(
         children: <Widget>[
           Expanded(
             child: Container(
@@ -121,10 +121,9 @@ class _GroupDetailState extends State<GroupDetail> {
                 physics: BouncingScrollPhysics(),
                 itemCount: messages.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final bool isMe = messages[index].sender.name == 'john';
-                  final Color textColor =
-                      isMe ? widget.textColor : Colors.black;
-                  return buildMessage(
+                  final isMe = messages[index].sender.name == 'john';
+                  final textColor = isMe ? widget.textColor : Colors.black;
+                  return _buildMessage(
                       messages[index], isMe, widget.bgColor, textColor);
                 },
               ),
@@ -189,14 +188,15 @@ class _GroupDetailState extends State<GroupDetail> {
               ],
             ),
           ),
-          body: TabBarView(children: [aboutPage(), discussionTab()]),
+          body: TabBarView(children: [_aboutPage(), _discussionTab()]),
           backgroundColor: Color(0xFF98c1d9),
         ),
       ),
     );
   }
 
-  buildMessage(Message msg, bool isMe, Color bgColor, Color textColor) =>
+  Widget _buildMessage(
+          Message msg, bool isMe, Color bgColor, Color textColor) =>
       Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

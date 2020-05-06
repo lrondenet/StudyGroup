@@ -32,9 +32,9 @@ class GroupCard extends StatelessWidget {
           ),
           // Call the group_detail page to view
           onTap: () {
-            final Color randColor = Color.fromRGBO(Random().nextInt(255),
+            final randColor = Color.fromRGBO(Random().nextInt(255),
                 Random().nextInt(255), Random().nextInt(255), 1.0);
-            final Color textColor = randColor.computeLuminance() > 0.45
+            final textColor = randColor.computeLuminance() > 0.45
                 ? Colors.black
                 : Colors.white;
             Navigator.push(
@@ -53,13 +53,12 @@ class GroupCard extends StatelessWidget {
                 Container(height: 5.0),
 
                 // Following Widgets are contents of each user's group.
-                // TODO Style and design
                 Text(
                   group.name,
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                  )
+                  ),
                 ),
                 Container(
                     margin: EdgeInsets.symmetric(vertical: 8.0),
