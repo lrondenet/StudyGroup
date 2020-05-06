@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_group_app/services/auth.dart';
+import 'package:study_group_app/services/services.dart';
 import 'package:study_group_app/utilities/style.dart';
 import 'package:study_group_app/screens/wrapper.dart';
 import 'package:provider/provider.dart';

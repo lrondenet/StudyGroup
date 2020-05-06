@@ -37,8 +37,6 @@ class _LoginPageState extends State<LoginPage> {
     if (result == null) {
       setState(() => error = 'Wrong email or password');
       loading = false;
-    } else {
-      setState(() => _validateState = true);
     }
   }
 

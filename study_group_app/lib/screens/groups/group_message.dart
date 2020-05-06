@@ -3,26 +3,44 @@ import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/models/message.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/services/message_service.dart';
+import 'package:study_group_app/utilities/loading.dart';
+import 'package:intl/intl.dart';
 
-class GroupMessage extends StatelessWidget {
+class GroupMessage extends StatefulWidget {
   final String groupId;
   GroupMessage({Key key, this.groupId}) : super(key: key);
 
-  void _saveMessageToFirebase(String message, User user) {
-    var newMessage = Message(
-      userEmail: user.email,
-      time: DateTime.now().toString(),
-      messageText: message,
-      groupId: groupId,
-    );
-    var result = MessageService().saveToFirebase(newMessage);
+  @override
+  _GroupMessageState createState() => _GroupMessageState();
+}
+
+class _GroupMessageState extends State<GroupMessage> {
+  FocusNode _focusNode = FocusNode();
+  DateFormat dateParser = DateFormat.yMd().add_jm();
+ 
+  @override
+  void initState() {
+    _focusNode = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var messages = Provider.of<List<Message>>(context);
-    var user = Provider.of<User>(context);
-    return Column(
+    List<Message> messages = Provider.of<List<Message>>(context);
+    User user = Provider.of<User>(context);
+    
+    if (messages != null) {
+      messages.sort((a, b) 
+        => dateParser.parse(b.time).compareTo(dateParser.parse(a.time)));
+    }
+
+    return messages == null || user == null ? Loading() : Column(
       children: <Widget>[
         Expanded(
           child: Container(
@@ -30,12 +48,12 @@ class GroupMessage extends StatelessWidget {
               reverse: true,
               padding: EdgeInsets.only(top: 15.0),
               physics: BouncingScrollPhysics(),
-              itemCount: messages != null ? messages.length : 0,
+              itemCount: messages.length,
               itemBuilder: (BuildContext context, int index) {
                 final bool isMe = messages[index].userEmail == user.email;
                 final Color bgColor = isMe ? Colors.blue : Colors.grey[600];
                 return _buildMessage(
-                    messages[index], isMe, bgColor, Colors.black);
+                  messages[index], isMe, bgColor, Colors.black);
               },
             ),
           ),
@@ -45,8 +63,6 @@ class GroupMessage extends StatelessWidget {
           height: 70.0,
           color: Colors.white,
           child: Row(
-            // TODO: add opening of pictures when clicking photo icon and add
-            // insert based on realtime
             children: <Widget>[
               IconButton(
                 icon: Icon(Icons.group),
@@ -55,9 +71,12 @@ class GroupMessage extends StatelessWidget {
               ),
               Expanded(
                 child: TextField(
+                  focusNode: _focusNode,
                   textCapitalization: TextCapitalization.sentences,
                   onSubmitted: (message) {
                     _saveMessageToFirebase(message, user);
+                    message = '';
+                    FocusScope.of(context).requestFocus(_focusNode);
                   },
                   style: TextStyle(fontSize: 15.0),
                   decoration: InputDecoration(
@@ -71,6 +90,21 @@ class GroupMessage extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void _saveMessageToFirebase(String message, User user) {
+    var newMessage = Message(
+      userEmail: user.email,
+      time: dateParser.format(DateTime.now()),
+      messageText: message,
+      groupId: widget.groupId,
+    );
+    
+    try {
+      MessageService().saveToFirebase(newMessage);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Widget _buildMessage(Message msg, bool isMe, Color bgColor, Color textColor) {

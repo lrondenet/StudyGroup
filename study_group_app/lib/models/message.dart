@@ -1,5 +1,3 @@
-import 'package:study_group_app/models/user.dart';
-
 class Message {
   final String userEmail;
   final String time;

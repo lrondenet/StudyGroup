@@ -1,19 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/user_service.dart';
 
 class Auth {
   // Create a local instance of our Firebase authentication instance
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  // Need to match a user's Firebase user uid to local Class User
-  User _userFromFirebaseUid(FirebaseUser user) {
-    if (user != null) {
-      return User(uid: user.uid);
-    } else {
-      return null;
-    }
-  }
 
   // Provides a stream to continually update user data from Firebase
   Stream<FirebaseUser> get getUser {
@@ -30,7 +20,7 @@ class Auth {
       FirebaseUser user = result.user;
 
       // Convert Firebase User to local user object
-      return _userFromFirebaseUid(user);
+      return user;
     } catch (e) {
       print(e.toString());
       return null;
@@ -46,7 +36,7 @@ class Auth {
       // Create a new document in Firebase with the same uid
       await UserService(uid: newUser.uid)
           .updateUserFields(email, 'UserName', 'John', 'Doe');
-      return _userFromFirebaseUid(newUser);
+      return newUser;
     } catch (e) {
       print(e.toString());
       return null;

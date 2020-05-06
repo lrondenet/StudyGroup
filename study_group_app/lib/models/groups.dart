@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Group {
   final String id;
   final String name;
-  var memberIds;
+  List<dynamic> memberIds;
   final String day;
   final String startTime;
   final String endTime;
@@ -27,7 +27,7 @@ class Group {
     return Group(
       id: doc.documentID,
       name: map['name'] ?? '',
-      memberIds: map['memberIds'] ?? '',
+      memberIds: map['memberIds'] as List ?? [],
       maxMembers: map['maxMembers'] ?? '',
       day: map['day'] ?? '',
       startTime: map['startTime'] ?? '',
