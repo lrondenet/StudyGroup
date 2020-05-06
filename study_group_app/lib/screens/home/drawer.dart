@@ -1,10 +1,8 @@
 //import 'dart:html';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:study_group_app/utilities/loading.dart';
 
 final Auth _auth = Auth();
 bool drawer = false;
@@ -82,7 +80,7 @@ class MainDrawer extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamed("/courses");
+                    Navigator.of(context).pushNamed('/courses');
                   },
                 ),
                 ListTile(
