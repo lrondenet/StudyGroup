@@ -24,54 +24,67 @@ class _GroupDetailState extends State<GroupDetail> {
   Container aboutPage() {
     return Container(
         constraints: BoxConstraints.expand(),
-        color: widget.bgColor,
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 32.0),
-          children: <Widget>[
-            Stack(children: <Widget>[
-              Container(
-                child: Image.network(
-                  'https://www.healthcareisrael.com/images/services/students-ema-care.jpg',
-                  fit: BoxFit.cover,
-                  height: 200.0,
-                ),
-                constraints: BoxConstraints.expand(height: 200.0),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 110.0),
-                height: 110.0,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      Colors.transparent,
-                      widget.bgColor,
-                    ],
-                    stops: [0.0, 0.9],
-                    begin: FractionalOffset(0.0, 0.0),
-                    end: FractionalOffset(0.0, 1.0),
-                  ),
-                ),
-              ),
-            ]),
-            Container(
-              child: Column(
-                children: <Widget>[
-                  cardText('Day of session:'.toUpperCase(), widget.textColor),
-                  cardText('${widget.group.day}\n', widget.textColor),
-                  cardText('Time of session:'.toUpperCase(), widget.textColor),
-                  cardText(
-                      '${widget.group.startTime} - ${widget.group.endTime}\n',
-                      widget.textColor),
-                  cardText('Course ID:'.toUpperCase(), widget.textColor),
-                  cardText('${widget.group.id}\n', widget.textColor),
-                  cardText('Max Members:'.toUpperCase(), widget.textColor),
-                  cardText('${widget.group.maxMembers}\n', widget.textColor),
-                ],
-              ),
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    child: ListView(
+      children: <Widget>[
+        Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14.0),
             ),
-          ],
-        ));
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(14.0),
+              child: Image.asset('images/pic.png'),
+            ),
+          ),
+          SizedBox(height: 20),
+          Container(
+            padding:EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14.0),
+              color: Colors.white,
+            ),
+            child: Container (
+              child: Column(
+                children: <Widget> [
+                  Text(
+                    'DAY OF SESSION:  ${widget.group.day}\n',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    'TIME OF SESSION: ${widget.group.startTime} - ${widget.group.endTime}\n',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    'COURSE ID: ${widget.group.id}\n',
+                     style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    'MAX MEMBERS: ${widget.group.maxMembers}\n',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  )
+                ]
+              )
+            ),
+        ),
+      ]
+    )
+    );
   }
 
   @override
@@ -98,7 +111,9 @@ class _GroupDetailState extends State<GroupDetail> {
             body: TabBarView(children: [
               aboutPage(),
               GroupMessage(groupId: widget.group.id)
-            ]),
+            ],
+            ),
+            backgroundColor: Color(0xFF98c1d9),
           ),
         ),
       ),

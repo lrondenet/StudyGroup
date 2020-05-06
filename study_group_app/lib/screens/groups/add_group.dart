@@ -114,12 +114,12 @@ class _CreateGroupFormState extends State<CreateGroup> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Color(0xFF80CBC4),
+      backgroundColor: Color(0xFF98c1d9),
       body: Stack(
         children: <Widget>[
           SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 50),
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -129,9 +129,10 @@ class _CreateGroupFormState extends State<CreateGroup> {
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         )),
-                    SizedBox(height: 25),
-
+                    SizedBox(height: 15),
+                
                     // Name field
                     TextFormField(
                       onSaved: (value) {
@@ -239,7 +240,7 @@ class _CreateGroupFormState extends State<CreateGroup> {
                         child: Text(
                           'CREATE GROUP',
                           style: TextStyle(
-                            color: Color(0xFF80CBC4),
+                            color: Color(0xFF98c1d9),
                             letterSpacing: 1.5,
                             fontSize: 14,
                           ),
