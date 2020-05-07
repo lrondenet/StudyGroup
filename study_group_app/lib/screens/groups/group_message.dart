@@ -32,8 +32,8 @@ class _GroupMessageState extends State<GroupMessage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Message> messages = Provider.of<List<Message>>(context);
-    User user = Provider.of<User>(context);
+    var messages = Provider.of<List<Message>>(context);
+    var user = Provider.of<User>(context);
     
     if (messages != null) {
       messages.sort((a, b) 
@@ -50,8 +50,8 @@ class _GroupMessageState extends State<GroupMessage> {
               physics: BouncingScrollPhysics(),
               itemCount: messages.length,
               itemBuilder: (BuildContext context, int index) {
-                final bool isMe = messages[index].userEmail == user.email;
-                final Color bgColor = isMe ? Colors.blue : Colors.grey[600];
+                final isMe = messages[index].userEmail == user.email;
+                final bgColor = isMe ? Colors.blue : Colors.grey[600];
                 return _buildMessage(
                   messages[index], isMe, bgColor, Colors.black);
               },

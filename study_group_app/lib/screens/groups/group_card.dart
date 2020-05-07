@@ -13,7 +13,7 @@ class GroupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
+    var user = Provider.of<User>(context);
     return user == null ? Loading() : Container(
       height: 120.0,
       margin: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
