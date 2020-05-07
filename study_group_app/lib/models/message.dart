@@ -1,6 +1,6 @@
 class Message {
   final String userEmail;
-  final String time;
+  final int time;
   final String messageText;
   final String groupId;
 

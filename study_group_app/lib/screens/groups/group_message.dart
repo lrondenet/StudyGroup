@@ -34,10 +34,10 @@ class _GroupMessageState extends State<GroupMessage> {
   Widget build(BuildContext context) {
     var messages = Provider.of<List<Message>>(context);
     var user = Provider.of<User>(context);
+    var txt = TextEditingController();
     
     if (messages != null) {
-      messages.sort((a, b) 
-        => dateParser.parse(b.time).compareTo(dateParser.parse(a.time)));
+      messages.sort((a, b) => b.time.compareTo(a.time));
     }
 
     return messages == null || user == null ? Loading() : Column(
@@ -72,10 +72,11 @@ class _GroupMessageState extends State<GroupMessage> {
               Expanded(
                 child: TextField(
                   focusNode: _focusNode,
+                  controller: txt,
                   textCapitalization: TextCapitalization.sentences,
                   onSubmitted: (message) {
                     _saveMessageToFirebase(message, user);
-                    message = '';
+                    txt.text = '';
                     FocusScope.of(context).requestFocus(_focusNode);
                   },
                   style: TextStyle(fontSize: 15.0),
@@ -95,7 +96,7 @@ class _GroupMessageState extends State<GroupMessage> {
   void _saveMessageToFirebase(String message, User user) {
     var newMessage = Message(
       userEmail: user.email,
-      time: dateParser.format(DateTime.now()),
+      time: DateTime.now().millisecondsSinceEpoch,
       messageText: message,
       groupId: widget.groupId,
     );
@@ -148,7 +149,7 @@ class _GroupMessageState extends State<GroupMessage> {
           Row(
             children: <Widget>[
               Text(
-                '${msg.time}',
+                '${dateParser.format(DateTime.fromMillisecondsSinceEpoch(msg.time))}',
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   fontSize: 10,
