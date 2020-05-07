@@ -16,7 +16,8 @@ class GroupMessage extends StatefulWidget {
 
 class _GroupMessageState extends State<GroupMessage> {
   FocusNode _focusNode = FocusNode();
-  DateFormat dateParser = DateFormat.yMd().add_jm();
+  final DateFormat _dateParser = DateFormat.yMd().add_jm();
+  final TextEditingController _txt = TextEditingController();
  
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _GroupMessageState extends State<GroupMessage> {
   @override
   void dispose() {
     _focusNode.dispose();
+    _txt.dispose();
     super.dispose();
   }
 
@@ -34,7 +36,6 @@ class _GroupMessageState extends State<GroupMessage> {
   Widget build(BuildContext context) {
     var messages = Provider.of<List<Message>>(context);
     var user = Provider.of<User>(context);
-    var txt = TextEditingController();
     
     if (messages != null) {
       messages.sort((a, b) => b.time.compareTo(a.time));
@@ -72,11 +73,11 @@ class _GroupMessageState extends State<GroupMessage> {
               Expanded(
                 child: TextField(
                   focusNode: _focusNode,
-                  controller: txt,
+                  controller: _txt,
                   textCapitalization: TextCapitalization.sentences,
                   onSubmitted: (message) {
                     _saveMessageToFirebase(message, user);
-                    txt.text = '';
+                    _txt.text = '';
                     FocusScope.of(context).requestFocus(_focusNode);
                   },
                   style: TextStyle(fontSize: 15.0),
@@ -149,7 +150,7 @@ class _GroupMessageState extends State<GroupMessage> {
           Row(
             children: <Widget>[
               Text(
-                '${dateParser.format(DateTime.fromMillisecondsSinceEpoch(msg.time))}',
+                '${_dateParser.format(DateTime.fromMillisecondsSinceEpoch(msg.time))}',
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   fontSize: 10,
