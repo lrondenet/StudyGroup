@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_group_app/models/models.dart';
@@ -18,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 // Inherits from HomePage above
 class _HomePageState extends State<HomePage> {
-  var appBarTitle = "Home";
+  var appBarTitle = 'Home';
   int _selectedPage = 0;
 
   @override

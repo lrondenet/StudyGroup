@@ -28,14 +28,14 @@ class GroupService {
     try {
       // Adds a new document to the groups collection
       // MemberIds array is created with the current user's uid
-      DocumentReference result = await _groupCollection.add({
-        "name": newGrp.name,
-        "memberIds": FieldValue.arrayUnion([userUid]),
-        "maxMembers": newGrp.maxMembers,
-        "day": newGrp.day,
-        "startTime": newGrp.startTime,
-        "endTime": newGrp.endTime,
-        "location": newGrp.location,
+      var result = await _groupCollection.add({
+        'name': newGrp.name,
+        'memberIds': FieldValue.arrayUnion([userUid]),
+        'maxMembers': newGrp.maxMembers,
+        'day': newGrp.day,
+        'startTime': newGrp.startTime,
+        'endTime': newGrp.endTime,
+        'location': newGrp.location,
       });
       return result;
     } catch (e) {
