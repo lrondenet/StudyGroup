@@ -16,7 +16,8 @@ class GroupMessage extends StatefulWidget {
 
 class _GroupMessageState extends State<GroupMessage> {
   FocusNode _focusNode = FocusNode();
-  DateFormat dateParser = DateFormat.yMd().add_jm();
+  final DateFormat _dateParser = DateFormat.yMd().add_jm();
+  final TextEditingController _txt = TextEditingController();
  
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _GroupMessageState extends State<GroupMessage> {
   @override
   void dispose() {
     _focusNode.dispose();
+    _txt.dispose();
     super.dispose();
   }
 
@@ -36,8 +38,7 @@ class _GroupMessageState extends State<GroupMessage> {
     var user = Provider.of<User>(context);
     
     if (messages != null) {
-      messages.sort((a, b) 
-        => dateParser.parse(b.time).compareTo(dateParser.parse(a.time)));
+      messages.sort((a, b) => b.time.compareTo(a.time));
     }
 
     return messages == null || user == null ? Loading() : Column(
@@ -72,10 +73,11 @@ class _GroupMessageState extends State<GroupMessage> {
               Expanded(
                 child: TextField(
                   focusNode: _focusNode,
+                  controller: _txt,
                   textCapitalization: TextCapitalization.sentences,
                   onSubmitted: (message) {
                     _saveMessageToFirebase(message, user);
-                    message = '';
+                    _txt.text = '';
                     FocusScope.of(context).requestFocus(_focusNode);
                   },
                   style: TextStyle(fontSize: 15.0),
@@ -95,7 +97,7 @@ class _GroupMessageState extends State<GroupMessage> {
   void _saveMessageToFirebase(String message, User user) {
     var newMessage = Message(
       userEmail: user.email,
-      time: dateParser.format(DateTime.now()),
+      time: DateTime.now().millisecondsSinceEpoch,
       messageText: message,
       groupId: widget.groupId,
     );
@@ -148,7 +150,7 @@ class _GroupMessageState extends State<GroupMessage> {
           Row(
             children: <Widget>[
               Text(
-                '${msg.time}',
+                '${_dateParser.format(DateTime.fromMillisecondsSinceEpoch(msg.time))}',
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   fontSize: 10,
