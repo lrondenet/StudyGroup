@@ -98,9 +98,11 @@ class FindGroup extends StatelessWidget {
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Day: ${group.day}', style: Theme.of(context).textTheme.subtitle1),
+          Text('Day: ${group.day}',
+              style: Theme.of(context).textTheme.subtitle1),
           Padding(padding: EdgeInsets.only(top: 2.0)),
-          Text('Class: CSCI-515', style: Theme.of(context).textTheme.subtitle1),
+          Text('Class: ${group.course}',
+              style: Theme.of(context).textTheme.subtitle1),
           Padding(padding: EdgeInsets.only(top: 2.0)),
           Text('Meet time: ${_convert(group.startTime).format(context)}',
               style: Theme.of(context).textTheme.subtitle1),

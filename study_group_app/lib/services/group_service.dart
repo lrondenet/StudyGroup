@@ -36,6 +36,7 @@ class GroupService {
         'startTime': newGrp.startTime,
         'endTime': newGrp.endTime,
         'location': newGrp.location,
+        'course': newGrp.course,
       });
       return result;
     } catch (e) {

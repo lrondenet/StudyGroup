@@ -93,7 +93,7 @@ class _GroupDetailState extends State<GroupDetail> {
                     ),
                   ),
                   Text(
-                    'COURSE ID: ${widget.group.id}\n',
+                    'COURSE ID: ${widget.group.course}\n',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
