@@ -233,7 +233,7 @@ class _CreateGroupFormState extends State<CreateGroup> {
                         onPressed: () {
                           saveGroupToDb(context);
                         },
-                        //color: Colors.white,
+                        color: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),

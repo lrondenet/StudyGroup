@@ -86,7 +86,7 @@ class FindGroup extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
-        titleStyle: Theme.of(context).textTheme.headline5,
+        titleStyle: Theme.of(context).textTheme.headline,
         constraints: BoxConstraints.expand(width: 400));
 
     // Alert dialog using custom alert style
@@ -98,15 +98,15 @@ class FindGroup extends StatelessWidget {
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Day: ${group.day}', style: Theme.of(context).textTheme.subtitle1),
+          Text('Day: ${group.day}', style: Theme.of(context).textTheme.subtitle),
           Padding(padding: EdgeInsets.only(top: 2.0)),
-          Text('Class: CSCI-515', style: Theme.of(context).textTheme.subtitle1),
+          Text('Class: CSCI-515', style: Theme.of(context).textTheme.subtitle),
           Padding(padding: EdgeInsets.only(top: 2.0)),
           Text('Meet time: ${_convert(group.startTime).format(context)}',
-              style: Theme.of(context).textTheme.subtitle1),
+              style: Theme.of(context).textTheme.subtitle),
           Padding(padding: EdgeInsets.only(top: 2.0)),
           Text('Members: ${group.memberIds.length}/${group.maxMembers}',
-              style: Theme.of(context).textTheme.subtitle1),
+              style: Theme.of(context).textTheme.subtitle),
         ],
       ),
       buttons: [
