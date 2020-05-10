@@ -23,25 +23,47 @@ class _RegisterState extends State<Register> {
 
   // Local variables
   String _email;
-  String _password;
-  // String _passwordValidation;
-  // Stored in Firebase documents, (database)
-  // String _firstName;
-  // String _lastName;
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
   bool loading = false;
   bool _validateState = false;
   String error = '';
 
+  @override
+  void dispose() {
+    _password.dispose();
+    _confirmPass.dispose();
+    super.dispose();
+  }
+
+  /// Validates the form
+  bool formValidate() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // This function sends the registration information to Firebase, after fields have been
   // validated.
   Future<void> sendRegistrationInfo() async {
-    dynamic result = _auth.registerNewUser(_email, _password);
-    // Output appropriate error if result is null
-    if (result == null) {
-      setState(() => error = 'Could not register with that information');
-      loading = false;
+    setState(() => loading = true);
+    if (formValidate()) {
+      dynamic result = _auth.registerNewUser(_email, _password.text);
+      // Output appropriate error if result is null
+      if (result == null) {
+        setState(() => error = 'Could not register with that information');
+        loading = false;
+      } else {
+        setState(() => _validateState = true);
+      }
     } else {
-      setState(() => _validateState = true);
+      setState(() {
+        loading = false;
+        _validateState = false;
+      });
     }
   }
 
@@ -108,9 +130,12 @@ class _RegisterState extends State<Register> {
                                   icon: FaIcon(FontAwesomeIcons.envelope),
                                   labelText: 'Enter an email to register',
                                 ),
-                                validator: Validations.instance.emailValidation,
+                                validator: (val) {
+                                  return Validations.instance
+                                      .emailValidation(val);
+                                },
                                 onSaved: (String val) {
-                                  _email = val;
+                                  _email = val.trim();
                                 },
                               ),
                               SizedBox(height: 30),
@@ -120,8 +145,10 @@ class _RegisterState extends State<Register> {
                                   icon: FaIcon(FontAwesomeIcons.lock),
                                 ),
                                 obscureText: true,
-                                onSaved: (String val) {
-                                  _password = val;
+                                validator: (val) =>
+                                    Validations.instance.password(val),
+                                onChanged: (String val) {
+                                  _password.text = val.trim();
                                 },
                               ),
                               SizedBox(height: 30),
@@ -131,9 +158,15 @@ class _RegisterState extends State<Register> {
                                   icon: FaIcon(FontAwesomeIcons.lock),
                                 ),
                                 obscureText: true,
-                                validator: Validations.instance.password,
-                                onSaved: (String val) {
-                                  // _passwordValidation = val;
+                                validator: (val) {
+                                  if (_password.text != _confirmPass.text) {
+                                    return 'Passwords don\'t match';
+                                  } else {
+                                    return Validations.instance.password(val);
+                                  }
+                                },
+                                onChanged: (String val) {
+                                  _confirmPass.text = val.trim();
                                 },
                               ),
                             ],
@@ -142,7 +175,7 @@ class _RegisterState extends State<Register> {
                             padding: EdgeInsets.symmetric(vertical: 17),
                             width: double.infinity,
                             child: RaisedButton(
-                              onPressed: formValidate,
+                              onPressed: sendRegistrationInfo,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
@@ -185,15 +218,5 @@ class _RegisterState extends State<Register> {
               ],
             ),
           );
-  }
-
-  void formValidate() {
-    if (_formKey.currentState.validate()) {
-      setState(() => loading = true);
-      _formKey.currentState.save();
-      sendRegistrationInfo();
-    } else {
-      setState(() => _validateState = true);
-    }
   }
 }
