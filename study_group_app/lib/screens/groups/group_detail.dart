@@ -10,13 +10,11 @@ import 'group_message.dart';
 class GroupDetail extends StatefulWidget {
   final String userId;
   final Group group;
-  final Color bgColor;
-  final Color textColor;
 
   @override
   _GroupDetailState createState() => _GroupDetailState();
 
-  GroupDetail({this.userId, this.group, this.bgColor, this.textColor});
+  GroupDetail({this.userId, this.group});
 }
 
 class _GroupDetailState extends State<GroupDetail> {
@@ -26,8 +24,9 @@ class _GroupDetailState extends State<GroupDetail> {
       providers: [
         StreamProvider<List<Message>>.value(
             value: MessageService(groupId: widget.group.id).groupMessages),
-        StreamProvider<User>.value(value: UserService(uid: widget.userId).userData)
-      ],   
+        StreamProvider<User>.value(
+            value: UserService(uid: widget.userId).userData)
+      ],
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: DefaultTabController(
@@ -41,10 +40,8 @@ class _GroupDetailState extends State<GroupDetail> {
                 Tab(text: 'Discussion'),
               ]),
             ),
-            body: TabBarView(children: [
-              aboutPage(),
-              GroupMessage(groupId: widget.group.id)
-              ],
+            body: TabBarView(
+              children: [aboutPage(), GroupMessage(groupId: widget.group.id)],
             ),
             backgroundColor: Color(0xFF98c1d9),
           ),
