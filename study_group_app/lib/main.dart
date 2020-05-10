@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Study Buddy',
         // Importing from theme/style.dart
-        theme: appTheme(),
+        theme: themeData,
         // Allows navigation to determine what to display
         // home: BottomNavBar(),
         home: Wrapper(),
