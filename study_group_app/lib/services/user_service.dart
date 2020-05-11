@@ -22,6 +22,15 @@ class UserService {
     });
   }
 
+  Future createUser(User newUser) async {
+    return await userCollection.document(uid).setData({
+      'email': newUser.email,
+      'userName': newUser.userName,
+      'firstName': newUser.firstName,
+      'lastName': newUser.lastName,
+    }).catchError((e) => print(e));
+  }
+
   // Updates user name within the 'users' collection
   Future updateUserName(String userName) async {
     return await userCollection

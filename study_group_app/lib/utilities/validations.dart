@@ -26,6 +26,10 @@ class Validations {
     const Pattern p = r'^[A-Za-z0-9](_?[A-Za-z0-9]){4,16}$';
     final regExp = RegExp(p);
     user = user.trim();
+
+    if (user.isEmpty) {
+      return 'Please enter a user name';
+    }
     return !regExp.hasMatch(user)
         ? 'Enter a valid username (4-16 chars _ or .)'
         : null;
