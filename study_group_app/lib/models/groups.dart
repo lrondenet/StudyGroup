@@ -11,6 +11,7 @@ class Group {
   final String endTime;
   final int maxMembers;
   final String location;
+  final String course;
 
   Group(
       {this.id,
@@ -20,7 +21,8 @@ class Group {
       this.startTime,
       this.endTime,
       this.maxMembers,
-      this.location});
+      this.location,
+      this.course});
 
   factory Group.fromFirestore(DocumentSnapshot doc) {
     Map map = doc.data;
@@ -33,6 +35,7 @@ class Group {
       startTime: map['startTime'] ?? '',
       endTime: map['endTime'] ?? '',
       location: map['location'] ?? '',
+      course: map['course'] ?? '',
     );
   }
 }

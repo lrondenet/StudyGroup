@@ -31,7 +31,7 @@ class _GroupViewState extends State<GroupView> {
           // May be a better way to do this, but builds a dividing space between each card
           separatorBuilder: (BuildContext context, int index) {
             return Divider(
-              color: Theme.of(context).dividerColor,
+              color: Theme.of(context).backgroundColor,
             );
           },
         ),

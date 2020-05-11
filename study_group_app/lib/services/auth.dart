@@ -27,19 +27,19 @@ class Auth {
     }
   }
 
-  Future registerNewUser(String email, String password) async {
+  Future<dynamic> registerNewUser(
+      String email, String password, var userdata) async {
     try {
       var result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       var newUser = result.user;
 
       // Create a new document in Firebase with the same uid
-      await UserService(uid: newUser.uid)
-          .updateUserFields(email, 'UserName', 'John', 'Doe');
-      return newUser;
+      await UserService(uid: newUser.uid).createUser(userdata);
+      return true;
     } catch (e) {
       print(e.toString());
-      return null;
+      return e.message;
     }
   }
 

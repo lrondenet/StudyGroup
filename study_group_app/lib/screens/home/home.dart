@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                       .copyWith(headline6: TextStyle(color: Colors.white)),
                 ),
                 child: BottomNavigationBar(
-                  selectedItemColor: Colors.blue,
+                  selectedItemColor: Colors.black,
                   selectedFontSize: 16.0,
                   currentIndex: _selectedPage,
                   onTap: (int index) {

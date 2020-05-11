@@ -24,6 +24,7 @@ class _CreateGroupFormState extends State<CreateGroup> {
   String day;
   int maxMembers;
   String location;
+  String course;
   TextEditingController _startTimeCntrl;
   TextEditingController _endTimeCntrl;
 
@@ -80,6 +81,7 @@ class _CreateGroupFormState extends State<CreateGroup> {
         endTime: _convertTime(_endTime),
         maxMembers: maxMembers,
         location: location,
+        course: course,
       );
       // Get current user Uid to pass into GroupProvider to create group
       var curUser = Provider.of<User>(context, listen: false);
@@ -147,6 +149,20 @@ class _CreateGroupFormState extends State<CreateGroup> {
                     ),
                     SizedBox(height: 15),
 
+                    TextFormField(
+                      onSaved: (value) {
+                        course = value;
+                      },
+                      validator: (value) => value.isEmpty
+                          ? 'Please enter a class for the group'
+                          : null,
+                      decoration: InputDecoration(
+                        icon: FaIcon(FontAwesomeIcons.university),
+                        labelText: 'Class',
+                      ),
+                    ),
+
+                    SizedBox(height: 15),
                     // Day field
                     DropdownButtonFormField(
                       isDense: true,
