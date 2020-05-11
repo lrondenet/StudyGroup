@@ -90,7 +90,7 @@ class Profile extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => user.courses.isEmpty
-                            ? AddCourses()
+                            ? AddCourses(userId: user.uid)
                             : CourseViewerState(),
                       ),
                     );

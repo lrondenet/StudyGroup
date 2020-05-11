@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/auth.dart';
-import 'package:study_group_app/services/user_service.dart';
 import 'package:study_group_app/utilities/utilities.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
