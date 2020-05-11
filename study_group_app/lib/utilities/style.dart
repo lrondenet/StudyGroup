@@ -54,3 +54,14 @@ InputDecorationTheme _inputDecorationTheme(InputDecorationTheme base) {
     ),
   );
 }
+
+var kBoxGradient = BoxDecoration(
+  gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0XFF64b3f4),
+      Color(0xFFc2e59c),
+    ],
+  ),
+);
