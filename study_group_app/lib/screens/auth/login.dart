@@ -1,8 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:study_group_app/utilities/loading.dart';
-import 'package:study_group_app/utilities/validations.dart';
+import 'package:study_group_app/utilities/utilities.dart';
 import 'package:study_group_app/services/auth.dart';
 
 // Stateful Login Page Class
@@ -48,9 +47,6 @@ class _LoginPageState extends State<LoginPage> {
         ? Loading()
         : Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
-            appBar: AppBar(
-              title: Text('Log In'),
-            ),
             body: Stack(
               children: <Widget>[
                 Container(
@@ -77,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
+                          SizedBox(height: 50),
                           Text(
                             'Login Information',
                             style: TextStyle(
@@ -127,26 +124,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(vertical: 17),
-                            width: double.infinity,
-                            // Login button
-                            child: RaisedButton(
-                              onPressed: formValidate,
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Text(
-                                'LOGIN',
-                                style: TextStyle(
-                                  color: Color(0XFF599ECA),
-                                  letterSpacing: 1.5,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                          AuthButton(
+                            onPressed: formValidate,
+                            text: 'LOGIN',
                           ),
                           Column(
                             children: <Widget>[

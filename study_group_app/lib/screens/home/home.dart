@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                       .copyWith(headline6: TextStyle(color: Colors.white)),
                 ),
                 child: BottomNavigationBar(
-                  selectedItemColor: Colors.blue,
+                  selectedItemColor: Colors.black,
                   selectedFontSize: 16.0,
                   currentIndex: _selectedPage,
                   onTap: (int index) {
@@ -93,7 +93,6 @@ class Destination {
 
 const List<Destination> allDestinations = <Destination>[
   Destination('Home', Icons.home),
-  // Destination('Profile', Icons.portrait),
   Destination('Search', Icons.search),
   Destination('Create', Icons.add)
 ];

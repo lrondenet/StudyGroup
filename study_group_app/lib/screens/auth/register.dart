@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/auth.dart';
-import 'package:study_group_app/utilities/loading.dart';
-import 'package:study_group_app/utilities/validations.dart';
+import 'package:study_group_app/utilities/utilities.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Register extends StatefulWidget {
   // Gives us a control on switching to login page. We can call this function locally
@@ -18,31 +19,21 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   // Controls validation state for form fields
   final _formKey = GlobalKey<FormState>();
-  // Instance of Auth class that talks to Firebase
-  final _auth = Auth();
 
   // Local variables
-  String _email;
-  String _password;
-  // String _passwordValidation;
-  // Stored in Firebase documents, (database)
-  // String _firstName;
-  // String _lastName;
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
   bool loading = false;
   bool _validateState = false;
   String error = '';
 
-  // This function sends the registration information to Firebase, after fields have been
-  // validated.
-  Future<void> sendRegistrationInfo() async {
-    dynamic result = _auth.registerNewUser(_email, _password);
-    // Output appropriate error if result is null
-    if (result == null) {
-      setState(() => error = 'Could not register with that information');
-      loading = false;
-    } else {
-      setState(() => _validateState = true);
-    }
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    _confirmPass.dispose();
+    super.dispose();
   }
 
   @override
@@ -51,22 +42,10 @@ class _RegisterState extends State<Register> {
         ? Loading()
         : Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
-            appBar: AppBar(
-              title: Text('Register'),
-            ),
             body: Stack(
               children: <Widget>[
                 Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0XFF64b3f4),
-                        Color(0xFFc2e59c),
-                      ],
-                    ),
-                  ),
+                  decoration: kBoxGradient,
                 ),
                 Container(
                   height: double.infinity,
@@ -79,8 +58,9 @@ class _RegisterState extends State<Register> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
+                          SizedBox(height: 50),
                           Text(
-                            'Sign Up Information',
+                            'Register',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
@@ -108,9 +88,12 @@ class _RegisterState extends State<Register> {
                                   icon: FaIcon(FontAwesomeIcons.envelope),
                                   labelText: 'Enter an email to register',
                                 ),
-                                validator: Validations.instance.emailValidation,
-                                onSaved: (String val) {
-                                  _email = val;
+                                validator: (val) {
+                                  return Validations.instance
+                                      .emailValidation(val);
+                                },
+                                onChanged: (String val) {
+                                  _email.text = val.trim();
                                 },
                               ),
                               SizedBox(height: 30),
@@ -120,43 +103,48 @@ class _RegisterState extends State<Register> {
                                   icon: FaIcon(FontAwesomeIcons.lock),
                                 ),
                                 obscureText: true,
-                                onSaved: (String val) {
-                                  _password = val;
+                                validator: (val) =>
+                                    Validations.instance.password(val),
+                                onChanged: (String val) {
+                                  _password.text = val.trim();
                                 },
                               ),
                               SizedBox(height: 30),
-                              // TODO Write function to validate passwords match
                               TextFormField(
                                 decoration: InputDecoration(
                                   labelText: 'Confirm Password',
                                   icon: FaIcon(FontAwesomeIcons.lock),
                                 ),
                                 obscureText: true,
-                                validator: Validations.instance.password,
-                                onSaved: (String val) {
-                                  // _passwordValidation = val;
+                                validator: (val) {
+                                  if (_password.text != _confirmPass.text) {
+                                    return 'Passwords don\'t match';
+                                  } else {
+                                    return Validations.instance.password(val);
+                                  }
+                                },
+                                onChanged: (String val) {
+                                  _confirmPass.text = val.trim();
                                 },
                               ),
                             ],
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(vertical: 17),
-                            width: double.infinity,
-                            child: RaisedButton(
-                              onPressed: formValidate,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Text(
-                                'REGISTER',
-                                style: TextStyle(
-                                  color: Color(0xFF599ECA),
-                                  letterSpacing: 1.5,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                          AuthButton(
+                            text: 'REGISTER',
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => RegisterPageTwo(
+                                        _email.text, _password.text),
+                                  ),
+                                );
+                              } else {
+                                setState(() {
+                                  _validateState = true;
+                                });
+                              }
+                            },
                           ),
                           RichText(
                             text: TextSpan(
@@ -187,14 +175,154 @@ class _RegisterState extends State<Register> {
             ),
           );
   }
+}
 
-  void formValidate() {
+class RegisterPageTwo extends StatefulWidget {
+  final String _email;
+  final String _pass;
+  const RegisterPageTwo(this._email, this._pass);
+
+  @override
+  _RegisterPageTwoState createState() => _RegisterPageTwoState();
+}
+
+class _RegisterPageTwoState extends State<RegisterPageTwo> {
+  // Instance of Auth class that talks to Firebase
+  final _auth = Auth();
+  final _formKey = GlobalKey<FormState>();
+  bool _loading = false;
+
+  // Temp variables to hold user data
+  String _firstName;
+  String _lastName;
+  String _userName;
+
+  /// Validates the form
+  bool formValidate() {
     if (_formKey.currentState.validate()) {
-      setState(() => loading = true);
       _formKey.currentState.save();
-      sendRegistrationInfo();
+      return true;
     } else {
-      setState(() => _validateState = true);
+      return false;
     }
+  }
+
+  /// This function sends the registration information to Firebase, after fields have been validated.
+  Future<void> sendRegistrationInfo(context) async {
+    setState(() => _loading = true);
+    if (formValidate()) {
+      var user = User(
+          firstName: _firstName,
+          lastName: _lastName,
+          userName: _userName,
+          email: widget._email);
+      dynamic result =
+          await _auth.registerNewUser(widget._email, widget._pass, user);
+
+      // If auth registration successful, create new user collection
+      if (result == true) {
+        print('Registration successful');
+
+        // Pop all the registration pages off the navigation stack. User will be redirected to Home
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      } else {
+        setState(() {
+          _loading = false;
+        });
+        _error(context, result);
+      }
+    } else {
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
+  void _error(context, String errorMsg) {
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: errorMsg,
+      desc: 'Please fix the error',
+      buttons: [
+        DialogButton(
+          child: Text('Ok'),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ],
+    ).show();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _loading
+        ? Loading()
+        : Scaffold(
+            appBar: AppBar(),
+            body: Stack(
+              children: <Widget>[
+                Container(decoration: kBoxGradient),
+                Container(
+                  height: double.infinity,
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 27),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Enter information',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Column(
+                            children: <Widget>[
+                              TextFormField(
+                                onSaved: (val) => _firstName = val.trim(),
+                                validator: (val) => val.isEmpty
+                                    ? 'Please enter a first name'
+                                    : null,
+                                decoration: InputDecoration(
+                                  labelText: 'First Name',
+                                ),
+                              ),
+                              TextFormField(
+                                onSaved: (val) => _lastName = val.trim(),
+                                validator: (val) => val.isEmpty
+                                    ? 'Please enter a last name'
+                                    : null,
+                                decoration: InputDecoration(
+                                  labelText: 'Last Name',
+                                ),
+                              ),
+                              TextFormField(
+                                onSaved: (val) => _userName = val.trim(),
+                                validator: (val) {
+                                  return Validations.instance
+                                      .userNameValidation(val);
+                                },
+                                decoration: InputDecoration(
+                                  labelText: 'User Name',
+                                ),
+                              ),
+                            ],
+                          ),
+                          AuthButton(
+                            onPressed: () => sendRegistrationInfo(context),
+                            text: 'Continue',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 }

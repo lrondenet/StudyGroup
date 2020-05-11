@@ -34,5 +34,11 @@ void main() {
       expect(Validations.instance.userNameValidation(invalidUsername),
           'Enter a valid username (4-16 chars _ or .)');
     });
+
+    test('User name not empty', () {
+      var invalidUsername = '';
+      expect(Validations.instance.userNameValidation(invalidUsername),
+          'Please enter a user name');
+    });
   });
 }
