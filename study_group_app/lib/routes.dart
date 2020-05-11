@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/screens/groups/group_detail.dart';
-import 'package:study_group_app/screens/student/select_classes.dart';
+import 'package:study_group_app/screens/student/add_courses.dart';
 import 'package:study_group_app/screens/student/courses.dart';
 import 'package:study_group_app/screens/groups/group_viewer.dart';
 import 'package:study_group_app/screens/wrapper.dart';
@@ -11,7 +11,7 @@ class Routes {
       case '/':
         return MaterialPageRoute(builder: (_) => Wrapper());
       case '/select-classes':
-        return MaterialPageRoute(builder: (_) => CourseSchedulePage());
+        return MaterialPageRoute(builder: (_) => AddCourses());
       case '/group-detail':
         return MaterialPageRoute(builder: (_) => GroupDetail());
       case '/courses':
