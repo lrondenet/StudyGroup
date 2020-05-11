@@ -124,8 +124,10 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          AuthButton(
+                          Button(
                             onPressed: formValidate,
+                            width: 280.0,
+                            fontSize: 18.0,
                             text: 'LOGIN',
                           ),
                           Column(
