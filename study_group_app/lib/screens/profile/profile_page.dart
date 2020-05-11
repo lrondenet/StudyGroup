@@ -5,8 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:study_group_app/screens/student/add_courses.dart';
 import 'package:study_group_app/screens/student/course_viewer.dart';
 import 'package:study_group_app/services/auth.dart';
-import 'package:study_group_app/services/user_service.dart';
-import 'package:pedantic/pedantic.dart';
+import 'package:study_group_app/utilities/widgets.dart';
 
 class Profile extends StatelessWidget {
   final User user;
@@ -84,34 +83,34 @@ class Profile extends StatelessWidget {
               ),
 
               // View classes
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 17),
-                child: RaisedButton(
-                  onPressed: () async {
-                    var courses =
-                        await UserService(uid: user.uid).getUserCourses();
-                    unawaited(Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => user.courses.isEmpty
-                            ? AddCourses(userId: user.uid)
-                            : CourseViewer(userId: user.uid),
-                      ),
-                    ));
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Text(
-                    user.courses.isEmpty ? 'ADD CLASSES' : 'VIEW CLASSES',
-                    style: TextStyle(
-                      color: Color(0xFF98c1d9),
-                      letterSpacing: 1.5,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
+              Button(
+                text: 'ADD CLASSES',
+                buttonColor: Colors.grey[300],
+                textColor: Color(0xFF98c1d9),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddCourses(userId: user.uid)),
+                  );
+                },
               ),
+              if (user.courses.isNotEmpty) ...[
+                Button(
+                  buttonColor: Colors.grey[300],
+                  text: 'VIEW CLASSES',
+                  textColor: Color(0xFF98c1d9),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CourseViewer(
+                          userId: user.uid,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ],
           ),
         ],

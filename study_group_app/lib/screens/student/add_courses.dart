@@ -172,6 +172,7 @@ class _MyCourseFormState extends State<AddCourses> {
                       maxLines: 3,
                       maxLength: 250,
                       decoration: InputDecoration(
+                        labelText: 'Description',
                         icon: FaIcon(FontAwesomeIcons.solidCommentAlt),
                       ),
                     ),
