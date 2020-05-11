@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_group_app/screens/groups/group_detail.dart';
 import 'package:study_group_app/screens/student/add_courses.dart';
-import 'package:study_group_app/screens/student/courses.dart';
+import 'package:study_group_app/screens/student/course_viewer.dart';
 import 'package:study_group_app/screens/groups/group_viewer.dart';
 import 'package:study_group_app/screens/wrapper.dart';
 
@@ -15,7 +15,7 @@ class Routes {
       case '/group-detail':
         return MaterialPageRoute(builder: (_) => GroupDetail());
       case '/courses':
-        return MaterialPageRoute(builder: (_) => CourseViewerState());
+        return MaterialPageRoute(builder: (_) => CourseViewer());
       case '/group-viewer':
         return MaterialPageRoute(builder: (_) => GroupView());
       default:

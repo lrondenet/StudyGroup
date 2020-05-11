@@ -3,8 +3,10 @@ import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/screens/profile/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:study_group_app/screens/student/add_courses.dart';
-import 'package:study_group_app/screens/student/courses.dart';
+import 'package:study_group_app/screens/student/course_viewer.dart';
 import 'package:study_group_app/services/auth.dart';
+import 'package:study_group_app/services/user_service.dart';
+import 'package:pedantic/pedantic.dart';
 
 class Profile extends StatelessWidget {
   final User user;
@@ -85,15 +87,17 @@ class Profile extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(vertical: 17),
                 child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
+                  onPressed: () async {
+                    var courses =
+                        await UserService(uid: user.uid).getUserCourses();
+                    unawaited(Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => user.courses.isEmpty
                             ? AddCourses(userId: user.uid)
-                            : CourseViewerState(),
+                            : CourseViewer(courses: courses),
                       ),
-                    );
+                    ));
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
