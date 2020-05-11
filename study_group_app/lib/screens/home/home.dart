@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                   canvasColor: Color(0xFF437c90),
                   textTheme: Theme.of(context)
                       .textTheme
-                      .copyWith(title: TextStyle(color: Colors.white)),
+                      .copyWith(headline6: TextStyle(color: Colors.white)),
                 ),
                 child: BottomNavigationBar(
                   selectedItemColor: Colors.blue,

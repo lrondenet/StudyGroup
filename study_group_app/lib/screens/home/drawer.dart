@@ -1,10 +1,10 @@
 //import 'dart:html';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/services/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:study_group_app/utilities/loading.dart';
+//import 'package:study_group_app/utilities/loading.dart';
 
 final Auth _auth = Auth();
 bool drawer = false;
@@ -42,7 +42,6 @@ class MainDrawer extends StatelessWidget {
                       backgroundColor: Colors.white,
                       child: FaIcon(
                         FontAwesomeIcons.solidUser,
-                        //Color(0xFFc2e59c)
                         size: 48, color: Color(0xFFc2e59c),
                       ),
                     ),

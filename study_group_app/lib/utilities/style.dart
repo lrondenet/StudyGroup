@@ -25,7 +25,7 @@ ThemeData appTheme() {
       // hintColor: Colors.grey[400],
       textTheme: TextTheme(
           //bodyText: TextStyle(color: Colors.black),
-          headline: TextStyle(color: Colors.black),
+          headline5: TextStyle(color: Colors.black),
           caption: TextStyle(color: Colors.white)),
       dividerColor: Colors.grey[700],
       inputDecorationTheme: InputDecorationTheme(
