@@ -8,36 +8,59 @@
 
 import 'package:flutter/material.dart';
 import 'package:study_group_app/models/course.dart';
+import 'package:study_group_app/services/user_service.dart';
 import 'package:study_group_app/utilities/utilities.dart';
 
-class CourseViewer extends StatelessWidget {
-  final List<Course> courses;
-  CourseViewer({this.courses});
+class CourseViewer extends StatefulWidget {
+  final String userId;
+  CourseViewer({this.userId});
+
+  @override
+  _CourseViewerState createState() => _CourseViewerState();
+}
+
+class _CourseViewerState extends State<CourseViewer> {
+  var courses;
+  @override
+  void initState() {
+    super.initState();
+    _initUserCourses();
+  }
+
+  Future _initUserCourses() async {
+    var tmp = await UserService(uid: widget.userId).getUserCourses();
+    setState(() {
+      courses = tmp;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: courses.length,
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: Text('Courses'),
-          bottom: TabBar(
-            isScrollable: true,
-            tabs: [
-              for (final tab in courses) Tab(text: tab.name),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            for (final tab in courses)
-              Center(
-                child: getContent(tab, context),
+    return courses == null
+        ? Loading()
+        : DefaultTabController(
+            length: courses.length,
+            child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: true,
+                title: Text('Courses'),
+                bottom: TabBar(
+                  isScrollable: true,
+                  tabs: [
+                    for (final tab in courses) Tab(text: tab.name),
+                  ],
+                ),
               ),
-          ],
-        ),
-      ),
-    );
+              body: TabBarView(
+                children: [
+                  for (final tab in courses)
+                    Center(
+                      child: getContent(tab, context),
+                    ),
+                ],
+              ),
+            ),
+          );
   }
 
   Container getContent(Course course, context) {
@@ -53,7 +76,6 @@ class CourseViewer extends StatelessWidget {
     );
   }
 
-  // Styles and returns a description of the class
   Container getDescription(String description, context) {
     return Container(
       padding: EdgeInsets.all(15.0),
@@ -84,7 +106,6 @@ class CourseViewer extends StatelessWidget {
     );
   }
 
-  // Gets the time course session meets
   Container getTime(Course course, context) {
     return Container(
       padding: EdgeInsets.all(15.0),
@@ -111,7 +132,6 @@ class CourseViewer extends StatelessWidget {
     );
   }
 
-  // Styles the title of each given course
   Container getTitle(String title) {
     return Container(
       padding: EdgeInsets.all(20.0),
