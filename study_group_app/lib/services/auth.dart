@@ -43,14 +43,53 @@ class Auth {
     }
   }
 
-  Future changeFirebaseUserEmail(String email) async {
+  Future<int> changeFirebaseUserEmail(String email, String curPass) async {
     var user = await _auth.currentUser();
+    // Reauthenticate user before changing the email
+    var credential = EmailAuthProvider.getCredential(
+        email: user.email, password: curPass.trim());
     try {
-      return user.updateEmail(email);
+      await user.reauthenticateWithCredential(credential);
+    } catch (error) {
+        print('Couldnt reauthenticate user.');
+        print(error.toString());
+        return null;
+    }
+
+    try {
+      await user.updateEmail(email);
     } catch (e) {
       print(e.toString());
       return null;
     }
+
+    // Return 1 if all checks pass
+    return 1;
+  }
+
+  Future<int> changePassword(String curPassword, String newPassword) async{
+   // Create an instance of the current user. 
+    var user = await _auth.currentUser();
+    // Reauthenticate user before changing password
+    var credential = EmailAuthProvider.getCredential(
+        email: user.email, password: curPassword.trim());
+    try {
+      await user.reauthenticateWithCredential(credential);
+    } catch (error) {
+      print('Couldnt reauthenticate' + error);
+      return null;
+    }
+
+    // Pass in the password to updatePassword.
+    await user.updatePassword(newPassword)
+      .then((_){
+        print('Succesfully changed password');
+      }).catchError((error){
+        print("Password can't be changed" + error.toString());
+      });
+    
+    // Return 1 if all checks pass
+    return 1;
   }
 
   Future logOut() async {

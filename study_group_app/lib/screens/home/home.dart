@@ -93,7 +93,6 @@ class Destination {
 
 const List<Destination> allDestinations = <Destination>[
   Destination('Home', Icons.home),
-  // Destination('Profile', Icons.portrait),
   Destination('Search', Icons.search),
   Destination('Create', Icons.add)
 ];
