@@ -75,7 +75,9 @@ class UserService {
   Future<List<Course>> getUserCourses() async {
     var snapshots =
         await userCollection.document(uid).collection('courses').getDocuments();
-    return snapshots.documents.map((snap) => Course.fromMap(snap.data));
+    return snapshots.documents
+        .map((snap) => Course.fromMap(snap.data))
+        .toList();
   }
 
   // Updates email within the 'users' collection

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 
-class AuthButton extends StatelessWidget {
+class Button extends StatelessWidget {
   final String text;
   final double width;
   final double height;
+  final Color buttonColor;
+  final Color textColor;
+  final double fontSize;
+  final FontWeight fontWeight;
   final Function onPressed;
 
-  AuthButton(
+  Button(
       {@required this.text,
-      this.width = 280.0,
+      this.width = 160.0,
       this.height = 70.0,
+      this.textColor = const Color(0XFF599ECA),
+      this.fontSize = 14,
+      this.fontWeight = FontWeight.normal,
+      this.buttonColor = Colors.white,
       @required this.onPressed});
 
   @override
@@ -21,17 +29,17 @@ class AuthButton extends StatelessWidget {
       // Login button
       child: RaisedButton(
         onPressed: onPressed,
-        color: Colors.white,
+        color: buttonColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
         child: Text(
           text,
           style: TextStyle(
-            color: Color(0XFF599ECA),
+            color: textColor,
             letterSpacing: 1.5,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontSize: fontSize,
+            fontWeight: fontWeight,
           ),
         ),
       ),

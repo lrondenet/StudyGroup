@@ -129,8 +129,10 @@ class _RegisterState extends State<Register> {
                               ),
                             ],
                           ),
-                          AuthButton(
+                          Button(
                             text: 'REGISTER',
+                            fontSize: 18.0,
+                            width: 280.0,
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 Navigator.of(context).push(
@@ -312,7 +314,7 @@ class _RegisterPageTwoState extends State<RegisterPageTwo> {
                               ),
                             ],
                           ),
-                          AuthButton(
+                          Button(
                             onPressed: () => sendRegistrationInfo(context),
                             text: 'Continue',
                           ),
