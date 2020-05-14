@@ -121,7 +121,7 @@ class MainDrawer extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => ProfileSettings(uid: user.uid, auth: _auth,)));
                   },
                 ),
-                SizedBox(height: 180),
+                SizedBox(height: 239),
                 Divider(),
                 ListTile(
                   leading: Icon(
