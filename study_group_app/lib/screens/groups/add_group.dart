@@ -151,7 +151,7 @@ class _CreateGroupFormState extends State<CreateGroup> {
 
                     TextFormField(
                       onSaved: (value) {
-                        course = value;
+                        course = value.toUpperCase();
                       },
                       validator: (value) => value.isEmpty
                           ? 'Please enter a class for the group'
