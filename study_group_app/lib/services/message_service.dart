@@ -27,6 +27,7 @@ class MessageService {
     try {
       var result = await _msgCollection.add({
         'userEmail': message.userEmail,
+        'userName': message.userName,
         'time': message.time,
         'messageText': message.messageText,
         'groupId': message.groupId,
