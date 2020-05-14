@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 //import 'package:provider/provider.dart';
 import 'package:study_group_app/models/user.dart';
+import 'package:study_group_app/screens/student/course_viewer.dart';
 import 'package:study_group_app/services/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:study_group_app/screens/profile/profile_page.dart';
@@ -82,7 +83,12 @@ class MainDrawer extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamed('/courses');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CourseViewer(userId: user.uid),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
@@ -100,7 +106,10 @@ class MainDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Profile(user: user)));
+                      MaterialPageRoute(
+                        builder: (context) => Profile(user: user),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
@@ -118,7 +127,13 @@ class MainDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProfileSettings(uid: user.uid, auth: _auth,)));
+                      MaterialPageRoute(
+                        builder: (context) => ProfileSettings(
+                          uid: user.uid,
+                          auth: _auth,
+                        ),
+                      ),
+                    );
                   },
                 ),
                 SizedBox(height: 239),

@@ -3,8 +3,9 @@ import 'package:study_group_app/models/user.dart';
 import 'package:study_group_app/screens/profile/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:study_group_app/screens/student/add_courses.dart';
-import 'package:study_group_app/screens/student/courses.dart';
+import 'package:study_group_app/screens/student/course_viewer.dart';
 import 'package:study_group_app/services/auth.dart';
+import 'package:study_group_app/utilities/widgets.dart';
 
 class Profile extends StatelessWidget {
   final User user;
@@ -82,32 +83,34 @@ class Profile extends StatelessWidget {
               ),
 
               // View classes
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 17),
-                child: RaisedButton(
+              Button(
+                text: 'ADD CLASSES',
+                buttonColor: Colors.grey[300],
+                textColor: Color(0xFF98c1d9),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddCourses(userId: user.uid)),
+                  );
+                },
+              ),
+              if (user.courses.isNotEmpty) ...[
+                Button(
+                  buttonColor: Colors.grey[300],
+                  text: 'VIEW CLASSES',
+                  textColor: Color(0xFF98c1d9),
                   onPressed: () {
-                    Navigator.push(
-                      context,
+                    Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => user.courses.isEmpty
-                            ? AddCourses(userId: user.uid)
-                            : CourseViewerState(),
+                        builder: (context) => CourseViewer(
+                          userId: user.uid,
+                        ),
                       ),
                     );
                   },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Text(
-                    user.courses.isEmpty ? 'ADD CLASSES' : 'VIEW CLASSES',
-                    style: TextStyle(
-                      color: Color(0xFF98c1d9),
-                      letterSpacing: 1.5,
-                      fontSize: 14,
-                    ),
-                  ),
                 ),
-              ),
+              ],
             ],
           ),
         ],
