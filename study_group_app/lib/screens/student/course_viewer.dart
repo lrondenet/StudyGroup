@@ -11,6 +11,8 @@ import 'package:study_group_app/models/course.dart';
 import 'package:study_group_app/services/user_service.dart';
 import 'package:study_group_app/utilities/utilities.dart';
 
+import 'add_courses.dart';
+
 class CourseViewer extends StatefulWidget {
   final String userId;
   CourseViewer({this.userId});
@@ -51,16 +53,33 @@ class _CourseViewerState extends State<CourseViewer> {
                   ],
                 ),
               ),
-              body: TabBarView(
-                children: [
-                  for (final tab in courses)
-                    Center(
-                      child: getContent(tab, context),
+              body: courses.length == 0
+                  ? _addCoursesButton(context)
+                  : TabBarView(
+                      children: [
+                        for (final tab in courses)
+                          Center(child: getContent(tab, context)),
+                      ],
                     ),
-                ],
-              ),
             ),
           );
+  }
+
+  Widget _addCoursesButton(context) {
+    return Center(
+      child: Button(
+        text: 'ADD CLASSES',
+        buttonColor: Colors.grey[300],
+        textColor: Color(0xFF98c1d9),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AddCourses(userId: widget.userId)),
+          );
+        },
+      ),
+    );
   }
 
   Container getContent(Course course, context) {
