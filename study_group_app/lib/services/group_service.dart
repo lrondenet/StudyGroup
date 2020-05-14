@@ -46,13 +46,36 @@ class GroupService {
   }
 
   /// Searches for a group by name
-  Future<List<Group>> findGroup(String name) async {
-    var snapshots = await _groupCollection
-        .where('name', isGreaterThanOrEqualTo: name)
-        .getDocuments();
-    return snapshots.documents
-        .map((snap) => Group.fromFirestore(snap))
-        .toList();
+  Future<List<Group>> findGroup(String searchStr) async {
+    // Get results that match the 'name' field
+    var nameList = await _groupCollection
+        .where(
+          'name',
+          isGreaterThanOrEqualTo: searchStr,
+          isLessThan: searchStr.substring(0, searchStr.length - 1) +
+              String.fromCharCode(
+                  searchStr.codeUnitAt(searchStr.length - 1) + 1),
+        )
+        .getDocuments()
+        .then((snap) =>
+            snap.documents.map((doc) => Group.fromFirestore(doc)).toList());
+
+    // Course is stored in all uppercase so convert query to match
+    searchStr = searchStr.toUpperCase();
+    var courseList = await _groupCollection
+        .where(
+          'course',
+          isGreaterThanOrEqualTo: searchStr,
+          isLessThan: searchStr.substring(0, searchStr.length - 1) +
+              String.fromCharCode(
+                  searchStr.codeUnitAt(searchStr.length - 1) + 1),
+        )
+        .getDocuments()
+        .then((snap) =>
+            snap.documents.map((doc) => Group.fromFirestore(doc)).toList());
+
+    nameList.addAll(courseList);
+    return nameList;
   }
 
   /// Updates a group with the specified member

@@ -59,7 +59,7 @@ class _MyCourseFormState extends State<AddCourses> {
   Future<void> saveCourseToDb(context) async {
     if (validateForm()) {
       var course = Course(
-        name: nameController.text,
+        name: nameController.text.toUpperCase(),
         startTime: _convertTime(_startTime),
         endTime: _convertTime(_endTime),
         days: daysController.text,
