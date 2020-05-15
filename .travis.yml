@@ -15,6 +15,10 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - lib32stdc++6
+  sonarcloud:
+    organization: lrondenet-github
+    token:
+      secure: 80969de96a693bb6ecf29e93b7136456e23196cb
 install:
   - echo 'Running tests...'
   - pwd
@@ -33,3 +37,7 @@ cache:
   directories:
     - $HOME/flutter
     - $HOME/.pub-cache
+    - $HOME/.m2/repository
+    - $HOME/.sonar/cache
+    - $HOME/.gradle
+    - .gradle
