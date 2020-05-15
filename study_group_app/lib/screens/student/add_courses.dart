@@ -59,7 +59,7 @@ class _MyCourseFormState extends State<AddCourses> {
   Future<void> saveCourseToDb(context) async {
     if (validateForm()) {
       var course = Course(
-        name: nameController.text,
+        name: nameController.text.toUpperCase(),
         startTime: _convertTime(_startTime),
         endTime: _convertTime(_endTime),
         days: daysController.text,
@@ -69,6 +69,11 @@ class _MyCourseFormState extends State<AddCourses> {
 
       if (result != null) {
         _msgScaffold(context, 'Class saved successfully!');
+        nameController.clear();
+        startTimeController.clear();
+        endTimeController.clear();
+        daysController.clear();
+        descController.clear();
       } else {
         _msgScaffold(context, 'Error saving class');
       }
@@ -120,9 +125,7 @@ class _MyCourseFormState extends State<AddCourses> {
                     ),
                     SizedBox(height: 15),
                     TextFormField(
-                      onChanged: (val) {
-                        nameController.text = val;
-                      },
+                      controller: nameController,
                       validator: (value) =>
                           value.isEmpty ? 'Enter a course name' : null,
                       decoration: InputDecoration(
@@ -132,9 +135,7 @@ class _MyCourseFormState extends State<AddCourses> {
                     ),
                     SizedBox(height: 15),
                     TextFormField(
-                      onChanged: (val) {
-                        daysController.text = val;
-                      },
+                      controller: daysController,
                       decoration: InputDecoration(
                         icon: FaIcon(FontAwesomeIcons.calendarDay),
                         labelText: 'Days',

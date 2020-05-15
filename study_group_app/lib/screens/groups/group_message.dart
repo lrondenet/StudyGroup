@@ -18,7 +18,7 @@ class _GroupMessageState extends State<GroupMessage> {
   FocusNode _focusNode = FocusNode();
   final DateFormat _dateParser = DateFormat.yMd().add_jm();
   final TextEditingController _txt = TextEditingController();
- 
+
   @override
   void initState() {
     _focusNode = FocusNode();
@@ -36,72 +36,75 @@ class _GroupMessageState extends State<GroupMessage> {
   Widget build(BuildContext context) {
     var messages = Provider.of<List<Message>>(context);
     var user = Provider.of<User>(context);
-    
+
     if (messages != null) {
       messages.sort((a, b) => b.time.compareTo(a.time));
     }
 
-    return messages == null || user == null ? Loading() : Column(
-      children: <Widget>[
-        Expanded(
-          child: Container(
-            child: ListView.builder(
-              reverse: true,
-              padding: EdgeInsets.only(top: 15.0),
-              physics: BouncingScrollPhysics(),
-              itemCount: messages.length,
-              itemBuilder: (BuildContext context, int index) {
-                final isMe = messages[index].userEmail == user.email;
-                final bgColor = isMe ? Colors.blue : Colors.grey[600];
-                return _buildMessage(
-                  messages[index], isMe, bgColor, Colors.black);
-              },
-            ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          height: 70.0,
-          color: Colors.white,
-          child: Row(
+    return messages == null || user == null
+        ? Loading()
+        : Column(
             children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.group),
-                iconSize: 25.0,
-                onPressed: () {},
-              ),
               Expanded(
-                child: TextField(
-                  focusNode: _focusNode,
-                  controller: _txt,
-                  textCapitalization: TextCapitalization.sentences,
-                  onSubmitted: (message) {
-                    _saveMessageToFirebase(message, user);
-                    _txt.text = '';
-                    FocusScope.of(context).requestFocus(_focusNode);
-                  },
-                  style: TextStyle(fontSize: 15.0),
-                  decoration: InputDecoration(
-                    hintStyle: TextStyle(fontSize: 15.0),
-                    hintText: 'Enter message here...',
+                child: Container(
+                  child: ListView.builder(
+                    reverse: true,
+                    padding: EdgeInsets.only(top: 15.0),
+                    physics: BouncingScrollPhysics(),
+                    itemCount: messages.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final isMe = messages[index].userEmail == user.email;
+                      final bgColor = isMe ? Colors.blue : Colors.grey[600];
+                      return _buildMessage(
+                          messages[index], isMe, bgColor, Colors.black);
+                    },
                   ),
                 ),
               ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                height: 70.0,
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.group),
+                      iconSize: 25.0,
+                      onPressed: () {},
+                    ),
+                    Expanded(
+                      child: TextField(
+                        focusNode: _focusNode,
+                        controller: _txt,
+                        textCapitalization: TextCapitalization.sentences,
+                        onSubmitted: (message) {
+                          _saveMessageToFirebase(message, user);
+                          _txt.text = '';
+                          FocusScope.of(context).requestFocus(_focusNode);
+                        },
+                        style: TextStyle(fontSize: 15.0),
+                        decoration: InputDecoration(
+                          hintStyle: TextStyle(fontSize: 15.0),
+                          hintText: 'Enter message here...',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
-          ),
-        )
-      ],
-    );
+          );
   }
 
   void _saveMessageToFirebase(String message, User user) {
     var newMessage = Message(
       userEmail: user.email,
+      userName: user.userName,
       time: DateTime.now().millisecondsSinceEpoch,
       messageText: message,
       groupId: widget.groupId,
     );
-    
+
     try {
       MessageService().saveToFirebase(newMessage);
     } catch (e) {
@@ -132,7 +135,7 @@ class _GroupMessageState extends State<GroupMessage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(isMe ? 'You said:' : '${msg.userEmail} said:',
+          Text(isMe ? 'You said:' : '${msg?.userName} said:',
               style: TextStyle(
                 fontSize: 10,
                 fontStyle: FontStyle.italic,
