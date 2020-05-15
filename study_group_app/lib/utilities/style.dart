@@ -10,7 +10,7 @@ ThemeData _theme() {
     brightness: Brightness.light,
     accentColor: Color(0xFF77af9c),
     secondaryHeaderColor: Colors.grey[600],
-    hintColor: Colors.grey[400],
+    hintColor: Colors.grey,
     dividerColor: Color(0xFF77af9c),
     scaffoldBackgroundColor: Colors.white,
     // Background color of bottom navbar

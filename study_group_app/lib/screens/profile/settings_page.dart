@@ -16,7 +16,6 @@ class ProfileSettings extends StatefulWidget {
 }
 
 class _ProfileSettingsState extends State<ProfileSettings> {
-
   // Controls validation state for form fields
   final _formKey = GlobalKey<FormState>();
   final _validateKey = GlobalKey<FormState>();
@@ -54,7 +53,6 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const SizedBox(height: 10.0),
-
                   Card(
                     elevation: 4.0,
                     shape: RoundedRectangleBorder(
@@ -153,42 +151,36 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     );
   }
 
-
   // Validate the form and save state
   void formValidate(int type) {
-    if (_formKey.currentState.validate() || _validateKey.currentState.validate()) {
+    if (_formKey.currentState.validate() ||
+        _validateKey.currentState.validate()) {
       setState(() => loading = true);
       _formKey.currentState.save();
-      if(type == 1) {
+      if (type == 1) {
         sendUserNameInfo();
-      }
-      else if(type == 2) {
+      } else if (type == 2) {
         sendNameInfo();
-      }
-      else if(type == 3) {
+      } else if (type == 3) {
         _validateKey.currentState.save();
-        if(sendEmailInfo() != null) {
+        if (sendEmailInfo() == null) {
           // Email couldn't be changed
-         _passwordAlert(context, 'Incorrect password. Try again.');
-         Navigator.pop(context);
-        }
-        else {
+          _passwordAlert(context, 'Incorrect password. Try again.');
+          Navigator.pop(context);
+        } else {
           _passwordAlert(context, 'Email changed successfully!');
           Navigator.pop(context);
         }
-      }
-      else if(type == 4) {
+      } else if (type == 4) {
         _validateKey.currentState.save();
         if (sendPasswordInfo() == null) {
           // Password couldn't be changed
           _passwordAlert(context, 'Incorrect password. Try again.');
           Navigator.pop(context);
-        }
-        else {
+        } else {
           _passwordAlert(context, 'Password changed successfully!');
           Navigator.pop(context);
         }
-
       }
     }
   }
@@ -209,8 +201,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   // Firebase: Send name changes to Firebase after fields have been validated
   Future<void> sendNameInfo() async {
     var string_uid = user.uid.toString();
-    dynamic result_firstname = UserService(uid: string_uid).updateFirstName(newfirstName);
-    dynamic result_lastname = UserService(uid: string_uid).updateLastName(newlastName);
+    dynamic result_firstname =
+        UserService(uid: string_uid).updateFirstName(newfirstName);
+    dynamic result_lastname =
+        UserService(uid: string_uid).updateLastName(newlastName);
     // Output appropriate error if result is null
     if (result_firstname == null || result_lastname == null) {
       setState(() => error = 'Could not change name.');
@@ -221,19 +215,21 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   // Firebase: Send email changes to Firebase after fields have been validated
   Future<void> sendEmailInfo() async {
     var string_uid = user.uid.toString();
-    dynamic result = UserService(uid: string_uid).updateEmail(newEmail, curPassword);
+    dynamic result =
+        UserService(uid: string_uid).updateEmail(newEmail, curPassword);
     // Output appropriate error if result is null
     if (result == null) {
       setState(() => error = 'Could not change email.');
       loading = false;
     }
-    return result;
+    return true;
   }
 
   // Firebase: Send email changes to Firebase after fields have been validated
   Future<void> sendPasswordInfo() async {
     var string_uid = user.uid.toString();
-    dynamic result = UserService(uid: string_uid).updatePassword(user.email, curPassword, _newPassword);
+    dynamic result = UserService(uid: string_uid)
+        .updatePassword(user.email, curPassword, _newPassword);
     //await widget.auth.changePassword(_newPassword);
     // Output appropriate error if result is null
     if (result == null) {
@@ -253,6 +249,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             child: TextFormField(
               decoration: InputDecoration(
                 hintText: '${user.userName}',
+                hintStyle: TextStyle(color: Colors.grey),
               ),
               validator: (String value) {
                 if (value.isEmpty) {
@@ -273,8 +270,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 onPressed: () {
                   formValidate(1);
                   Navigator.pop(context);
-                }
-            )
+                })
           ],
         );
   }
@@ -287,7 +283,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               key: _formKey,
               child: TextFormField(
                 decoration: InputDecoration(
-                  hintText: '${user.firstName}',
+                  hintText: '${user.firstName} ${user.lastName}',
+                  hintStyle: TextStyle(color: Colors.grey[500]),
                 ),
                 validator: (String value) {
                   if (value.isEmpty) {
@@ -311,19 +308,22 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   onPressed: () {
                     formValidate(2);
                     Navigator.pop(context);
-                  }
-              ),
-            ]
-    );
+                  }),
+            ]);
   }
 
   // Get new email
   Widget Function(BuildContext) getNewEmail() {
+    print(user.email);
     return (_) => AlertDialog(
             title: Text('Change your email'),
             content: Form(
               key: _formKey,
               child: TextFormField(
+                decoration: InputDecoration(
+                  hintText: '${user.email}',
+                  hintStyle: TextStyle(color: Colors.grey[500]),
+                ),
                 validator: (String value) {
                   if (value.isEmpty) {
                     return 'Enter a valid email.\n';
@@ -343,10 +343,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   onPressed: () {
                     formValidate(3);
                     Navigator.pop(context);
-                  }
-              ),
-            ]
-    );
+                  }),
+            ]);
   }
 
   // Get new password
@@ -376,10 +374,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   onPressed: () {
                     formValidate(4);
                     Navigator.pop(context);
-                  }
-              ),
-            ]
-    );
+                  }),
+            ]);
   }
 
   /* ----- Validations ----- */
@@ -387,7 +383,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   // Validate user for email change
   Widget Function(BuildContext) validateUserForEmail() {
     return (_) => AlertDialog(
-      title: Text(_verifyTitle),
+            title: Text(_verifyTitle),
             content: Form(
               key: _validateKey,
               child: TextFormField(
@@ -414,16 +410,14 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       barrierDismissible: true,
                       builder: getNewEmail(),
                     );
-                  }
-              ),
-            ]
-    );
+                  }),
+            ]);
   }
 
   // Validate user for password change
   Widget Function(BuildContext) validateUserForPassword() {
     return (_) => AlertDialog(
-      title: Text('Verify password'),
+            title: Text('Verify password'),
             content: Form(
               key: _validateKey,
               child: TextFormField(
@@ -450,16 +444,14 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       barrierDismissible: true,
                       builder: getNewPassword(),
                     );
-                  }
-              ),
-            ]
-    );
+                  }),
+            ]);
   }
 
   // Validates an email address
   bool validateEmail(String value) {
     Pattern pattern =
-      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     var regex = RegExp(pattern);
     return (!regex.hasMatch(value)) ? false : true;
   }
@@ -478,7 +470,4 @@ class _ProfileSettingsState extends State<ProfileSettings> {
       ),
     );
   }
-  
 }
-
-

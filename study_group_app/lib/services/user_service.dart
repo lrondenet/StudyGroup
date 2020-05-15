@@ -87,7 +87,8 @@ class UserService {
     var result = await _auth.changeFirebaseUserEmail(email, curPassword);
     if (result == 1) {
       print('Successfully changed user email.');
-      return await userCollection.document(uid).updateData({'email': email});
+      await userCollection.document(uid).updateData({'email': email});
+      return true;
     } else {
       print('Could not change user email.');
       return null;
